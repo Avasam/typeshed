@@ -1,0 +1,6 @@
+from win32com.server import factory as factory
+
+usage: str
+
+def serve(clsids) -> None: ...
+def main() -> None: ...

@@ -1,0 +1,51 @@
+# PyWin tool / debugger
+pythonwin.pywin.debugger.*
+pythonwin.pywin.dialogs.*
+pythonwin.pywin.docking.*
+pythonwin.pywin.framework.*
+pythonwin.pywin.idle.*
+pythonwin.pywin.scintilla.*
+pythonwin.pywin.tools.TraceCollector
+
+# Demos and tests
+win32com.demos.*
+win32com.servers.test_pycomtest
+win32com.directsound.test.*
+win32com.test.*
+win32comext.directsound.test.*
+
+# Deprecated and obsolete
+isapi.install.FindWebServer
+win32.lib.win32pdhquery.Query.addperfcounter
+win32.lib.regcheck.CheckRegisteredModules
+
+# Loop indexes
+win32com.client.build.v
+win32com.makegw.makegwparse.key
+
+# failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
+win32com.axdebug.adb
+win32com.axdebug.axdebug
+win32com.axdebug.codecontainer
+win32comext.axdebug.adb
+win32comext.axdebug.codecontainer
+
+# failed to import, SystemError: CoInternetCreateSecurityManager() method: bad call flags
+win32com.internet.internet
+win32comext.internet.internet
+
+# failed to import, ModuleNotFoundError: No module named '...'
+# Runtime reimports from win32com instead of win32comext
+pythonwin.pywin.tools.regpy
+win32com.axdebug.contexts
+win32com.axdebug.debugger
+win32com.axdebug.documents
+win32com.axdebug.expressions
+win32com.axdebug.stackframe
+win32com.axscript.client.debug
+win32comext.axdebug.contexts
+win32comext.axdebug.debugger
+win32comext.axdebug.documents
+win32comext.axdebug.expressions
+win32comext.axdebug.stackframe
+win32comext.axscript.client.debug

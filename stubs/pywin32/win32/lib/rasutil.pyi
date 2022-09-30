@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+stateStrings: Incomplete
+
+def TestCallback(hras, msg, state, error, exterror) -> None: ...
+def test(rasName: str = ...): ...
