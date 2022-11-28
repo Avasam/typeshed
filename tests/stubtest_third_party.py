@@ -70,7 +70,6 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
-        # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(str(requirement) for requirement in metadata["requires"])
         pip_cmd = [pip_exe, "install"] + dists_to_install

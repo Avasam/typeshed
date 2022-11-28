@@ -57,6 +57,7 @@ jobs:
       - run: pip install -r requirements-tests.txt
       - uses: jakebailey/pyright-action@v1
         with:
+          version:  1.1.280 # Must match pyright_test.py and typecheck_typeshed_code.yml.
           python-platform: ${{ matrix.python-platform }}
           python-version: "3.9"
           project: ./pyrightconfig.typeshed.json
