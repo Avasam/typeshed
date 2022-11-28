@@ -19,6 +19,8 @@ import traceback
 from collections.abc import Sequence
 
 assert sys.platform != "win32"
+# Lack of pytype typing
+# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false
 # pytype is not py.typed https://github.com/python/typeshed/blob/main/tests/pytype_test.py
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
 from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
@@ -102,7 +104,7 @@ def _get_module_name(filename: str) -> str:
     return ".".join(module_parts).replace(".pyi", "").replace(".__init__", "")
 
 
-def _is_version(path: str, version: str) -> bool:
+def _is_version(path: str, version: str) -> bool:  # pyright: ignore[reportUnusedFunction]
     return any(f"{d}{os.path.sep}{version}" in path for d in TYPESHED_SUBDIRS)
 
 

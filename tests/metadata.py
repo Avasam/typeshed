@@ -148,7 +148,7 @@ def validate_metadata(metadata: dict[str, Any], distribution: str | os.PathLike[
                 METADATA_MAPPING[supported_platform] not in metadata_tool_stubtest
             ), f"Installing system deps for unspecified platform {supported_platform} for {distribution}"
     for dependency_key in METADATA_MAPPING.values():
-        dependencies = metadata_tool_stubtest.get(dependency_key)
+        dependencies: list[str] | None = metadata_tool_stubtest.get(dependency_key)
         if dependencies is None:
             metadata_tool_stubtest[dependency_key] = []
         else:
