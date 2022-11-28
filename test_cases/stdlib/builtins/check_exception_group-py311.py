@@ -33,7 +33,7 @@ assert_type(beg.subgroup((KeyboardInterrupt,)), BaseExceptionGroup[KeyboardInter
 
 
 def is_base_exc(exc: BaseException) -> bool:
-    return isinstance(exc, BaseException)
+    return isinstance(exc, BaseException)  # pyright: ignore[reportUnnecessaryIsInstance]
 
 
 def is_specific(exc: SystemExit | BaseExceptionGroup[SystemExit]) -> bool:
@@ -43,7 +43,7 @@ def is_specific(exc: SystemExit | BaseExceptionGroup[SystemExit]) -> bool:
 # This one does not have `BaseExceptionGroup` part,
 # this is why we treat as an error.
 def is_system_exit(exc: SystemExit) -> bool:
-    return isinstance(exc, SystemExit)
+    return isinstance(exc, SystemExit)  # pyright: ignore[reportUnnecessaryIsInstance]
 
 
 def unrelated_subgroup(exc: KeyboardInterrupt) -> bool:
@@ -65,7 +65,7 @@ assert_type(beg.subgroup((ValueError,)), ExceptionGroup[ValueError] | None)
 
 
 def is_exception(exc: Exception) -> bool:
-    return isinstance(exc, Exception)
+    return isinstance(exc, Exception)  # pyright: ignore[reportUnnecessaryIsInstance]
 
 
 def is_exception_or_beg(exc: Exception | BaseExceptionGroup[SystemExit]) -> bool:
@@ -204,7 +204,7 @@ assert_type(
 
 # It does not include `ExceptionGroup` itself, so it will fail:
 def value_or_key_error(exc: ValueError | KeyError) -> bool:
-    return isinstance(exc, (ValueError, KeyError))
+    return isinstance(exc, (ValueError, KeyError))  # pyright: ignore[reportUnnecessaryIsInstance]
 
 
 eg.split(value_or_key_error)  # type: ignore[arg-type]

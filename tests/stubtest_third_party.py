@@ -72,7 +72,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(str(metadata["requires"]))
+        dists_to_install.extend(str(requirement) for requirement in metadata["requires"])
         pip_cmd = [pip_exe, "install"] + dists_to_install
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)

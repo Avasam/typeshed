@@ -48,7 +48,6 @@ class MetaDataToolStubtestDict(TypedDict):
     apt_dependencies: list[str]
     brew_dependencies: list[str]
     choco_dependencies: list[str]
-    # TODO: items below are not type validated
     skip: bool
     ignore_missing_stub: bool
     extras: list[str]
@@ -74,6 +73,7 @@ class MetaDataDict(_MetaDataMypyDict):
     tool: MetaDataToolDict
 
 
+# This could be massively simplified by using some schema validation system
 def validate_metadata(metadata: dict[str, Any], distribution: str | os.PathLike[str]) -> MetaDataDict:
     # MetaDataDict.*
     for key in metadata:
