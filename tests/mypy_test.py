@@ -11,16 +11,19 @@ import tempfile
 from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
 from io import StringIO
-from itertools import product
+from itertools import chain, product
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, NamedTuple
+
+from metadata import load_metadata
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from typing_extensions import Annotated, TypeAlias
 
-import tomli
+# https://github.com/cpburnz/python-pathspec/issues/70
+# pyright: reportUnknownArgumentType=false, reportUnknownVariableType=false
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
@@ -49,11 +52,11 @@ Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PL
 
 
 class CommandLineArgs(argparse.Namespace):
-    verbose: int
-    filter: list[Path]
-    exclude: list[Path] | None
-    python_version: list[VersionString] | None
-    platform: list[Platform] | None
+    verbose: int  # pyright: ignore[reportUninitializedInstanceVariable]
+    filter: list[Path]  # pyright: ignore[reportUninitializedInstanceVariable]
+    exclude: list[Path] | None  # pyright: ignore[reportUninitializedInstanceVariable]
+    python_version: list[VersionString] | None  # pyright: ignore[reportUninitializedInstanceVariable]
+    platform: list[Platform] | None  # pyright: ignore[reportUninitializedInstanceVariable]
 
 
 def valid_path(cmd_arg: str) -> Path:
@@ -97,7 +100,7 @@ parser.add_argument(
 
 @dataclass
 class TestConfig:
-    """Configuration settings for a single run of the `test_typeshed` function."""
+    """Configuration settings for a single run of the `test_stubs` function."""
 
     verbose: int
     filter: list[Path]
@@ -134,7 +137,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result = {}
+    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
@@ -160,11 +163,11 @@ def parse_version(v_str: str) -> tuple[int, int]:
 
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
-    if module.is_file() and module.suffix == ".pyi":
+    if module.is_file() and module.suffix in {".pyi", ".py"}:
         if match(module, args):
             files.append(module)
     else:
-        files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
+        files.extend(sorted(file for file in chain(module.rglob("*.pyi"), module.rglob("*.py")) if match(file, args)))
 
 
 class MypyDistConf(NamedTuple):
@@ -182,26 +185,14 @@ class MypyDistConf(NamedTuple):
 
 
 def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data = tomli.load(f)
+    mypy_tests_conf = load_metadata(distribution)["mypy-tests"]
 
-    mypy_tests_conf = data.get("mypy-tests")
     if not mypy_tests_conf:
         return
 
-    assert isinstance(mypy_tests_conf, dict), "mypy-tests should be a section"
-    for section_name, mypy_section in mypy_tests_conf.items():
-        assert isinstance(mypy_section, dict), f"{section_name} should be a section"
-        module_name = mypy_section.get("module_name")
-
-        assert module_name is not None, f"{section_name} should have a module_name key"
-        assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
-
-        values = mypy_section.get("values")
-        assert values is not None, f"{section_name} should have a values section"
-        assert isinstance(values, dict), "values should be a section"
-
-        configurations.append(MypyDistConf(module_name, values.copy()))
+    configurations.extend(
+        MypyDistConf(mypy_section["module_name"], mypy_section["values"].copy()) for mypy_section in mypy_tests_conf.values()
+    )
 
 
 def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool) -> ReturnCode:
@@ -221,21 +212,21 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
         with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
             returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
 
-        if exit_code:
-            print_error("failure\n")
-            captured_stdout = stdout_redirect.getvalue()
-            captured_stderr = stderr_redirect.getvalue()
-            if returned_stderr:
-                print_error(returned_stderr)
-            if captured_stderr:
-                print_error(captured_stderr)
-            if returned_stdout:
-                print_error(returned_stdout)
-            if captured_stdout:
-                print_error(captured_stdout, end="")
-        else:
-            print_success_msg()
-        return exit_code
+    if exit_code:
+        print_error("failure\n")
+        captured_stdout = stdout_redirect.getvalue()
+        captured_stderr = stderr_redirect.getvalue()
+        if returned_stderr:
+            print_error(returned_stderr)
+        if captured_stderr:
+            print_error(captured_stderr)
+        if returned_stdout:
+            print_error(returned_stdout)
+        if captured_stdout:
+            print_error(captured_stdout, end="")
+    else:
+        print_success_msg()
+    return exit_code
 
 
 def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) -> list[str]:

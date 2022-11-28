@@ -4,16 +4,15 @@ from __future__ import annotations
 
 import os
 import re
+from collections.abc import Iterable
 from functools import cache
 from itertools import filterfalse
 from pathlib import Path
 from typing import NamedTuple
 
+# https://github.com/cpburnz/python-pathspec/issues/66
 import pathspec  # type: ignore[import]
-import tomli
-
-# Used to install system-wide packages for different OS types:
-METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+from metadata import load_metadata
 
 
 def strip_comments(text: str) -> str:
@@ -24,8 +23,8 @@ try:
     from termcolor import colored as colored
 except ImportError:
 
-    def colored(s: str, _: str) -> str:  # type: ignore[misc]
-        return s
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+        return text
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -47,16 +46,7 @@ def print_success_msg() -> None:
 
 @cache
 def read_dependencies(distribution: str) -> tuple[str, ...]:
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data = tomli.load(f)
-    requires = data.get("requires", [])
-    assert isinstance(requires, list)
-    dependencies = []
-    for dependency in requires:
-        assert isinstance(dependency, str)
-        assert dependency.startswith("types-"), f"unrecognized dependency {dependency!r}"
-        dependencies.append(dependency[6:].split("<")[0])
-    return tuple(dependencies)
+    return tuple(str(dependency)[6:].split("<")[0] for dependency in load_metadata(distribution)["requires"])
 
 
 def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> list[str]:
@@ -101,7 +91,10 @@ def get_all_testcase_directories() -> list[PackageInfo]:
 # Parsing .gitignore
 # ====================================================================
 
-
+# https://github.com/cpburnz/python-pathspec/issues/70
+# pyright: reportUnknownMemberType=false, reportUnknownVariableType=false, reportUnknownParameterType=false, reportUnknownParameterType=false
+# https://github.com/cpburnz/python-pathspec/issues/68
+# pyright: reportPrivateImportUsage=false
 @cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with open(".gitignore", encoding="UTF-8") as f:

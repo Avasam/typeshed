@@ -5,6 +5,7 @@ import asyncio
 
 class Waiter:
     def __init__(self) -> None:
+        super().__init__()
         self.tasks: list[asyncio.Task[object]] = []
 
     def add(self, t: asyncio.Task[object]) -> None:

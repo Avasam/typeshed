@@ -13,7 +13,7 @@ import venv
 from pathlib import Path
 from typing import NoReturn
 
-import tomli
+from metadata import load_metadata
 from utils import colored, print_error, print_success_msg
 
 
@@ -24,17 +24,16 @@ def get_mypy_req() -> str:
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
-    with open(dist / "METADATA.toml", encoding="UTF-8") as f:
-        metadata = dict(tomli.loads(f.read()))
+    metadata = load_metadata(os.path.basename(dist))
 
     print(f"{dist.name}... ", end="")
 
-    stubtest_meta = metadata.get("tool", {}).get("stubtest", {})
-    if stubtest_meta.get("skip", False):
+    stubtest_meta = metadata["tool"]["stubtest"]
+    if stubtest_meta["skip"]:
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
+    platforms_to_test = stubtest_meta["platforms"] or ["linux"]
     if sys.platform not in platforms_to_test:
         if specified_stubs_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
@@ -55,9 +54,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         pip_exe, python_exe = str(pip), str(python)
 
         dist_version = metadata["version"]
-        extras = stubtest_meta.get("extras", [])
-        assert isinstance(dist_version, str)
-        assert isinstance(extras, list)
+        extras = stubtest_meta["extras"]
         dist_extras = ", ".join(extras)
         dist_req = f"{dist.name}[{dist_extras}]=={dist_version}"
 
@@ -75,7 +72,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(metadata.get("requires", []))
+        dists_to_install.extend(str(metadata["requires"]))
         pip_cmd = [pip_exe, "install"] + dists_to_install
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
@@ -83,7 +80,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             print_command_failure("Failed to install", e)
             return False
 
-        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta.get("ignore_missing_stub", True) else []
+        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta["ignore_missing_stub"] else []
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [

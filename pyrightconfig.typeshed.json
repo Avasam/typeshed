@@ -1,0 +1,12 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
+    "typeshedPath": ".",
+    "include": ["scripts", "tests", "test_cases"],
+    "typeCheckingMode": "strict",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
+    "reportPropertyTypeMismatch": "error",
+    "reportUninitializedInstanceVariable": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+}

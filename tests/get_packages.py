@@ -2,8 +2,7 @@
 import os
 import sys
 
-import tomli
-from utils import METADATA_MAPPING
+from metadata import METADATA_MAPPING, load_metadata
 
 platform = sys.platform
 distributions = sys.argv[1:]
@@ -12,6 +11,5 @@ if not distributions:
 
 if platform in METADATA_MAPPING:
     for distribution in distributions:
-        with open(f"stubs/{distribution}/METADATA.toml", "rb") as file:
-            for package in tomli.load(file).get("tool", {}).get("stubtest", {}).get(METADATA_MAPPING[platform], []):
-                print(package)
+        for package in load_metadata(distribution)["tool"]["stubtest"][METADATA_MAPPING[platform]]:
+            print(package)
