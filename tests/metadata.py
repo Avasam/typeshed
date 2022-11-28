@@ -141,21 +141,21 @@ def validate_metadata(metadata: dict[str, Any], distribution: str | os.PathLike[
     ), f"Unrecognised platforms specified: {supported_stubtest_platforms - metadata_tool_stubtest_platforms} for {distribution}"
 
     # MetaDataDict.tool.stubtest.*_dependencies
-    for dependency_key in METADATA_MAPPING.values():
-        dependencies = metadata_tool_stubtest.get(dependency_key)
-        if dependencies is None:
-            metadata_tool_stubtest[dependency_key] = []
-        else:
-            assert isinstance(dependencies, list), f"Invalid {dependency_key} value for {distribution!r}"
-            for dependency in dependencies:
-                assert isinstance(dependency, str), f"Invalid {dependency_key} dependency {dependency} for {distribution!r}"
-
     # Check that os packages are only installed for specified platforms:
     for supported_platform in supported_stubtest_platforms:
         if supported_platform not in metadata_tool_stubtest_platforms:
             assert (
                 METADATA_MAPPING[supported_platform] not in metadata_tool_stubtest
             ), f"Installing system deps for unspecified platform {supported_platform} for {distribution}"
+    for dependency_key in METADATA_MAPPING.values():
+        dependencies = metadata_tool_stubtest.get(dependency_key)
+        if dependencies is None:
+            metadata_tool_stubtest[dependency_key] = []
+        else:
+            assert isinstance(dependencies, list), f"Invalid {dependency_key} value for {distribution!r}"
+            # MetaDataDict.tool.stubtest.*_dependencies[*]
+            for dependency in dependencies:
+                assert isinstance(dependency, str), f"Invalid {dependency_key} dependency {dependency} for {distribution!r}"
 
     # MetaDataDict.tool.stubtest.skip
     metadata_tool_stubtest_skip: bool | None = metadata_tool_stubtest.get("skip")
