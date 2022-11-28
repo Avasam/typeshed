@@ -73,16 +73,18 @@
         "stubs/vobject"
     ],
     "typeCheckingMode": "strict",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
+    "reportUninitializedInstanceVariable": "error",
     "reportPrivateUsage": "none",
     "reportIncompleteStub": "none",
-    "reportMissingModuleSource": "none",
     // Conflicts with mypy "type: ignore" comments
     "reportUnnecessaryTypeIgnoreComment": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.
     "reportIncompatibleMethodOverride": "none",
     "reportIncompatibleVariableOverride": "none",
-    "reportPropertyTypeMismatch": "none",
     // Overlapping overloads are often necessary in a stub, meaning pyright's check
     // (which is stricter than mypy's; see mypy issue #10143 and #10157)
     // would cause many false positives and catch few bugs.

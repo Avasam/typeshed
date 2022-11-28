@@ -19,8 +19,9 @@ import traceback
 from collections.abc import Sequence
 
 assert sys.platform != "win32"
-from pytype import config as pytype_config, load_pytd  # noqa: E402
-from pytype.imports import typeshed  # noqa: E402
+# pytype is not py.typed https://github.com/python/typeshed/blob/main/tests/pytype_test.py
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
+from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"

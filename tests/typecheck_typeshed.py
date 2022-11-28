@@ -15,7 +15,7 @@ ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
 SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
-DIRECTORIES_TO_TEST = ("scripts", "tests", "test_cases")
+DIRECTORIES_TO_TEST = ("scripts", "tests")
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code.")
 parser.add_argument(

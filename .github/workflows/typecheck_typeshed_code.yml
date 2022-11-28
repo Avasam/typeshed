@@ -40,3 +40,17 @@ jobs:
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
       - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
+  pyright:
+    name: Run pyright against the scripts and tests directories
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-platform: ["Linux", "Windows"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jakebailey/pyright-action@v1
+        with:
+          python-platform: ${{ matrix.python-platform }}
+          python-version: "3.9"
+          project: ./pyrightconfig.typeshed.json
