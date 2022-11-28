@@ -52,8 +52,8 @@ def unrelated_subgroup(exc: KeyboardInterrupt) -> bool:
 
 assert_type(beg.subgroup(is_base_exc), BaseExceptionGroup[SystemExit] | None)
 assert_type(beg.subgroup(is_specific), BaseExceptionGroup[SystemExit] | None)
-beg.subgroup(is_system_exit)
-beg.subgroup(unrelated_subgroup)
+beg.subgroup(is_system_exit)  # type: ignore[arg-type]
+beg.subgroup(unrelated_subgroup)  # type: ignore[arg-type]
 
 # `Exception`` subgroup returns `ExceptionGroup`:
 assert_type(beg.subgroup(ValueError), ExceptionGroup[ValueError] | None)
@@ -74,11 +74,11 @@ def is_exception_or_beg(exc: Exception | BaseExceptionGroup[SystemExit]) -> bool
 
 # This is an error because of the `Exception` argument type,
 # while `SystemExit` is needed instead.
-beg.subgroup(is_exception_or_beg)
+beg.subgroup(is_exception_or_beg)  # type: ignore[arg-type]
 
 # This is an error, because `BaseExceptionGroup` is not an `Exception`
 # subclass. It is required.
-beg.subgroup(is_exception)
+beg.subgroup(is_exception)  # type: ignore[arg-type]
 
 # .split()
 # --------
@@ -128,7 +128,7 @@ assert_type(
     ],
 )
 # `Exception` cannot be used: `BaseExceptionGroup` is not a subtype of it.
-to_split.split(is_exception)
+to_split.split(is_exception)  # type: ignore[arg-type]
 
 # .derive()
 # ---------
@@ -149,7 +149,7 @@ assert_type(eg.exceptions, tuple[ValueError | KeyError | ExceptionGroup[ValueErr
 _eg1: ExceptionGroup[Exception] = eg
 
 # `ExceptionGroup` cannot work with `BaseException`:
-ExceptionGroup("x", [SystemExit()])
+ExceptionGroup("x", [SystemExit()])  # type: ignore[type-var]
 
 # .subgroup()
 # -----------
@@ -163,8 +163,8 @@ ExceptionGroup("x", [SystemExit()])
 # are possible in runtime.
 # We do it because, it does not make sense for all other base exception types.
 # Supporting just `BaseException` looks like an overkill.
-eg.subgroup(BaseException)
-eg.subgroup((KeyboardInterrupt, SystemExit))
+eg.subgroup(BaseException)  # type: ignore[type-var]
+eg.subgroup((KeyboardInterrupt, SystemExit))  # type: ignore[type-var]
 
 assert_type(eg.subgroup(Exception), ExceptionGroup[Exception] | None)
 assert_type(eg.subgroup(ValueError), ExceptionGroup[ValueError] | None)
@@ -185,7 +185,7 @@ assert_type(eg.subgroup(is_base_exc), ExceptionGroup[ValueError | KeyError] | No
 assert_type(eg.subgroup(is_base_exc), ExceptionGroup[ValueError | KeyError] | None)
 
 # Does not have `ExceptionGroup` part:
-eg.subgroup(subgroup_eg2)
+eg.subgroup(subgroup_eg2)  # type: ignore[arg-type]
 
 # .split()
 # --------
@@ -207,11 +207,11 @@ def value_or_key_error(exc: ValueError | KeyError) -> bool:
     return isinstance(exc, (ValueError, KeyError))
 
 
-eg.split(value_or_key_error)
+eg.split(value_or_key_error)  # type: ignore[arg-type]
 
 # `ExceptionGroup` cannot have direct `BaseException` subclasses inside.
-eg.split(BaseException)
-eg.split((SystemExit, GeneratorExit))
+eg.split(BaseException)  # type: ignore[type-var]
+eg.split((SystemExit, GeneratorExit))  # type: ignore[type-var]
 
 # .derive()
 # ---------
@@ -257,8 +257,8 @@ def cb_subgroup2(exc: ValueError | CustomBaseGroup[ValueError]) -> bool:
 
 assert_type(cb1.subgroup(cb_subgroup1), BaseExceptionGroup[SystemExit] | None)
 assert_type(cb2.subgroup(cb_subgroup2), BaseExceptionGroup[ValueError] | None)
-cb1.subgroup(cb_subgroup2)
-cb2.subgroup(cb_subgroup1)
+cb1.subgroup(cb_subgroup2)  # type: ignore [arg-type]
+cb2.subgroup(cb_subgroup1)  # type: ignore [arg-type]
 
 # .split()
 # --------
@@ -280,8 +280,8 @@ def cb_split2(exc: ValueError | CustomBaseGroup[ValueError]) -> bool:
 
 assert_type(cb1.split(cb_split1), tuple[BaseExceptionGroup[SystemExit] | None, BaseExceptionGroup[SystemExit] | None])
 assert_type(cb2.split(cb_split2), tuple[BaseExceptionGroup[ValueError] | None, BaseExceptionGroup[ValueError] | None])
-cb1.split(cb_split2)
-cb2.split(cb_split1)
+cb1.split(cb_split2)  # type: ignore [arg-type]
+cb2.split(cb_split1)  # type: ignore [arg-type]
 
 # .derive()
 # ---------
@@ -302,15 +302,15 @@ class CustomGroup(ExceptionGroup[_E]):
     ...
 
 
-CustomGroup("x", [SystemExit()])
+CustomGroup("x", [SystemExit()])  # type: ignore[type-var]
 cg1 = CustomGroup("x", [ValueError()])
 assert_type(cg1, CustomGroup[ValueError])
 
 # .subgroup()
 # -----------
 
-cg1.subgroup(BaseException)
-cg1.subgroup((KeyboardInterrupt, SystemExit))
+cg1.subgroup(BaseException)  # type: ignore[type-var]
+cg1.subgroup((KeyboardInterrupt, SystemExit))  # type: ignore[type-var]
 
 assert_type(cg1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
 assert_type(cg1.subgroup((KeyError,)), ExceptionGroup[KeyError] | None)
@@ -325,14 +325,14 @@ def cg_subgroup2(exc: ValueError) -> bool:
 
 
 assert_type(cg1.subgroup(cg_subgroup1), ExceptionGroup[ValueError] | None)
-cg1.subgroup(cb_subgroup2)
+cg1.subgroup(cb_subgroup2)  # type: ignore[arg-type]
 
 # .split()
 # --------
 
 assert_type(cg1.split(TypeError), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError] | None])
 assert_type(cg1.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError] | None])
-cg1.split(BaseException)
+cg1.split(BaseException)  # type: ignore[type-var]
 
 
 def cg_split1(exc: ValueError | CustomGroup[ValueError]) -> bool:
@@ -344,7 +344,7 @@ def cg_split2(exc: ValueError) -> bool:
 
 
 assert_type(cg1.split(cg_split1), tuple[ExceptionGroup[ValueError] | None, ExceptionGroup[ValueError] | None])
-cg1.split(cg_split2)
+cg1.split(cg_split2)  # type: ignore[arg-type]
 
 # .derive()
 # ---------
