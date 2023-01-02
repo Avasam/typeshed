@@ -68,8 +68,8 @@ You can list or install all of a stubs package's external dependencies using the
 ```bash
 (.venv3)$ python3 tests/get_external_dependencies.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python3 tests/get_external_dependencies.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
-(.venv3)$ python3 tests/get_external_dependencies.py  # List external dependencies for all third-party stubs packages in typeshed
-# Install external dependencies for all third-party stubs packages in typeshed
+(.venv3)$ python3 tests/get_external_dependencies.py  # List external dependencies for all third-party stubs in typeshed
+# Install external dependencies for all third-party stubs in typeshed
 (.venv3)$ DEPENDENCIES=$(python3 tests/get_external_dependencies.py)
 (.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
 ```
@@ -95,8 +95,8 @@ You can list or install all of a stubs package's external dependencies using the
 ```bash
 (.venv3)$ python tests/get_external_dependencies.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python tests/get_external_dependencies.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
-(.venv3)$ python tests/get_external_dependencies.py  # List external dependencies for all third-party packages in typeshed
-# Install external dependencies for all third-party stubs packages in typeshed
+(.venv3)$ python tests/get_external_dependencies.py  # List external dependencies for all third-party stubs in typeshed
+# Install external dependencies for all third-party stubs in typeshed
 (.venv3)$ DEPENDENCIES=$(python tests/get_external_dependencies.py)
 (.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
 ```
