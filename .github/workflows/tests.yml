@@ -69,6 +69,13 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
+      - name: Install 3rd-party dependencies for stubs packages
+        run: |
+          DEPENDENCIES=$(python tests/get_external_dependencies.py)
+          if [ -n "$DEPENDENCIES" ]; then
+            echo "Installing packages: $DEPENDENCIES"
+            pip install $DEPENDENCIES
+          fi
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:

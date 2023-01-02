@@ -62,6 +62,18 @@ Run using:
 
 This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
+In order for `pytype_test` to work correctly, some third-party stubs may require dependencies external to typeshed to be installed in your virtual environment prior to running the test.
+You can list or install all of a stubs package's external dependencies using the following script:
+
+```bash
+(.venv3)$ python3 tests/get_external_dependencies.py <third_party_stub>  # List external dependencies for <third_party_stub>
+(.venv3)$ python3 tests/get_external_dependencies.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
+(.venv3)$ python3 tests/get_external_dependencies.py  # List external dependencies for all third-party stubs packages in typeshed
+# Install external dependencies for all third-party stubs packages in typeshed
+(.venv3)$ DEPENDENCIES=$(python3 tests/get_external_dependencies.py)
+(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
+```
+
 ## pyright\_test.py
 
 This test requires [Node.js](https://nodejs.org) to be installed. Although
