@@ -2,8 +2,7 @@ version = "7.45.2"
 
 [tool.stubtest]
 ignore_missing_stub = false
-# Install on Windows requires building PycURL from source or using unofficial wheels
-# https://github.com/pycurl/pycurl/issues/657#issuecomment-1238332403
+# Install on Windows requires building PycURL from source
 #
 # Install on MacOS is too complicated for the CI and does not work with stubtest:
 # % brew install openssl

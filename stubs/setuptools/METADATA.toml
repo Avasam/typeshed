@@ -1,1 +1,4 @@
 version = "65.6.*"
+
+[tool.stubtest]
+platforms=["linux", "win32"]
