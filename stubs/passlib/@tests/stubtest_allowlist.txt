@@ -1,6 +1,9 @@
 # proxy module that uses some import magic incompatible with stubtest
 passlib.hash
 
+# Only exists if crypt is installed
+passlib.hosts.host_context
+
 # django unsupported in stubs
 passlib.ext.django.models
 
