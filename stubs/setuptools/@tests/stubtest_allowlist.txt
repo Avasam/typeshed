@@ -31,5 +31,5 @@ pkg_resources.to_filename
 setuptools._distutils.command.check.SilentReporter
 
 # Mocks, unintended re-exports
-setuptools.msvc.environ
-setuptools.msvc.winreg
+# setuptools.msvc.environ
+# setuptools.msvc.winreg

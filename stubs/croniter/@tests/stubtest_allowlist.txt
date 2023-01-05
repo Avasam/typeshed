@@ -3,10 +3,3 @@ croniter.croniter.EXPANDERS
 croniter.croniter.HashExpander
 croniter.croniter.VALID_LEN_EXPRESSION
 croniter.croniter.timedelta_to_seconds
-
-# Unintentionally exported precompiled regexes
-croniter.croniter.step_search_re
-croniter.croniter.only_int_re
-croniter.croniter.star_or_int_re
-croniter.croniter.special_weekday_re
-croniter.croniter.hash_expression_re
