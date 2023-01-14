@@ -13,7 +13,7 @@ NO_KEY: Any
 class QueryableAttribute(
     interfaces._MappedAttribute,
     interfaces.InspectionAttr,
-    interfaces.PropComparator[Any],
+    interfaces.PropComparator,
     traversals.HasCopyInternals,
     roles.JoinTargetRole,
     roles.OnClauseRole,
@@ -61,7 +61,7 @@ class Mapped(QueryableAttribute, Generic[_T]):
     def __set__(self, instance, value) -> None: ...
     def __delete__(self, instance) -> None: ...
 
-class InstrumentedAttribute(Mapped[Any]):
+class InstrumentedAttribute(Mapped):
     inherit_cache: bool
     def __set__(self, instance, value) -> None: ...
     def __delete__(self, instance) -> None: ...

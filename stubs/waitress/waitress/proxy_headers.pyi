@@ -4,7 +4,7 @@ from typing import Any, NamedTuple
 
 from .utilities import BadRequest as BadRequest
 
-PROXY_HEADERS: frozenset[Any]
+PROXY_HEADERS: frozenset
 
 class Forwarded(NamedTuple):
     by: Any
@@ -26,7 +26,7 @@ def proxy_headers_middleware(
     clear_untrusted: bool = ...,
     log_untrusted: bool = ...,
     logger: Logger = ...,
-) -> Callable[..., Any]: ...
+) -> Callable: ...
 def parse_proxy_headers(
     environ: Mapping[str, str], trusted_proxy_count: int, trusted_proxy_headers: set[str], logger: Logger = ...
 ) -> set[str]: ...

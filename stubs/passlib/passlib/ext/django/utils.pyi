@@ -2,7 +2,7 @@ from typing import Any
 
 __all__ = ["DJANGO_VERSION", "MIN_DJANGO_VERSION", "get_preset_config", "quirks"]
 
-DJANGO_VERSION: tuple[Any, ...]
+DJANGO_VERSION: tuple
 MIN_DJANGO_VERSION: tuple[int, int]
 
 class quirks:

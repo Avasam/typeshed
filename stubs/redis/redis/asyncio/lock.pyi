@@ -14,7 +14,7 @@ class Lock:
     LUA_RELEASE_SCRIPT: ClassVar[str]
     LUA_EXTEND_SCRIPT: ClassVar[str]
     LUA_REACQUIRE_SCRIPT: ClassVar[str]
-    redis: Redis[Any]
+    redis: Redis
     name: str | bytes | memoryview
     timeout: float | None
     sleep: float
@@ -24,7 +24,7 @@ class Lock:
     local: threading.local | SimpleNamespace
     def __init__(
         self,
-        redis: Redis[Any],
+        redis: Redis,
         name: str | bytes | memoryview,
         timeout: float | None = ...,
         sleep: float = ...,

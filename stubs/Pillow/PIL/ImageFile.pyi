@@ -12,7 +12,7 @@ def raise_oserror(error) -> NoReturn: ...
 
 class ImageFile(Image):
     custom_mimetype: Any
-    tile: list[Incomplete] | None
+    tile: list | None
     readonly: int
     decoderconfig: Any
     decodermaxblock: Any

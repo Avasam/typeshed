@@ -5,15 +5,15 @@ from consolemenu.console_menu import ConsoleMenu
 from consolemenu.items import ExternalItem as ExternalItem
 
 class FunctionItem(ExternalItem):
-    function: Callable[..., Any]
-    args: Sequence[Any]
+    function: Callable
+    args: Sequence
     kwargs: Mapping[str, Any]
     return_value: Any | None
     def __init__(
         self,
         text: str,
-        function: Callable[..., Any],
-        args: Sequence[Any] | None = ...,
+        function: Callable,
+        args: Sequence | None = ...,
         kwargs: Mapping[str, Any] | None = ...,
         menu: ConsoleMenu | None = ...,
         should_exit: bool = ...,

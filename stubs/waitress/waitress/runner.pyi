@@ -4,7 +4,7 @@ from re import Pattern
 from typing import Any
 
 HELP: str
-RUNNER_PATTERN: Pattern[Any]
+RUNNER_PATTERN: Pattern
 
 def match(obj_name: str) -> tuple[str, str]: ...
 def resolve(module_name: str, object_name: str) -> Any: ...

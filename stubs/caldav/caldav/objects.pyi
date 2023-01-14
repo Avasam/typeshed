@@ -22,7 +22,7 @@ class DAVObject:
     client: DAVClient | None
     parent: DAVObject | None
     name: str | None
-    props: Mapping[Any, Any]
+    props: Mapping
     extra_init_options: dict[str, Any]
     def __init__(
         self,
@@ -31,7 +31,7 @@ class DAVObject:
         parent: DAVObject | None = ...,
         name: str | None = ...,
         id: str | None = ...,
-        props: Mapping[Any, Any] | None = ...,
+        props: Mapping | None = ...,
         **extra: Any,
     ) -> None: ...
     @property
@@ -67,7 +67,7 @@ class Principal(DAVObject):
     def schedule_outbox(self) -> ScheduleOutbox: ...
 
 class Calendar(DAVObject):
-    def get_supported_components(self) -> list[Any]: ...
+    def get_supported_components(self) -> list: ...
     def save_with_invites(self, ical: str, attendees, **attendeeoptions) -> None: ...
     def save_event(self, ical: str | None = ..., no_overwrite: bool = ..., no_create: bool = ..., **ical_data: Any) -> Event: ...
     def save_todo(self, ical: str | None = ..., no_overwrite: bool = ..., no_create: bool = ..., **ical_data: Any) -> Todo: ...
@@ -150,7 +150,7 @@ class Calendar(DAVObject):
         event: bool | None = ...,
         category: Incomplete | None = ...,
         class_: Incomplete | None = ...,
-        filters: list[Incomplete] | None = ...,
+        filters: list | None = ...,
         expand: bool | None = ...,
         start: datetime.datetime | None = ...,
         end: datetime.datetime | None = ...,
@@ -194,7 +194,7 @@ class ScheduleOutbox(ScheduleMailbox):
 
 class SynchronizableCalendarObjectCollection:
     def __init__(self, calendar, objects, sync_token) -> None: ...
-    def __iter__(self) -> Iterator[Any]: ...
+    def __iter__(self) -> Iterator: ...
     def objects_by_url(self): ...
     def sync(self) -> tuple[Any, Any]: ...
 

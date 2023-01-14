@@ -5,21 +5,21 @@ from collections.abc import Generator, Iterable
 from .syntax import PDFArray, PDFObject, PDFString
 
 class NumberTree(PDFObject):
-    nums: defaultdict[Incomplete, list[Incomplete]]
+    nums: defaultdict[Incomplete, list]
     def __init__(self) -> None: ...
     def serialize(self, obj_dict: object = ...) -> str: ...
 
 class StructTreeRoot(PDFObject):
     type: str
     parent_tree: NumberTree
-    k: PDFArray[Incomplete]
+    k: PDFArray
     def __init__(self) -> None: ...
 
 class StructElem(PDFObject):
     type: str
     s: str
     p: PDFObject
-    k: PDFArray[Incomplete]
+    k: PDFArray
     t: PDFString | None
     alt: PDFString | None
     pg: Incomplete | None

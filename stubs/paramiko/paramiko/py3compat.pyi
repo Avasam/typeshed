@@ -7,10 +7,10 @@ _T = TypeVar("_T")
 
 PY2: bool
 
-string_types: type[Any] | Sequence[type[Any]]
-text_type: type[Any] | Sequence[type[Any]]
-bytes_types: type[Any] | Sequence[type[Any]]
-integer_types: type[Any] | Sequence[type[Any]]
+string_types: type | Sequence[type]
+text_type: type | Sequence[type]
+bytes_types: type | Sequence[type]
+integer_types: type | Sequence[type]
 long = int
 
 def input(prompt: Any) -> str: ...

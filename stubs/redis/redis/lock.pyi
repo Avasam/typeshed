@@ -17,7 +17,7 @@ class Lock:
     local: _Local
     def __init__(
         self,
-        redis: Redis[Any],
+        redis: Redis,
         name: str,
         timeout: float | None = ...,
         sleep: float = ...,

@@ -223,7 +223,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
     @classmethod
     def wrapattr(
         cls, stream, method: Literal["read", "write"], total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
-    ) -> contextlib._GeneratorContextManager[Incomplete]: ...
+    ) -> contextlib._GeneratorContextManager: ...
 
 @overload
 def trange(

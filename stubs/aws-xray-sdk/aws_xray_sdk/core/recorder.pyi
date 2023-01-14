@@ -71,9 +71,9 @@ class AWSXRayRecorder:
     def capture(self, name: str | None = ...) -> SubsegmentContextManager: ...
     def record_subsegment(
         self,
-        wrapped: Callable[..., Any],
+        wrapped: Callable,
         instance: Any,
-        args: list[Any],
+        args: list,
         kwargs: dict[str, Any],
         name: str,
         namespace: str,

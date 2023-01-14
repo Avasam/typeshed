@@ -9,7 +9,7 @@ from .visitors import TraversibleType
 
 def register_function(identifier, fn, package: str = ...) -> None: ...
 
-class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  # type: ignore[misc]
+class FunctionElement(Executable, ColumnElement, FromClause, Generative):  # type: ignore[misc]
     packagenames: Incomplete
     clause_expr: Incomplete
     def __init__(self, *clauses, **kwargs) -> None: ...

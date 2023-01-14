@@ -41,8 +41,8 @@ def get_bytes(x): ...
 
 # The possible return type is a union of all other decode methods, ie: AnyOf[Incomplete | bool]
 DECODERS: dict[tuple[int, int], Callable[..., _AllDecodersReturnType]]
-BIND_RESPONSE_CONTEXT: dict[int, Callable[..., Incomplete]]
-EXTENDED_RESPONSE_CONTEXT: dict[int, Callable[..., Incomplete]]
-INTERMEDIATE_RESPONSE_CONTEXT: dict[int, Callable[..., Incomplete]]
-LDAP_MESSAGE_CONTEXT: dict[int, Callable[..., Incomplete]]
-CONTROLS_CONTEXT: dict[int, Callable[..., Incomplete]]
+BIND_RESPONSE_CONTEXT: dict[int, Callable]
+EXTENDED_RESPONSE_CONTEXT: dict[int, Callable]
+INTERMEDIATE_RESPONSE_CONTEXT: dict[int, Callable]
+LDAP_MESSAGE_CONTEXT: dict[int, Callable]
+CONTROLS_CONTEXT: dict[int, Callable]

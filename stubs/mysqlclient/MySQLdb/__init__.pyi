@@ -33,7 +33,7 @@ threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(frozenset[Any]):
+class DBAPISet(frozenset):
     def __eq__(self, other): ...
 
 STRING: Any

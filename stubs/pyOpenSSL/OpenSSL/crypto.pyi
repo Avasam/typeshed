@@ -143,9 +143,9 @@ class X509StoreContext:
     def verify_certificate(self) -> None: ...
 
 class X509StoreContextError(Exception):
-    errors: list[Any]
+    errors: list
     certificate: X509
-    def __init__(self, message: str, errors: list[Any], certificate: X509) -> None: ...
+    def __init__(self, message: str, errors: list, certificate: X509) -> None: ...
 
 class X509StoreFlags:
     CRL_CHECK: int

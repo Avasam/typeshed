@@ -19,8 +19,8 @@ class MockTracer(Tracer):
         operation_name: str | None = ...,
         child_of: Span | SpanContext | None = ...,
         references: list[Reference] | None = ...,
-        tags: dict[Any, Any] | None = ...,
+        tags: dict | None = ...,
         start_time: float | None = ...,
         ignore_active_span: bool = ...,
     ) -> MockSpan: ...
-    def extract(self, format: str, carrier: dict[Any, Any]) -> SpanContext: ...
+    def extract(self, format: str, carrier: dict) -> SpanContext: ...

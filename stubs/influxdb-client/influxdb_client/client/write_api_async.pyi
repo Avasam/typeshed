@@ -9,7 +9,7 @@ from influxdb_client.client.write_api import PointSettings
 from influxdb_client.domain.write_precision import _WritePrecision
 
 _DataClass: TypeAlias = Any  # any dataclass
-_NamedTuple: TypeAlias = tuple[Any, ...]  # any NamedTuple
+_NamedTuple: TypeAlias = tuple  # any NamedTuple
 
 logger: Incomplete
 
@@ -23,8 +23,8 @@ class WriteApiAsync(_BaseWriteApi):
         | Iterable[str]
         | Point
         | Iterable[Point]
-        | dict[Incomplete, Incomplete]
-        | Iterable[dict[Incomplete, Incomplete]]
+        | dict
+        | Iterable[dict]
         | bytes
         | Iterable[bytes]
         | _NamedTuple

@@ -36,7 +36,7 @@ class _Match(TypedDict):
     # pattern == 'repeat'
     base_token: NotRequired[str]
     # base_guesses: NotRequired[Decimal]
-    base_matches: NotRequired[list[Any]]  # Any = _Match, https://github.com/python/mypy/issues/731
+    base_matches: NotRequired[list]  # Any = _Match, https://github.com/python/mypy/issues/731
     repeat_count: NotRequired[float]
 
     # pattern == 'regex'

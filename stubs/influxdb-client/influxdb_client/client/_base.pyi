@@ -22,7 +22,7 @@ class _BaseClient:
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str | None = ...,
-        default_tags: dict[Incomplete, Incomplete] | None = ...,
+        default_tags: dict | None = ...,
         http_client_logger: str | None = ...,
         *,
         verify_ssl: bool = ...,
@@ -56,5 +56,5 @@ class _Configuration(Configuration):
     username: Incomplete
     password: Incomplete
     def __init__(self) -> None: ...
-    def update_request_header_params(self, path: str, params: dict[Incomplete, Incomplete]): ...
+    def update_request_header_params(self, path: str, params: dict): ...
     def update_request_body(self, path: str, body): ...

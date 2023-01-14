@@ -20,7 +20,7 @@ from .interfaces import CriteriaOption, ORMColumnsClauseRole, ORMEntityColumnsCl
 
 all_cascades: Any
 
-class CascadeOptions(frozenset[Any]):
+class CascadeOptions(frozenset):
     save_update: Any
     delete: Any
     refresh_expire: Any

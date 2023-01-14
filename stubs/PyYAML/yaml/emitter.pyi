@@ -27,7 +27,7 @@ class ScalarAnalysis:
 
 class Emitter:
     DEFAULT_TAG_PREFIXES: Any
-    stream: _WriteStream[Any]
+    stream: _WriteStream
     encoding: Any
     states: Any
     state: Any
@@ -55,9 +55,7 @@ class Emitter:
     prepared_tag: Any
     analysis: Any
     style: Any
-    def __init__(
-        self, stream: _WriteStream[Any], canonical=..., indent=..., width=..., allow_unicode=..., line_break=...
-    ) -> None: ...
+    def __init__(self, stream: _WriteStream, canonical=..., indent=..., width=..., allow_unicode=..., line_break=...) -> None: ...
     def dispose(self): ...
     def emit(self, event): ...
     def need_more_events(self): ...

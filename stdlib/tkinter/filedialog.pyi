@@ -126,7 +126,7 @@ def asksaveasfile(
     parent: Misc | None = ...,
     title: str | None = ...,
     typevariable: StringVar | str | None = ...,
-) -> IO[Incomplete] | None: ...
+) -> IO | None: ...
 def askopenfile(
     mode: str = ...,
     *,
@@ -137,7 +137,7 @@ def askopenfile(
     parent: Misc | None = ...,
     title: str | None = ...,
     typevariable: StringVar | str | None = ...,
-) -> IO[Incomplete] | None: ...
+) -> IO | None: ...
 def askopenfiles(
     mode: str = ...,
     *,
@@ -148,5 +148,5 @@ def askopenfiles(
     parent: Misc | None = ...,
     title: str | None = ...,
     typevariable: StringVar | str | None = ...,
-) -> tuple[IO[Incomplete], ...]: ...  # can be empty tuple
+) -> tuple[IO, ...]: ...  # can be empty tuple
 def test() -> None: ...

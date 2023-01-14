@@ -76,8 +76,8 @@ class ObjectAssociationProxyInstance(AssociationProxyInstance):
     def __eq__(self, obj): ...
     def __ne__(self, obj): ...
 
-class ColumnAssociationProxyInstance(ColumnOperators[Any], AssociationProxyInstance):
-    def __eq__(self, other) -> ColumnOperators[Any]: ...  # type: ignore[override]
+class ColumnAssociationProxyInstance(ColumnOperators, AssociationProxyInstance):
+    def __eq__(self, other) -> ColumnOperators: ...  # type: ignore[override]
     def operate(self, op, *other, **kwargs): ...
 
 class _lazy_collection:

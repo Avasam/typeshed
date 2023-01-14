@@ -3,7 +3,7 @@ from typing import Any
 
 import MySQLdb._exceptions
 
-version_info: tuple[Any, ...]
+version_info: tuple
 
 class DataError(MySQLdb._exceptions.DatabaseError): ...
 class DatabaseError(MySQLdb._exceptions.Error): ...

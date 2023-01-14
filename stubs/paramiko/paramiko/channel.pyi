@@ -9,7 +9,7 @@ from paramiko.file import BufferedFile
 from paramiko.transport import Transport
 from paramiko.util import ClosingContextManager
 
-_F = TypeVar("_F", bound=Callable[..., Any])
+_F = TypeVar("_F", bound=Callable)
 
 def open_only(func: _F) -> Callable[[_F], _F]: ...
 
@@ -20,8 +20,8 @@ class Channel(ClosingContextManager):
     active: bool
     eof_received: int
     eof_sent: int
-    in_buffer: BufferedPipe[Any]
-    in_stderr_buffer: BufferedPipe[Any]
+    in_buffer: BufferedPipe
+    in_stderr_buffer: BufferedPipe
     timeout: float | None
     closed: bool
     ultra_debug: bool
@@ -90,7 +90,7 @@ class Channel(ClosingContextManager):
     def shutdown_read(self) -> None: ...
     def shutdown_write(self) -> None: ...
 
-class ChannelFile(BufferedFile[Any]):
+class ChannelFile(BufferedFile):
     channel: Channel
     def __init__(self, channel: Channel, mode: str = ..., bufsize: int = ...) -> None: ...
 

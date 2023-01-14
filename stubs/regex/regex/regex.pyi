@@ -155,7 +155,7 @@ def findall(
     timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> list[Any]: ...
+) -> list: ...
 @overload
 def findall(
     pattern: ReadableBuffer | Pattern[bytes],
@@ -168,7 +168,7 @@ def findall(
     timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> list[Any]: ...
+) -> list: ...
 @overload
 def finditer(
     pattern: str | Pattern[str],
@@ -418,7 +418,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> list[Any]: ...
+    ) -> list: ...
     @overload
     def findall(
         self: Pattern[bytes],
@@ -428,7 +428,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> list[Any]: ...
+    ) -> list: ...
     @overload
     def finditer(
         self: Pattern[str],

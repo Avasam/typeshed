@@ -3,7 +3,7 @@ from typing import Any, ClassVar
 
 class Message:
     message: ClassVar[str]
-    message_args: tuple[Any, ...]
+    message_args: tuple
     filename: Any
     lineno: int
     col: int

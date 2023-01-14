@@ -9,7 +9,7 @@ class ArrayDescriptor:
     def __get__(self, instance, cls): ...
     def __set__(self, instance, value) -> None: ...
 
-class StyleArray(array[Incomplete]):
+class StyleArray(array):
     tagname: str
     fontId: Incomplete
     fillId: Incomplete

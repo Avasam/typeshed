@@ -32,7 +32,7 @@ class Task(Generic[_P, _R_co]):
     autoprint: bool
     def __init__(
         self,
-        body: Callable[..., Any],
+        body: Callable,
         name: str | None = ...,
         aliases: tuple[str, ...] = ...,
         positional: Iterable[str] | None = ...,
@@ -48,7 +48,7 @@ class Task(Generic[_P, _R_co]):
     ) -> None: ...
     @property
     def name(self): ...
-    def __eq__(self, other: Task[Incomplete, Incomplete]) -> bool: ...  # type: ignore[override]
+    def __eq__(self, other: Task) -> bool: ...  # type: ignore[override]
     def __hash__(self) -> int: ...
     def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
     @property
@@ -90,21 +90,17 @@ def task(
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
     klass: type[_TaskT],
-) -> Callable[[Callable[..., Any]], _TaskT]: ...
+) -> Callable[[Callable], _TaskT]: ...
 @overload
 def task(__func: Callable[_P, _R_co]) -> Task[_P, _R_co]: ...
 
 class Call:
     task: Task[..., Any]
     called_as: str | None
-    args: tuple[Any, ...]
+    args: tuple
     kwargs: dict[str, Any]
     def __init__(
-        self,
-        task: Task[..., Any],
-        called_as: str | None = ...,
-        args: tuple[Any, ...] | None = ...,
-        kwargs: dict[str, Any] | None = ...,
+        self, task: Task[..., Any], called_as: str | None = ..., args: tuple | None = ..., kwargs: dict[str, Any] | None = ...
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __deepcopy__(self: Self, memo: Any) -> Self: ...

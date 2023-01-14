@@ -7,7 +7,7 @@ from typing_extensions import TypeAlias, TypedDict
 
 import flask
 
-_IterableT = TypeVar("_IterableT", bound=Iterable[Any])
+_IterableT = TypeVar("_IterableT", bound=Iterable)
 _T = TypeVar("_T")
 _MultiDict: TypeAlias = Any  # werkzeug is not part of typeshed
 

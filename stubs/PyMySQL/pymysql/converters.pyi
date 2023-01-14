@@ -36,5 +36,5 @@ convert_bit = through
 
 encoders: dict[type[object], Callable[..., str]]
 decoders: dict[int, Callable[[str | bytes], Any]]
-conversions: dict[type[object] | int, Callable[..., Any]]
+conversions: dict[type[object] | int, Callable]
 Thing2Literal = escape_str

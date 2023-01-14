@@ -74,7 +74,7 @@ class TypeCompiler:
     def process(self, type_, **kw): ...
     def visit_unsupported_compilation(self, element, err, **kw) -> None: ...
 
-class _CompileLabel(elements.ColumnElement[Incomplete]):
+class _CompileLabel(elements.ColumnElement):
     __visit_name__: str
     element: Incomplete
     name: Incomplete

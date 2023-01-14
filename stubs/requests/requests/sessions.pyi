@@ -75,7 +75,7 @@ _Data: TypeAlias = (
     | SupportsRead[str | bytes]
     | list[tuple[Any, Any]]
     | tuple[tuple[Any, Any], ...]
-    | Mapping[Any, Any]
+    | Mapping
 )
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
@@ -129,8 +129,8 @@ class Session(SessionRedirectMixin):
     max_redirects: int
     trust_env: bool
     cookies: RequestsCookieJar
-    adapters: MutableMapping[Any, Any]
-    redirect_cache: RecentlyUsedContainer[Any, Any]
+    adapters: MutableMapping
+    redirect_cache: RecentlyUsedContainer
     def __init__(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args) -> None: ...

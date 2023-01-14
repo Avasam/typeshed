@@ -11,7 +11,7 @@ _LegacyVersion: TypeAlias = Any  # from packaging.version
 _Version: TypeAlias = Any  # from packaging.version
 
 _T = TypeVar("_T")
-_NestedStr: TypeAlias = str | Iterable[str | Iterable[Any]]
+_NestedStr: TypeAlias = str | Iterable[str | Iterable]
 _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _EPDistType: TypeAlias = Distribution | Requirement | str
 _MetadataType: TypeAlias = IResourceProvider | None

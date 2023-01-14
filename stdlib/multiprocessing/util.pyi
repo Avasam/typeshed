@@ -49,7 +49,7 @@ class Finalize:
     def __init__(
         self,
         obj: Incomplete | None,
-        callback: Callable[..., Incomplete],
+        callback: Callable,
         args: Sequence[Any] = ...,
         kwargs: Mapping[str, Any] | None = ...,
         exitpriority: int | None = ...,
@@ -57,7 +57,7 @@ class Finalize:
     def __call__(
         self,
         wr: object = ...,
-        _finalizer_registry: MutableMapping[Incomplete, Incomplete] = ...,
+        _finalizer_registry: MutableMapping = ...,
         sub_debug: Callable[..., object] = ...,
         getpid: Callable[[], int] = ...,
     ) -> Incomplete: ...

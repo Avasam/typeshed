@@ -10,7 +10,7 @@ from urllib3.connectionpool import HTTPConnection
 from . import HTTPConnectionPool, Retry
 from ._collections import HTTPHeaderDict
 
-_TYPE_BODY: TypeAlias = bytes | IO[Any] | Iterable[bytes] | str
+_TYPE_BODY: TypeAlias = bytes | IO | Iterable[bytes] | str
 
 class DeflateDecoder:
     def __getattr__(self, name: str) -> Any: ...

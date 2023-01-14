@@ -61,7 +61,7 @@ class DictCursor(DictCursorBase):
     def fetchall(self) -> list[DictRow]: ...  # type: ignore[override]
     def __next__(self) -> DictRow: ...  # type: ignore[override]
 
-class DictRow(list[Any]):
+class DictRow(list):
     def __init__(self, cursor) -> None: ...
     def __getitem__(self, x): ...
     def __setitem__(self, x, v) -> None: ...
@@ -102,7 +102,7 @@ class RealDictCursor(DictCursorBase):
     def fetchall(self) -> list[RealDictRow]: ...  # type: ignore[override]
     def __next__(self) -> RealDictRow: ...  # type: ignore[override]
 
-class RealDictRow(OrderedDict[Any, Any]):
+class RealDictRow(OrderedDict):
     def __init__(self, *args, **kwargs) -> None: ...
     def __setitem__(self, key, value) -> None: ...
 

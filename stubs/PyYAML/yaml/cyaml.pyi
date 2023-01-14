@@ -30,7 +30,7 @@ class CUnsafeLoader(CParser, UnsafeConstructor, Resolver):
 class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
     def __init__(
         self,
-        stream: IO[Any],
+        stream: IO,
         default_style: str | None = ...,
         default_flow_style: bool | None = ...,
         canonical: Any | None = ...,
@@ -49,7 +49,7 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
 class CDumper(CEmitter, SafeRepresenter, Resolver):
     def __init__(
         self,
-        stream: IO[Any],
+        stream: IO,
         default_style: str | None = ...,
         default_flow_style: bool = ...,
         canonical: Any | None = ...,

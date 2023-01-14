@@ -27,7 +27,7 @@ def parse(
     conn_max_age: int = ...,
     conn_health_checks: bool = ...,
     ssl_require: bool = ...,
-    test_options: dict[Incomplete, Incomplete] | None = ...,
+    test_options: dict | None = ...,
 ) -> _DBConfig: ...
 def config(
     env: str = ...,
@@ -36,5 +36,5 @@ def config(
     conn_max_age: int = ...,
     conn_health_checks: bool = ...,
     ssl_require: bool = ...,
-    test_options: dict[Incomplete, Incomplete] | None = ...,
+    test_options: dict | None = ...,
 ) -> _DBConfig: ...

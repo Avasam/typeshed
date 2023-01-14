@@ -6,7 +6,7 @@ __all__ = ["TqdmCallback"]
 
 # dask.callbacks.Callback
 class _Callback:
-    active: ClassVar[set[tuple[Callable[..., Incomplete] | None, ...]]]
+    active: ClassVar[set[tuple[Callable | None, ...]]]
     def __init__(
         self,
         start: Incomplete | None,
@@ -21,8 +21,8 @@ class _Callback:
     def unregister(self) -> None: ...
 
 class TqdmCallback(_Callback):
-    tqdm_class: type[Incomplete]
+    tqdm_class: type
     def __init__(
-        self, start: Incomplete | None = ..., pretask: Incomplete | None = ..., tqdm_class: type[Incomplete] = ..., **tqdm_kwargs
+        self, start: Incomplete | None = ..., pretask: Incomplete | None = ..., tqdm_class: type = ..., **tqdm_kwargs
     ) -> None: ...
     def display(self) -> None: ...

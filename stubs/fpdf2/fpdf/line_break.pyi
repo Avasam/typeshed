@@ -54,7 +54,7 @@ class Fragment:
     def get_character_width(self, character: str, print_sh: bool = ..., initial_cs: bool = ...): ...
 
 class TextLine(NamedTuple):
-    fragments: tuple[Incomplete, ...]
+    fragments: tuple
     text_width: float
     number_of_spaces: int
     justify: bool

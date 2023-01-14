@@ -5,7 +5,7 @@ from paramiko.util import ClosingContextManager
 
 class ProxyCommand(ClosingContextManager):
     cmd: list[str]
-    process: Popen[Any]
+    process: Popen
     timeout: float | None
     def __init__(self, command_line: str) -> None: ...
     def send(self, content: bytes) -> int: ...

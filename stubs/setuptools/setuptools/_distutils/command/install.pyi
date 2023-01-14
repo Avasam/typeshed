@@ -4,7 +4,7 @@ from ..cmd import Command
 
 HAS_USER_SITE: bool
 SCHEME_KEYS: tuple[str, ...]
-INSTALL_SCHEMES: dict[str, dict[Any, Any]]
+INSTALL_SCHEMES: dict[str, dict]
 
 class install(Command):
     description: str

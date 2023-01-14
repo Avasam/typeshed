@@ -174,10 +174,10 @@ class PDFXrefAndTrailer(ContentWithoutID):
 
 class OutputProducer:
     fpdf: Incomplete
-    pdf_objs: list[Incomplete]
+    pdf_objs: list
     obj_id: int
-    offsets: dict[Incomplete, Incomplete]
-    trace_labels_per_obj_id: dict[Incomplete, Incomplete]
+    offsets: dict
+    trace_labels_per_obj_id: dict
     sections_size_per_trace_label: defaultdict[Incomplete, int]
     buffer: bytearray
     def __init__(self, fpdf) -> None: ...

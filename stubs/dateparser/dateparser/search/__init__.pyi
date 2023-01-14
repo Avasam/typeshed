@@ -9,7 +9,7 @@ from ..date import _DetectLanguagesFunction
 def search_dates(
     text: str,
     languages: list[str] | tuple[str, ...] | AbstractSet[str] | None,
-    settings: Mapping[Any, Any] | None,
+    settings: Mapping | None,
     add_detected_language: Literal[True],
     detect_languages_function: _DetectLanguagesFunction | None = ...,
 ) -> list[tuple[str, datetime, str]]: ...
@@ -17,7 +17,7 @@ def search_dates(
 def search_dates(
     text: str,
     languages: list[str] | tuple[str, ...] | AbstractSet[str] | None = ...,
-    settings: Mapping[Any, Any] | None = ...,
+    settings: Mapping | None = ...,
     add_detected_language: Literal[False] = ...,
     detect_languages_function: _DetectLanguagesFunction | None = ...,
 ) -> list[tuple[str, datetime]]: ...

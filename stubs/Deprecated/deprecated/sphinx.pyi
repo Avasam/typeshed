@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from .classic import ClassicAdapter, _Actions
 
-_F = TypeVar("_F", bound=Callable[..., Any])
+_F = TypeVar("_F", bound=Callable)
 
 class SphinxAdapter(ClassicAdapter):
     directive: Literal["versionadded", "versionchanged", "deprecated"]

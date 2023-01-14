@@ -42,7 +42,7 @@ class BeautifulSoup(Tag):
         parse_only: SoupStrainer | None = ...,
         from_encoding: str | None = ...,
         exclude_encodings: Sequence[str] | None = ...,
-        element_classes: dict[type[PageElement], type[Any]] | None = ...,
+        element_classes: dict[type[PageElement], type] | None = ...,
         **kwargs,
     ) -> None: ...
     def __copy__(self: Self) -> Self: ...

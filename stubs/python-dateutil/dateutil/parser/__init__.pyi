@@ -5,7 +5,7 @@ from typing_extensions import TypeAlias
 
 from .isoparser import isoparse as isoparse, isoparser as isoparser
 
-_FileOrStr: TypeAlias = bytes | str | IO[str] | IO[Any]
+_FileOrStr: TypeAlias = bytes | str | IO[str] | IO
 _TzData: TypeAlias = tzinfo | int | str | None
 _TzInfo: TypeAlias = Mapping[str, _TzData] | Callable[[str, int], _TzData]
 

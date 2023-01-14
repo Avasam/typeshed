@@ -24,7 +24,6 @@
     "reportInvalidStringEscapeSequence": "error",
     "reportUnknownArgumentType": "error",
     "reportUnknownLambdaType": "error",
-    "reportMissingTypeArgument": "error",
     "reportInvalidStubStatement": "error",
     "reportInvalidTypeVarUse": "error",
     "reportUnsupportedDunderAll": "error",

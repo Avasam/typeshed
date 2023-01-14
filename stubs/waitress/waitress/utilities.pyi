@@ -22,14 +22,14 @@ months: Sequence[str]
 monmap: Mapping[str, int]
 months_reg: str
 rfc822_date: str
-rfc822_reg: Pattern[Any]
+rfc822_reg: Pattern
 
-def unpack_rfc822(m: Match[Any]) -> tuple[int, int, int, int, int, int, int, int, int]: ...
+def unpack_rfc822(m: Match) -> tuple[int, int, int, int, int, int, int, int, int]: ...
 
 rfc850_date: str
-rfc850_reg: Pattern[Any]
+rfc850_reg: Pattern
 
-def unpack_rfc850(m: Match[Any]) -> tuple[int, int, int, int, int, int, int, int, int]: ...
+def unpack_rfc850(m: Match) -> tuple[int, int, int, int, int, int, int, int, int]: ...
 
 weekdayname: Sequence[str]
 monthname: Sequence[str]

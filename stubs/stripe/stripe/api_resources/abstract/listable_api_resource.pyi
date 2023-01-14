@@ -7,7 +7,7 @@ from stripe.api_resources.list_object import ListObject
 
 class ListableAPIResource(APIResource):
     @classmethod
-    def auto_paging_iter(cls, *args, **params) -> Iterator[Any]: ...
+    def auto_paging_iter(cls, *args, **params) -> Iterator: ...
     @classmethod
     def list(
         cls, api_key: Any | None = ..., stripe_version: Any | None = ..., stripe_account: Any | None = ..., **params

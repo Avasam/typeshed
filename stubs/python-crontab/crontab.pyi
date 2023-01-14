@@ -28,7 +28,7 @@ CRON_COMMAND: str
 SHELL: str
 current_user: Callable[[], str | None]
 
-def open_pipe(cmd: str, *args: str, **flags) -> subprocess.Popen[Any]: ...
+def open_pipe(cmd: str, *args: str, **flags) -> subprocess.Popen: ...
 
 class CronTab:
     lines: Incomplete
@@ -229,7 +229,7 @@ class CronRange:
     def __gt__(self, value): ...
     def __int__(self) -> int: ...
 
-class OrderedVariableList(OrderedDict[Incomplete, Incomplete]):
+class OrderedVariableList(OrderedDict):
     job: Incomplete
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     @property

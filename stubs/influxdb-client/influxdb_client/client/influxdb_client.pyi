@@ -24,7 +24,7 @@ class InfluxDBClient(_BaseClient):
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str | None = ...,
-        default_tags: dict[Incomplete, Incomplete] | None = ...,
+        default_tags: dict | None = ...,
         *,
         verify_ssl: bool = ...,
         ssl_ca_cert: Incomplete | None = ...,

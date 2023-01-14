@@ -3,7 +3,7 @@ from typing import Any
 from ...sql import expression
 from ...sql.schema import ColumnCollectionConstraint
 
-class aggregate_order_by(expression.ColumnElement[Any]):
+class aggregate_order_by(expression.ColumnElement):
     __visit_name__: str
     stringify_dialect: str
     target: Any

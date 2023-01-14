@@ -30,17 +30,17 @@ class ApplicationError(Exception): ...
 class DataError(ApplicationError): ...
 
 class SettingsSpec:
-    settings_spec: ClassVar[tuple[Any, ...]]
-    settings_defaults: ClassVar[dict[Any, Any] | None]
-    settings_default_overrides: ClassVar[dict[Any, Any] | None]
-    relative_path_settings: ClassVar[tuple[Any, ...]]
+    settings_spec: ClassVar[tuple]
+    settings_defaults: ClassVar[dict | None]
+    settings_default_overrides: ClassVar[dict | None]
+    relative_path_settings: ClassVar[tuple]
     config_section: ClassVar[str | None]
     config_section_dependencies: ClassVar[tuple[str, ...] | None]
 
 class TransformSpec:
-    def get_transforms(self) -> list[Any]: ...
-    default_transforms: ClassVar[tuple[Any, ...]]
-    unknown_reference_resolvers: ClassVar[list[Any]]
+    def get_transforms(self) -> list: ...
+    default_transforms: ClassVar[tuple]
+    unknown_reference_resolvers: ClassVar[list]
 
 class Component(SettingsSpec, TransformSpec):
     component_type: ClassVar[str | None]

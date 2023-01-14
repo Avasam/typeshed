@@ -5,10 +5,10 @@ from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
-_F = TypeVar("_F", bound=Callable[..., Any])
-_AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
+_F = TypeVar("_F", bound=Callable)
+_AF = TypeVar("_AF", bound=Callable[..., Coroutine])
 _T = TypeVar("_T")
-_TT = TypeVar("_TT", bound=type[Any])
+_TT = TypeVar("_TT", bound=type)
 _R = TypeVar("_R")
 
 __all__ = (
@@ -43,7 +43,7 @@ class _Sentinel:
 sentinel: _Sentinel
 DEFAULT: _SentinelObject
 
-class _Call(tuple[Any, ...]):
+class _Call(tuple):
     def __new__(
         cls: type[Self],
         value: Any = ...,
@@ -63,7 +63,7 @@ class _Call(tuple[Any, ...]):
     def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
     def __getattr__(self, attr: str) -> Any: ...
     @property
-    def args(self) -> tuple[Any, ...]: ...
+    def args(self) -> tuple: ...
     @property
     def kwargs(self) -> dict[str, Any]: ...
     def call_list(self) -> _CallList: ...
@@ -187,8 +187,8 @@ class _patch(Generic[_T]):
     def decorate_callable(self, func: _F) -> _F: ...
     def decorate_async_callable(self, func: _AF) -> _AF: ...
     def decoration_helper(
-        self, patched: Any, args: tuple[Any, ...], keywargs: dict[str, Any]
-    ) -> AbstractContextManager[tuple[tuple[Any, ...], dict[str, Any]]]: ...
+        self, patched: Any, args: tuple, keywargs: dict[str, Any]
+    ) -> AbstractContextManager[tuple[tuple, dict[str, Any]]]: ...
     def get_original(self) -> tuple[Any, bool]: ...
     target: Any
     temp_original: Any
@@ -230,7 +230,7 @@ class _patcher:
         unsafe: bool = ...,
         **kwargs: Any,
     ) -> _patch[MagicMock | AsyncMock]: ...
-    # This overload also covers the case, where new==DEFAULT. In this case, the return type is _patch[Any].
+    # This overload also covers the case, where new==DEFAULT. In this case, the return type is _patch.
     # Ideally we'd be able to add an overload for it so that the return type is _patch[MagicMock],
     # but that's impossible with the current type system.
     @overload
@@ -315,7 +315,7 @@ class AsyncMockMixin(Base):
     await_args: _Call | None
     await_args_list: _CallList
     __name__: str
-    __defaults__: tuple[Any, ...]
+    __defaults__: tuple
     __kwdefaults__: dict[str, Any]
     __annotations__: dict[str, Any] | None  # type: ignore[assignment]
 

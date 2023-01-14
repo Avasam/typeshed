@@ -21,7 +21,7 @@ def ParseCounterPath(path: str, flags=...) -> tuple[Incomplete, Incomplete, Inco
 def ParseInstanceName(instanceName: str) -> tuple[Incomplete, Incomplete, Incomplete]: ...
 def SetCounterScaleFactor(hCounter, factor) -> None: ...
 def BrowseCounters(
-    Flags: tuple[Incomplete, ...] | None,
+    Flags: tuple | None,
     hWndOwner: int,
     CallBack1,
     CallBack2,

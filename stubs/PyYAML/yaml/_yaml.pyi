@@ -37,7 +37,7 @@ class CParser:
 class CEmitter:
     def __init__(
         self,
-        stream: IO[Any],
+        stream: IO,
         canonical: Any | None = ...,
         indent: int | None = ...,
         width: int | None = ...,

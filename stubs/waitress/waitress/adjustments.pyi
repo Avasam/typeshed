@@ -5,8 +5,8 @@ from typing import Any
 from .compat import HAS_IPV6 as HAS_IPV6, PY2 as PY2, WIN as WIN, string_types as string_types
 from .proxy_headers import PROXY_HEADERS as PROXY_HEADERS
 
-truthy: frozenset[Any]
-KNOWN_PROXY_HEADERS: frozenset[Any]
+truthy: frozenset
+KNOWN_PROXY_HEADERS: frozenset
 
 def asbool(s: bool | str | int | None) -> bool: ...
 def asoctal(s: str) -> int: ...

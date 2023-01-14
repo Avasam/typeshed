@@ -137,7 +137,7 @@ class Connection:
     def can_read(self, timeout: float | None = ...) -> bool: ...
     def read_response(self, disable_decoding: bool = ...) -> Any: ...  # `str | bytes` or `list[str | bytes]`
     def pack_command(self, *args) -> list[bytes]: ...
-    def pack_commands(self, commands: Iterable[Iterable[Incomplete]]) -> list[bytes]: ...
+    def pack_commands(self, commands: Iterable[Iterable]) -> list[bytes]: ...
     def repr_pieces(self) -> list[tuple[str, str]]: ...
 
 class SSLConnection(Connection):
@@ -212,7 +212,7 @@ class ConnectionPool:
     def owns_connection(self, connection: Connection) -> bool: ...
 
 class BlockingConnectionPool(ConnectionPool):
-    queue_class: type[Queue[Any]]
+    queue_class: type[Queue]
     timeout: float
     pool: Queue[Connection | None]  # might not be defined
     def __init__(
@@ -220,7 +220,7 @@ class BlockingConnectionPool(ConnectionPool):
         max_connections: int = ...,
         timeout: float = ...,
         connection_class: type[Connection] = ...,
-        queue_class: type[Queue[Any]] = ...,
+        queue_class: type[Queue] = ...,
         **connection_kwargs,
     ) -> None: ...
     def disconnect(self) -> None: ...  # type: ignore[override]

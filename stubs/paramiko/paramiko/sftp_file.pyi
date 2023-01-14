@@ -6,7 +6,7 @@ from paramiko.sftp_attr import SFTPAttributes
 from paramiko.sftp_client import SFTPClient
 from paramiko.sftp_handle import SFTPHandle
 
-class SFTPFile(BufferedFile[Any]):
+class SFTPFile(BufferedFile):
     MAX_REQUEST_SIZE: int
     sftp: SFTPClient
     handle: SFTPHandle

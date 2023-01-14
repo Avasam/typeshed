@@ -158,13 +158,13 @@ class Image:
     im: Any
     mode: _Mode
     palette: Any
-    info: dict[Any, Any]
+    info: dict
     readonly: int
     pyaccess: PyAccess | None
     is_animated: bool  # not present on all Image objects
     n_frames: int  # not present on all Image objects
     # Only defined after a call to save().
-    encoderconfig: tuple[Incomplete, ...]
+    encoderconfig: tuple
     @property
     def width(self) -> int: ...
     @property

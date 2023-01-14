@@ -13,7 +13,7 @@ KEY_OBJECTS_ONLY: int
 KEY_OBJECTS_BUT_WARN: int
 KEY_OBJECTS_NO_WARN: int
 
-class Row(BaseRow, Sequence[Any], metaclass=abc.ABCMeta):
+class Row(BaseRow, Sequence, metaclass=abc.ABCMeta):
     @property
     def count(self): ...
     @property
@@ -39,7 +39,7 @@ class LegacyRow(Row, metaclass=abc.ABCMeta):
 BaseRowProxy = BaseRow
 RowProxy = Row
 
-class ROMappingView(KeysView[Any], ValuesView[Any], ItemsView[Any, Any]):
+class ROMappingView(KeysView, ValuesView, ItemsView):
     def __init__(self, mapping, items) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self): ...
@@ -47,7 +47,7 @@ class ROMappingView(KeysView[Any], ValuesView[Any], ItemsView[Any, Any]):
     def __eq__(self, other): ...
     def __ne__(self, other): ...
 
-class RowMapping(BaseRow, Mapping[Any, Any]):
+class RowMapping(BaseRow, Mapping):
     __getitem__: Any
     def __iter__(self): ...
     def __len__(self) -> int: ...

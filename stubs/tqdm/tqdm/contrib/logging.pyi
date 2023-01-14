@@ -6,10 +6,10 @@ from typing import Any, TypeVar, overload
 
 from ..std import tqdm as std_tqdm
 
-_TqdmT = TypeVar("_TqdmT", bound=std_tqdm[Any])
+_TqdmT = TypeVar("_TqdmT", bound=std_tqdm)
 
 def logging_redirect_tqdm(
-    loggers: Sequence[logging.Logger] | None = ..., tqdm_class: type[std_tqdm[Any]] = ...
+    loggers: Sequence[logging.Logger] | None = ..., tqdm_class: type[std_tqdm] = ...
 ) -> _GeneratorContextManager[None]: ...
 
 # TODO type *args, **kwargs here more precisely
@@ -18,4 +18,4 @@ def logging_redirect_tqdm(
 @overload
 def tqdm_logging_redirect(*args, tqdm_class: Callable[..., _TqdmT], **kwargs) -> _GeneratorContextManager[_TqdmT]: ...
 @overload
-def tqdm_logging_redirect(*args, **kwargs) -> _GeneratorContextManager[std_tqdm[Incomplete]]: ...  # type: ignore[misc]
+def tqdm_logging_redirect(*args, **kwargs) -> _GeneratorContextManager[std_tqdm]: ...  # type: ignore[misc]

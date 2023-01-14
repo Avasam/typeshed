@@ -11,7 +11,7 @@ from .syntax import Name, Raw
 
 __pdoc__: dict[str, bool]
 
-_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
+_CallableT = TypeVar("_CallableT", bound=Callable)
 
 def force_nodocument(item: _CallableT) -> _CallableT: ...
 def force_document(item: _CallableT) -> _CallableT: ...
@@ -121,7 +121,7 @@ class Transform(NamedTuple):
     def render(self, last_item): ...
 
 class GraphicsStyle:
-    INHERIT: ClassVar[Incomplete]
+    INHERIT: ClassVar
     MERGE_PROPERTIES: ClassVar[tuple[str, ...]]
     TRANSPARENCY_KEYS: ClassVar[tuple[Name, ...]]
     PDF_STYLE_KEYS: ClassVar[tuple[Name, ...]]
@@ -378,7 +378,7 @@ class ClippingPath(PaintedPath):
 
 class GraphicsContext:
     style: GraphicsStyle
-    path_items: list[Incomplete]
+    path_items: list
     def __init__(self) -> None: ...
     def __deepcopy__(self: Self, memo) -> Self: ...
     @property

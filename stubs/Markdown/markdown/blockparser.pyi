@@ -14,7 +14,7 @@ class State(list[_T]):
 
 class BlockParser:
     blockprocessors: Registry
-    state: State[Any]  # TODO: possible to get rid of Any?
+    state: State  # TODO: possible to get rid of Any?
     md: Markdown
     def __init__(self, md: Markdown) -> None: ...
     root: Element

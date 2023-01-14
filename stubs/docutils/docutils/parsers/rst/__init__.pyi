@@ -21,7 +21,7 @@ class Directive:
     def __init__(
         self,
         name: str,
-        arguments: list[Any],
+        arguments: list,
         options: dict[str, Any],
         content: list[str],
         lineno: int,

@@ -321,7 +321,7 @@ class Tag(PageElement):
         string: _Strainable | None = ...,
         limit: int | None = ...,
         **kwargs: _Strainable,
-    ) -> ResultSet[Any]: ...
+    ) -> ResultSet: ...
     __call__ = find_all
     findAll = find_all
     findChildren = find_all

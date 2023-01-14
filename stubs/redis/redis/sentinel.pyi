@@ -7,7 +7,7 @@ from redis.commands.sentinel import SentinelCommands
 from redis.connection import Connection, ConnectionPool, SSLConnection
 from redis.exceptions import ConnectionError
 
-_RedisT = TypeVar("_RedisT", bound=Redis[Any])
+_RedisT = TypeVar("_RedisT", bound=Redis)
 _AddressAndPort: TypeAlias = tuple[str, int]
 _SentinelState: TypeAlias = dict[str, Any]  # TODO: this can be a TypedDict
 
@@ -37,7 +37,7 @@ class SentinelConnectionPool(ConnectionPool):
 
 class Sentinel(SentinelCommands):
     sentinel_kwargs: dict[str, Any]
-    sentinels: list[Redis[Any]]
+    sentinels: list[Redis]
     min_other_sentinels: int
     connection_kwargs: dict[str, Any]
     def __init__(
@@ -52,11 +52,11 @@ class Sentinel(SentinelCommands):
     def filter_slaves(self, slaves: Iterable[_SentinelState]) -> list[_AddressAndPort]: ...
     def discover_slaves(self, service_name: str) -> list[_AddressAndPort]: ...
     @overload
-    def master_for(self, service_name: str, *, connection_pool_class=..., **kwargs) -> Redis[Any]: ...
+    def master_for(self, service_name: str, *, connection_pool_class=..., **kwargs) -> Redis: ...
     @overload
     def master_for(self, service_name: str, redis_class: type[_RedisT], connection_pool_class=..., **kwargs) -> _RedisT: ...
     @overload
-    def slave_for(self, service_name: str, *, connection_pool_class=..., **kwargs) -> Redis[Any]: ...
+    def slave_for(self, service_name: str, *, connection_pool_class=..., **kwargs) -> Redis: ...
     @overload
     def slave_for(self, service_name: str, redis_class: type[_RedisT], connection_pool_class=..., **kwargs) -> _RedisT: ...
     def execute_command(self, *args, **kwargs) -> Literal[True]: ...

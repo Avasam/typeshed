@@ -7,7 +7,7 @@ from typing_extensions import Literal, ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
 
-_AnyFunction: TypeAlias = Callable[..., Any]
+_AnyFunction: TypeAlias = Callable
 _F = TypeVar("_F", bound=_AnyFunction)
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
@@ -43,7 +43,7 @@ def convert_to_value(item: ast.Str) -> str: ...  # type: ignore[misc]
 @overload
 def convert_to_value(item: ast.Bytes) -> bytes: ...  # type: ignore[misc]
 @overload
-def convert_to_value(item: ast.Tuple) -> tuple[Any, ...]: ...  # type: ignore[misc]
+def convert_to_value(item: ast.Tuple) -> tuple: ...  # type: ignore[misc]
 @overload
 def convert_to_value(item: ast.Name | ast.NameConstant) -> Any: ...
 @overload
@@ -72,7 +72,7 @@ class VariableKey:
 
 class Importation(Definition):
     fullName: str
-    redefined: list[Any]
+    redefined: list
     def __init__(self, name: str, source: ast.AST | None, full_name: str | None = ...) -> None: ...
     @property
     def source_statement(self) -> str: ...
@@ -173,12 +173,12 @@ class Checker:
     nodeDepth: int
     offset: tuple[int, int] | None
     builtIns: set[str]
-    deadScopes: list[Any]
-    messages: list[Any]
+    deadScopes: list
+    messages: list
     filename: str
     withDoctest: bool
     scopeStack: list[Scope]
-    exceptHandlers: list[Any]
+    exceptHandlers: list
     root: ast.AST
     def __init__(
         self,
@@ -186,7 +186,7 @@ class Checker:
         filename: str = ...,
         builtins: Iterable[str] | None = ...,
         withDoctest: bool = ...,
-        file_tokens: tuple[Any, ...] = ...,
+        file_tokens: tuple = ...,
     ) -> None: ...
     def deferFunction(self, callable: _AnyFunction) -> None: ...
     def deferAssignment(self, callable: _AnyFunction) -> None: ...

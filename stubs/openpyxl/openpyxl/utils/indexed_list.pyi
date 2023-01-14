@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-class IndexedList(list[Incomplete]):
+class IndexedList(list):
     clean: bool
     def __init__(self, iterable: Incomplete | None = ...) -> None: ...
     def __contains__(self, value): ...

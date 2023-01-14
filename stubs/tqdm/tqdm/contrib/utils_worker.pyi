@@ -12,5 +12,5 @@ _R = TypeVar("_R")
 
 class MonoWorker:
     pool: ThreadPoolExecutor
-    futures: deque[Future[Incomplete]]
+    futures: deque[Future]
     def submit(self, func: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> Future[_R]: ...

@@ -44,7 +44,7 @@ class PdfName:
     allowed_chars: Any
     def __bytes__(self) -> bytes: ...
 
-class PdfArray(list[Any]):
+class PdfArray(list):
     def __bytes__(self) -> bytes: ...
 
 class PdfDict(collections.UserDict[bytes, Any]):

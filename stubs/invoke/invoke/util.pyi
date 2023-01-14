@@ -25,7 +25,7 @@ class ExceptionHandlingThread(threading.Thread):
         group: None = ...,
         target: Callable[..., object] | None = ...,
         name: str | None = ...,
-        args: Iterable[Any] = ...,
+        args: Iterable = ...,
         kwargs: Mapping[str, Any] | None = ...,
         daemon: bool | None = ...,
     ) -> None: ...

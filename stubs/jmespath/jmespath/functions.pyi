@@ -9,7 +9,7 @@ class _Signature(TypedDict):
     types: list[str]
     variadic: NotRequired[bool]
 
-_F = TypeVar("_F", bound=Callable[..., Any])
+_F = TypeVar("_F", bound=Callable)
 
 def signature(*arguments: _Signature) -> Callable[[_F], _F]: ...
 
@@ -19,4 +19,4 @@ class FunctionRegistry(type):
 class Functions(metaclass=FunctionRegistry):
     FUNCTION_TABLE: Any
     # resolved_args and return value are the *args and return of a function called by name
-    def call_function(self, function_name: str, resolved_args: Iterable[Any]) -> Any: ...
+    def call_function(self, function_name: str, resolved_args: Iterable) -> Any: ...

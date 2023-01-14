@@ -36,7 +36,7 @@ if sys.platform == "win32":
 else:
     class Console(ConsoleBase):
         fd: int
-        old: list[Any]  # return type of termios.tcgetattr()
+        old: list  # return type of termios.tcgetattr()
         enc_stdin: TextIO
 
 class Transform:

@@ -354,12 +354,7 @@ class FPDF:
         page: int | None = ...,
     ) -> AnnotationDict: ...
     def ink_annotation(
-        self,
-        coords: Iterable[Incomplete],
-        contents: str = ...,
-        title: str = ...,
-        color: Sequence[float] = ...,
-        border_width: int = ...,
+        self, coords: Iterable, contents: str = ..., title: str = ..., color: Sequence[float] = ..., border_width: int = ...
     ) -> AnnotationDict: ...
     def text(self, x: float, y: float, txt: str = ...) -> None: ...
     def rotate(self, angle: float, x: float | None = ..., y: float | None = ...) -> None: ...
@@ -450,7 +445,7 @@ class FPDF:
         self,
         key,
         cert,
-        extra_certs: Sequence[Incomplete] = ...,
+        extra_certs: Sequence = ...,
         hashalgo: str = ...,
         contact_info: str | None = ...,
         location: str | None = ...,

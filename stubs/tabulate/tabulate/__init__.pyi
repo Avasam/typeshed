@@ -23,7 +23,7 @@ class DataRow(NamedTuple):
     end: str
 
 _TableFormatLine: TypeAlias = None | Line | Callable[[list[int], list[str]], str]
-_TableFormatRow: TypeAlias = None | DataRow | Callable[[list[Any], list[int], list[str]], str]
+_TableFormatRow: TypeAlias = None | DataRow | Callable[[list, list[int], list[str]], str]
 
 class TableFormat(NamedTuple):
     lineabove: _TableFormatLine
@@ -37,7 +37,7 @@ class TableFormat(NamedTuple):
 
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
+    tabular_data: Mapping[str, Iterable] | Iterable[Iterable],
     headers: str | dict[str, str] | Sequence[str] = ...,
     tablefmt: str | TableFormat = ...,
     floatfmt: str | Iterable[str] = ...,
@@ -45,7 +45,7 @@ def tabulate(
     numalign: str | None = ...,
     stralign: str | None = ...,
     missingval: str | Iterable[str] = ...,
-    showindex: str | bool | Iterable[Any] = ...,
+    showindex: str | bool | Iterable = ...,
     disable_numparse: bool | Iterable[int] = ...,
     colalign: Iterable[str | None] | None = ...,
     maxcolwidths: int | Iterable[int | None] | None = ...,

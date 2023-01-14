@@ -4,7 +4,7 @@ from collections.abc import Iterable, Iterator
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import TypeAlias
 
-FLAKE8_ERROR: TypeAlias = tuple[int, int, str, type[Any]]
+FLAKE8_ERROR: TypeAlias = tuple[int, int, str, type]
 TConfig = TypeVar("TConfig")  # noqa: Y001  # Name of the TypeVar matches the name at runtime
 
 class Error:

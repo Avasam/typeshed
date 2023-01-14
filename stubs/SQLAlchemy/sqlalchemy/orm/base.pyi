@@ -34,8 +34,8 @@ MANYTOONE: Any
 MANYTOMANY: Any
 NOT_EXTENSION: Any
 
-_never_set: frozenset[Any]
-_none_set: frozenset[Any]
+_never_set: frozenset
+_none_set: frozenset
 
 def manager_of_class(cls): ...
 

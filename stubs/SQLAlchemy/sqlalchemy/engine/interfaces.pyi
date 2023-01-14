@@ -22,11 +22,11 @@ class Dialect:
     encoding: str
     statement_compiler: Compiled
     ddl_compiler: Compiled
-    server_version_info: tuple[Any, ...]
+    server_version_info: tuple
     # Only available on supporting dialects:
     # default_schema_name: str
     execution_ctx_cls: ClassVar[type[ExecutionContext]]
-    execute_sequence_format: type[tuple[Any] | list[Any]]
+    execute_sequence_format: type[tuple[Any] | list]
     preparer: IdentifierPreparer
     supports_alter: bool
     max_identifier_length: int
@@ -34,13 +34,13 @@ class Dialect:
     supports_sane_multi_rowcount: bool
     preexecute_autoincrement_sequences: bool
     implicit_returning: bool
-    colspecs: dict[Any, Any]
+    colspecs: dict
     supports_default_values: bool
     supports_sequences: bool
     sequences_optional: bool
     supports_native_enum: bool
     supports_native_boolean: bool
-    dbapi_exception_translation_map: dict[Any, Any]
+    dbapi_exception_translation_map: dict
 
     supports_statement_cache: bool
     @abstractmethod
@@ -136,7 +136,7 @@ class Connectable:
     ) -> CursorResult: ...
     @abstractmethod
     @overload
-    def execute(self, object_: str, *multiparams: Any | tuple[Any, ...] | Mapping[str, Any], **params: Any) -> CursorResult: ...
+    def execute(self, object_: str, *multiparams: Any | tuple | Mapping[str, Any], **params: Any) -> CursorResult: ...
     @abstractmethod
     @overload
     def scalar(
@@ -147,14 +147,14 @@ class Connectable:
     ) -> Any: ...
     @abstractmethod
     @overload
-    def scalar(self, object_: str, *multiparams: Any | tuple[Any, ...] | Mapping[str, Any], **params: Any) -> Any: ...
+    def scalar(self, object_: str, *multiparams: Any | tuple | Mapping[str, Any], **params: Any) -> Any: ...
 
 class ExceptionContext:
     connection: Connection | None
     engine: Engine | None
     cursor: DBAPICursor | None
     statement: str | None
-    parameters: Collection[Any] | None
+    parameters: Collection | None
     original_exception: BaseException | None
     sqlalchemy_exception: StatementError | None
     chained_exception: BaseException | None

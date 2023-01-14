@@ -6,8 +6,8 @@ from re import Pattern
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec
 
-_C = TypeVar("_C", bound=Callable[..., Any])
-_Func = TypeVar("_Func", bound=Callable[..., Any])
+_C = TypeVar("_C", bound=Callable)
+_Func = TypeVar("_Func", bound=Callable)
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
@@ -19,7 +19,7 @@ class FunctionMaker:
     args: list[str]
     varargs: str | None
     varkw: str | None
-    defaults: tuple[Any, ...]
+    defaults: tuple
     kwonlyargs: list[str]
     kwonlydefaults: str | None
     shortsignature: str | None
@@ -31,41 +31,37 @@ class FunctionMaker:
     dict: _dict[str, Any]
     def __init__(
         self,
-        func: Callable[..., Any] | None = ...,
+        func: Callable | None = ...,
         name: str | None = ...,
         signature: str | None = ...,
-        defaults: tuple[Any, ...] | None = ...,
+        defaults: tuple | None = ...,
         doc: str | None = ...,
         module: str | None = ...,
         funcdict: _dict[str, Any] | None = ...,
     ) -> None: ...
     def update(self, func: Any, **kw: Any) -> None: ...
-    def make(
-        self, src_templ: str, evaldict: _dict[str, Any] | None = ..., addsource: bool = ..., **attrs: Any
-    ) -> Callable[..., Any]: ...
+    def make(self, src_templ: str, evaldict: _dict[str, Any] | None = ..., addsource: bool = ..., **attrs: Any) -> Callable: ...
     @classmethod
     def create(
         cls,
         obj: Any,
         body: str,
         evaldict: _dict[str, Any],
-        defaults: tuple[Any, ...] | None = ...,
+        defaults: tuple | None = ...,
         doc: str | None = ...,
         module: str | None = ...,
         addsource: bool = ...,
         **attrs: Any,
-    ) -> Callable[..., Any]: ...
+    ) -> Callable: ...
 
-def fix(args: tuple[Any, ...], kwargs: dict[str, Any], sig: Signature) -> tuple[tuple[Any, ...], dict[str, Any]]: ...
-def decorate(func: _Func, caller: Callable[..., Any], extras: Any = ...) -> _Func: ...
-def decoratorx(caller: Callable[..., Any]) -> Callable[..., Any]: ...
-def decorator(
-    caller: Callable[..., Any], _func: Callable[..., Any] | None = ...
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
+def fix(args: tuple, kwargs: dict[str, Any], sig: Signature) -> tuple[tuple, dict[str, Any]]: ...
+def decorate(func: _Func, caller: Callable, extras: Any = ...) -> _Func: ...
+def decoratorx(caller: Callable) -> Callable: ...
+def decorator(caller: Callable, _func: Callable | None = ...) -> Callable[[Callable], Callable]: ...
 
 class ContextManager(_GeneratorContextManager[_T]):
     def __call__(self, func: _C) -> _C: ...
 
 def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, ContextManager[_T]]: ...
 def append(a: type, vancestors: list[type]) -> None: ...
-def dispatch_on(*dispatch_args: Any) -> Callable[[Callable[..., Any]], Callable[..., Any]]: ...
+def dispatch_on(*dispatch_args: Any) -> Callable[[Callable], Callable]: ...

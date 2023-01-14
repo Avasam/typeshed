@@ -1,8 +1,8 @@
 from typing import Any
 
 class TSInfo:
-    rules: list[Any]
-    labels: list[Any]
+    rules: list
+    labels: list
     sourceKey: Any | None
     chunk_count: Any | None
     memory_usage: Any | None

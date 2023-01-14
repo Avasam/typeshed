@@ -34,16 +34,16 @@ def parse(stream, Loader=...): ...
 def compose(stream, Loader=...): ...
 def compose_all(stream, Loader=...): ...
 def load(stream: _ReadStream, Loader) -> Any: ...
-def load_all(stream: _ReadStream, Loader) -> Iterator[Any]: ...
+def load_all(stream: _ReadStream, Loader) -> Iterator: ...
 def full_load(stream: _ReadStream) -> Any: ...
-def full_load_all(stream: _ReadStream) -> Iterator[Any]: ...
+def full_load_all(stream: _ReadStream) -> Iterator: ...
 def safe_load(stream: _ReadStream) -> Any: ...
-def safe_load_all(stream: _ReadStream) -> Iterator[Any]: ...
+def safe_load_all(stream: _ReadStream) -> Iterator: ...
 def unsafe_load(stream: _ReadStream) -> Any: ...
-def unsafe_load_all(stream: _ReadStream) -> Iterator[Any]: ...
+def unsafe_load_all(stream: _ReadStream) -> Iterator: ...
 def emit(
     events,
-    stream: _WriteStream[Any] | None = ...,
+    stream: _WriteStream | None = ...,
     Dumper=...,
     canonical: bool | None = ...,
     indent: int | None = ...,
@@ -54,7 +54,7 @@ def emit(
 @overload
 def serialize_all(
     nodes,
-    stream: _WriteStream[Any],
+    stream: _WriteStream,
     Dumper=...,
     canonical: bool | None = ...,
     indent: int | None = ...,
@@ -86,7 +86,7 @@ def serialize_all(
 @overload
 def serialize(
     node,
-    stream: _WriteStream[Any],
+    stream: _WriteStream,
     Dumper=...,
     *,
     canonical: bool | None = ...,
@@ -119,8 +119,8 @@ def serialize(
 ) -> _Yaml: ...
 @overload
 def dump_all(
-    documents: Sequence[Any],
-    stream: _WriteStream[Any],
+    documents: Sequence,
+    stream: _WriteStream,
     Dumper=...,
     default_style: str | None = ...,
     default_flow_style: bool | None = ...,
@@ -138,7 +138,7 @@ def dump_all(
 ) -> None: ...
 @overload
 def dump_all(
-    documents: Sequence[Any],
+    documents: Sequence,
     stream: None = ...,
     Dumper=...,
     default_style: str | None = ...,
@@ -158,7 +158,7 @@ def dump_all(
 @overload
 def dump(
     data: Any,
-    stream: _WriteStream[Any],
+    stream: _WriteStream,
     Dumper=...,
     *,
     default_style: str | None = ...,
@@ -197,8 +197,8 @@ def dump(
 ) -> _Yaml: ...
 @overload
 def safe_dump_all(
-    documents: Sequence[Any],
-    stream: _WriteStream[Any],
+    documents: Sequence,
+    stream: _WriteStream,
     *,
     default_style: str | None = ...,
     default_flow_style: bool | None = ...,
@@ -216,7 +216,7 @@ def safe_dump_all(
 ) -> None: ...
 @overload
 def safe_dump_all(
-    documents: Sequence[Any],
+    documents: Sequence,
     stream: None = ...,
     *,
     default_style: str | None = ...,
@@ -236,7 +236,7 @@ def safe_dump_all(
 @overload
 def safe_dump(
     data: Any,
-    stream: _WriteStream[Any],
+    stream: _WriteStream,
     *,
     default_style: str | None = ...,
     default_flow_style: bool | None = ...,
@@ -274,16 +274,12 @@ def safe_dump(
 def add_implicit_resolver(
     tag: str,
     regexp: Pattern[str],
-    first: Iterable[Any] | None = ...,
+    first: Iterable | None = ...,
     Loader: type[BaseResolver] | None = ...,
     Dumper: type[BaseResolver] = ...,
 ) -> None: ...
 def add_path_resolver(
-    tag: str,
-    path: Iterable[Any],
-    kind: type[Any] | None = ...,
-    Loader: type[BaseResolver] | None = ...,
-    Dumper: type[BaseResolver] = ...,
+    tag: str, path: Iterable, kind: type | None = ..., Loader: type[BaseResolver] | None = ..., Dumper: type[BaseResolver] = ...
 ) -> None: ...
 @overload
 def add_constructor(

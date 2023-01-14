@@ -14,7 +14,7 @@ class LocaleDataLoader:
         region: str | None = ...,
         use_given_order: bool = ...,
         allow_conflicting_locales: bool = ...,
-    ) -> OrderedDict[str, list[Any] | str | int]: ...
+    ) -> OrderedDict[str, list | str | int]: ...
     def get_locales(
         self,
         languages: list[str] | None = ...,

@@ -7,7 +7,7 @@ _R = TypeVar("_R")
 
 def retry_call(
     f: Callable[..., _R],
-    fargs: Sequence[Any] | None = ...,
+    fargs: Sequence | None = ...,
     fkwargs: dict[str, Any] | None = ...,
     exceptions: type[Exception] | tuple[type[Exception], ...] = ...,
     tries: int = ...,

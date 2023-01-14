@@ -173,7 +173,7 @@ class ClauseList(roles.InElementRole, roles.OrderByRole, roles.ColumnsClauseRole
     def append(self, clause) -> None: ...
     def self_group(self, against: Any | None = ...): ...
 
-class BooleanClauseList(ClauseList, ColumnElement[Any]):
+class BooleanClauseList(ClauseList, ColumnElement):
     __visit_name__: str
     inherit_cache: bool
     def __init__(self, *arg, **kw) -> None: ...
@@ -186,13 +186,13 @@ class BooleanClauseList(ClauseList, ColumnElement[Any]):
 and_: Any
 or_: Any
 
-class Tuple(ClauseList, ColumnElement[Any]):
+class Tuple(ClauseList, ColumnElement):
     __visit_name__: str
     type: Any
     def __init__(self, *clauses, **kw) -> None: ...
     def self_group(self, against: Any | None = ...): ...
 
-class Case(ColumnElement[Any]):
+class Case(ColumnElement):
     __visit_name__: str
     value: Any
     type: Any
@@ -202,7 +202,7 @@ class Case(ColumnElement[Any]):
 
 def literal_column(text, type_: Any | None = ...): ...
 
-class Cast(WrapsColumnExpression, ColumnElement[Any]):
+class Cast(WrapsColumnExpression, ColumnElement):
     __visit_name__: str
     type: Any
     clause: Any
@@ -211,7 +211,7 @@ class Cast(WrapsColumnExpression, ColumnElement[Any]):
     @property
     def wrapped_column_expression(self): ...
 
-class TypeCoerce(WrapsColumnExpression, ColumnElement[Any]):
+class TypeCoerce(WrapsColumnExpression, ColumnElement):
     __visit_name__: str
     type: Any
     clause: Any
@@ -222,24 +222,24 @@ class TypeCoerce(WrapsColumnExpression, ColumnElement[Any]):
     def wrapped_column_expression(self): ...
     def self_group(self, against: Any | None = ...): ...
 
-class Extract(ColumnElement[Any]):
+class Extract(ColumnElement):
     __visit_name__: str
     type: Any
     field: Any
     expr: Any
     def __init__(self, field, expr, **kwargs) -> None: ...
 
-class _label_reference(ColumnElement[Any]):
+class _label_reference(ColumnElement):
     __visit_name__: str
     element: Any
     def __init__(self, element) -> None: ...
 
-class _textual_label_reference(ColumnElement[Any]):
+class _textual_label_reference(ColumnElement):
     __visit_name__: str
     element: Any
     def __init__(self, element) -> None: ...
 
-class UnaryExpression(ColumnElement[Any]):
+class UnaryExpression(ColumnElement):
     __visit_name__: str
     operator: Any
     modifier: Any
@@ -274,7 +274,7 @@ class AsBoolean(WrapsColumnExpression, UnaryExpression):
     def wrapped_column_expression(self): ...
     def self_group(self, against: Any | None = ...): ...
 
-class BinaryExpression(ColumnElement[Any]):
+class BinaryExpression(ColumnElement):
     __visit_name__: str
     left: Any
     right: Any
@@ -291,7 +291,7 @@ class BinaryExpression(ColumnElement[Any]):
     def is_comparison(self): ...
     def self_group(self, against: Any | None = ...): ...
 
-class Slice(ColumnElement[Any]):
+class Slice(ColumnElement):
     __visit_name__: str
     start: Any
     stop: Any
@@ -307,7 +307,7 @@ class GroupedElement(ClauseElement):
     __visit_name__: str
     def self_group(self, against: Any | None = ...): ...
 
-class Grouping(GroupedElement, ColumnElement[Any]):
+class Grouping(GroupedElement, ColumnElement):
     element: Any
     type: Any
     def __init__(self, element) -> None: ...
@@ -316,7 +316,7 @@ class Grouping(GroupedElement, ColumnElement[Any]):
 RANGE_UNBOUNDED: Any
 RANGE_CURRENT: Any
 
-class Over(ColumnElement[Any]):
+class Over(ColumnElement):
     __visit_name__: str
     order_by: Any
     partition_by: Any
@@ -335,7 +335,7 @@ class Over(ColumnElement[Any]):
     @memoized_property
     def type(self): ...
 
-class WithinGroup(ColumnElement[Any]):
+class WithinGroup(ColumnElement):
     __visit_name__: str
     order_by: Any
     element: Any
@@ -347,7 +347,7 @@ class WithinGroup(ColumnElement[Any]):
     @memoized_property
     def type(self): ...
 
-class FunctionFilter(ColumnElement[Any]):
+class FunctionFilter(ColumnElement):
     __visit_name__: str
     criterion: Any
     func: Any
@@ -360,7 +360,7 @@ class FunctionFilter(ColumnElement[Any]):
     @memoized_property
     def type(self): ...
 
-class Label(roles.LabeledColumnExprRole, ColumnElement[Any]):
+class Label(roles.LabeledColumnExprRole, ColumnElement):
     __visit_name__: str
     name: Any
     key: Any
@@ -376,7 +376,7 @@ class Label(roles.LabeledColumnExprRole, ColumnElement[Any]):
     @property
     def foreign_keys(self): ...
 
-class NamedColumn(ColumnElement[Any]):
+class NamedColumn(ColumnElement):
     is_literal: bool
     table: Any
     @memoized_property
@@ -404,7 +404,7 @@ class TableValuedColumn(NamedColumn):
     type: Any
     def __init__(self, scalar_alias, type_) -> None: ...
 
-class CollationClause(ColumnElement[Any]):
+class CollationClause(ColumnElement):
     __visit_name__: str
     collation: Any
     def __init__(self, collation) -> None: ...

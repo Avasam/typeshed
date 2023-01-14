@@ -19,11 +19,11 @@ class _RESOLUTIONS(TypedDict):
 RESOLUTIONS: _RESOLUTIONS
 
 def backend(package: str) -> ModuleType: ...
-def prefix(base: type | tuple[type | tuple[Any, ...], ...], cls: type) -> str | None: ...
+def prefix(base: type | tuple[type | tuple, ...], cls: type) -> str | None: ...
 
 class AbstractListener(threading.Thread):
     class StopException(Exception): ...
-    _HANDLED_EXCEPTIONS: ClassVar[tuple[type | tuple[Any, ...], ...]]  # undocumented
+    _HANDLED_EXCEPTIONS: ClassVar[tuple[type | tuple, ...]]  # undocumented
     _suppress: bool  # undocumented
     _running: bool  # undocumented
     _thread: threading.Thread  # undocumented

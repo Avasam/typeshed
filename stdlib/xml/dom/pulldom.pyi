@@ -37,8 +37,8 @@ class PullDOM(ContentHandler):
     documentFactory: _DocumentFactory
     firstEvent: Incomplete
     lastEvent: Incomplete
-    elementStack: Sequence[Incomplete]
-    pending_events: Sequence[Incomplete]
+    elementStack: Sequence
+    pending_events: Sequence
     def __init__(self, documentFactory: _DocumentFactory = ...) -> None: ...
     def pop(self) -> Element: ...
     def setDocumentLocator(self, locator) -> None: ...

@@ -11,7 +11,7 @@ from .exceptions import ValidationError
 
 # these type aliases do not exist at runtime, they're only defined here in the stub
 _JsonObject: TypeAlias = Mapping[str, Any]
-_JsonValue: TypeAlias = _JsonObject | list[Any] | str | int | float | bool | None
+_JsonValue: TypeAlias = _JsonObject | list | str | int | float | bool | None
 _ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], Iterator[ValidationError]]
 
 _Schema: TypeAlias = Mapping[str, Any]
@@ -19,10 +19,10 @@ _Schema: TypeAlias = Mapping[str, Any]
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
-    VALIDATORS: ClassVar[dict[Any, Any]]
-    META_SCHEMA: ClassVar[dict[Any, Any]]
-    TYPE_CHECKER: ClassVar[Any]
-    FORMAT_CHECKER: ClassVar[Any]
+    VALIDATORS: ClassVar[dict]
+    META_SCHEMA: ClassVar[dict]
+    TYPE_CHECKER: ClassVar
+    FORMAT_CHECKER: ClassVar
     @staticmethod
     def ID_OF(schema: _Schema) -> str: ...
     schema: _Schema
@@ -40,7 +40,7 @@ class _Validator:
     def is_type(self, instance, type): ...
     def is_valid(self, instance, _schema: _Schema | None = ...) -> bool: ...
 
-def validates(version: str) -> Callable[..., Any]: ...
+def validates(version: str) -> Callable: ...
 def create(
     meta_schema: _Schema,
     validators: Mapping[str, _ValidatorCallback] | tuple[()] = ...,

@@ -2,7 +2,7 @@ from typing import Any
 
 def ordering_list(attr, count_from: Any | None = ..., **kw): ...
 
-class OrderingList(list[Any]):
+class OrderingList(list):
     ordering_attr: Any
     ordering_func: Any
     reorder_on_append: Any

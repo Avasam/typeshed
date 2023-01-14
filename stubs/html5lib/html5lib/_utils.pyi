@@ -3,13 +3,13 @@ from typing import Any
 
 supports_lone_surrogates: bool
 
-class MethodDispatcher(dict[Any, Any]):
+class MethodDispatcher(dict):
     default: Any
     def __init__(self, items=...) -> None: ...
     def __getitem__(self, key): ...
     def __get__(self, instance, owner: Any | None = ...): ...
 
-class BoundMethodDispatcher(Mapping[Any, Any]):
+class BoundMethodDispatcher(Mapping):
     instance: Any
     dispatcher: Any
     def __init__(self, instance, dispatcher) -> None: ...
