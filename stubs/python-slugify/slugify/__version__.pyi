@@ -1,8 +1,10 @@
-__title__: str
-__author__: str
-__author_email__: str
-__description__: str
-__url__: str
-__license__: str
-__copyright__: str
-__version__: str
+from typing_extensions import Final
+
+__title__: Final[str]
+__author__: Final[str]
+__author_email__: Final[str]
+__description__: Final[str]
+__url__: Final[str]
+__license__: Final[str]
+__copyright__: Final[str]
+__version__: Final[str]

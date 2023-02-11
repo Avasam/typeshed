@@ -1,6 +1,7 @@
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
-__version_info__: tuple[int, int, int]
+__version__: Final[str]
+__version_info__: Final[tuple[int, int, int]]
 PY3: Literal[True]
 unicode = str
 system: str

@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from paramiko.agent import Agent as Agent, AgentKey as AgentKey
 from paramiko.channel import Channel as Channel
 from paramiko.client import (
@@ -39,8 +41,51 @@ from paramiko.ssh_exception import (
 )
 from paramiko.transport import SecurityOptions as SecurityOptions, Transport as Transport
 
-__author__: str
-__license__: str
+__author__: Final[str]
+__license__: Final[str]
 
-# Names in __all__ with no definition:
-#   util
+__all__ = [
+    "Agent",
+    "AgentKey",
+    "AuthenticationException",
+    "AutoAddPolicy",
+    "BadAuthenticationType",
+    "BadHostKeyException",
+    "BufferedFile",
+    "Channel",
+    "ChannelException",
+    "ConfigParseError",
+    "CouldNotCanonicalize",
+    "DSSKey",
+    "ECDSAKey",
+    "Ed25519Key",
+    "HostKeys",
+    "Message",
+    "MissingHostKeyPolicy",
+    "PKey",
+    "PasswordRequiredException",
+    "ProxyCommand",
+    "ProxyCommandFailure",
+    "RSAKey",
+    "RejectPolicy",
+    "SFTP",
+    "SFTPAttributes",
+    "SFTPClient",
+    "SFTPError",
+    "SFTPFile",
+    "SFTPHandle",
+    "SFTPServer",
+    "SFTPServerInterface",
+    "SSHClient",
+    "SSHConfig",
+    "SSHConfigDict",
+    "SSHException",
+    "SecurityOptions",
+    "ServerInterface",
+    "SubsystemHandler",
+    "Transport",
+    "WarningPolicy",
+    "io_sleep",
+    # Names in __all__ with no definition:
+    # "util",
+]

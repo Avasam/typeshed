@@ -2,9 +2,10 @@ from _typeshed import IdentityFunction
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Final
 
 __all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
-__version__: str
+__version__: Final[str]
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

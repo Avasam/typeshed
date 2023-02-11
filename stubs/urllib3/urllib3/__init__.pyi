@@ -1,12 +1,30 @@
 import logging
 from typing import TextIO
+from typing_extensions import Final
 
 from . import connectionpool, filepost, poolmanager, response
 from .util import request as _request, retry, timeout, url
 
-__author__: str
-__license__: str
-__version__: str
+__author__: Final[str]
+__license__: Final[str]
+__version__: Final[str]
+
+__all__ = (
+    "HTTPConnectionPool",
+    "HTTPSConnectionPool",
+    "PoolManager",
+    "ProxyManager",
+    "HTTPResponse",
+    "Retry",
+    "Timeout",
+    "add_stderr_logger",
+    "connection_from_url",
+    "disable_warnings",
+    "encode_multipart_formdata",
+    "get_host",
+    "make_headers",
+    "proxy_from_url",
+)
 
 HTTPConnectionPool = connectionpool.HTTPConnectionPool
 HTTPSConnectionPool = connectionpool.HTTPSConnectionPool

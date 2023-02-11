@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from netaddr.contrib.subnet_splitter import SubnetSplitter as SubnetSplitter
 from netaddr.core import (
     INET_PTON as INET_PTON,
@@ -70,6 +72,6 @@ valid_mac = __eui48_valid_str
 valid_eui64 = __eui64_valid_str
 
 # Module constants
-__version__: str
+__version__: Final[str]
 VERSION: tuple[int, ...]
 STATUS: str

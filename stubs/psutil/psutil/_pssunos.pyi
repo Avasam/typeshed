@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     AF_INET6 as AF_INET6,
@@ -22,7 +23,7 @@ from psutil._compat import (
     b as b,
 )
 
-__extra__all__: Incomplete
+__extra__all__: Final[list[str]]
 PAGE_SIZE: Incomplete
 AF_LINK: Incomplete
 IS_64_BIT: Incomplete

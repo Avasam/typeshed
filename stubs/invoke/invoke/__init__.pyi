@@ -1,4 +1,5 @@
 from typing import Any
+from typing_extensions import Final
 
 from .collection import Collection as Collection
 from .config import Config as Config
@@ -30,8 +31,8 @@ from .tasks import Call as Call, Task as Task, call as call, task as task
 from .terminals import pty_size as pty_size
 from .watchers import FailingResponder as FailingResponder, Responder as Responder, StreamWatcher as StreamWatcher
 
-__version_info__: tuple[int, int, int]
-__version__: str
+__version_info__: Final[tuple[int, int, int]]
+__version__: Final[str]
 
 def run(command: str, **kwargs: Any) -> Result: ...
 def sudo(command: str, **kwargs: Any) -> Result: ...

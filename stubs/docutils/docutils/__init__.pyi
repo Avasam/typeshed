@@ -1,8 +1,10 @@
 from _typeshed import Self
 from typing import Any, ClassVar, NamedTuple
+from typing_extensions import Final
 
-__docformat__: str
-__version__: str
+__docformat__: Final[str]
+__version__: Final[str]
+__version_details__: Final[str]
 
 class _VersionInfo(NamedTuple):
     major: int
@@ -23,8 +25,7 @@ class VersionInfo(_VersionInfo):
         release: bool = ...,
     ) -> Self: ...
 
-__version_info__: VersionInfo
-__version_details__: str
+__version_info__: Final[VersionInfo]
 
 class ApplicationError(Exception): ...
 class DataError(ApplicationError): ...

@@ -1,8 +1,8 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
-__version__: str
+__version__: Final[str]
 
 LATEX_ESCAPE_RULES: dict[str, str]
 MIN_PADDING: int

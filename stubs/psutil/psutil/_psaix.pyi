@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
@@ -20,7 +21,7 @@ from psutil._compat import (
     ProcessLookupError as ProcessLookupError,
 )
 
-__extra__all__: Incomplete
+__extra__all__: Final[list[str]]
 HAS_THREADS: Incomplete
 HAS_NET_IO_COUNTERS: Incomplete
 HAS_PROC_IO_COUNTERS: Incomplete

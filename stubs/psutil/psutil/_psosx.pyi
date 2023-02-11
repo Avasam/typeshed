@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from typing import Any, NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     AccessDenied as AccessDenied,
@@ -12,7 +13,7 @@ from psutil._common import (
     usage_percent as usage_percent,
 )
 
-__extra__all__: Any
+__extra__all__: Final[list[str]]
 PAGESIZE: Any
 AF_LINK: Any
 TCP_STATUSES: Any

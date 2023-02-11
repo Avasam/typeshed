@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
+from typing_extensions import Final, Literal
 
 from openpyxl.styles.styleable import StyleableObject
 
-__docformat__: str
+# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
+__docformat__: Final[Literal["restructuredtext en"]]
 TIME_TYPES: Incomplete
 TIME_FORMATS: Incomplete
 STRING_TYPES: Incomplete

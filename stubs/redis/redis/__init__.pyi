@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from . import client, connection, exceptions, sentinel, utils
 from .cluster import RedisCluster as RedisCluster
 
@@ -60,5 +62,5 @@ ResponseError = exceptions.ResponseError
 TimeoutError = exceptions.TimeoutError
 WatchError = exceptions.WatchError
 
-__version__: str
+__version__: Final[str]
 VERSION: tuple[int | str, ...]

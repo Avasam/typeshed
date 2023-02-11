@@ -1,9 +1,9 @@
 import datetime
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Final, Literal, TypeAlias, TypedDict
 
 from .date import DateDataParser, _DetectLanguagesFunction
 
-__version__: str
+__version__: Final[str]
 
 _default_parser: DateDataParser
 

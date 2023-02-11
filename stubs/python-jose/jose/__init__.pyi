@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from .exceptions import (
     ExpiredSignatureError as ExpiredSignatureError,
     JOSEError as JOSEError,
@@ -5,7 +7,7 @@ from .exceptions import (
     JWTError as JWTError,
 )
 
-__version__: str
-__author__: str
-__license__: str
-__copyright__: str
+__version__: Final[str]
+__author__: Final[str]
+__license__: Final[str]
+__copyright__: Final[str]

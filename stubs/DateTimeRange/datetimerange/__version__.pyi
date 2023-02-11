@@ -1,6 +1,8 @@
-__author__: str = ...
-__copyright__: str
-__license__: str
-__version__: str
-__maintainer__ = __author__
-__email__: str
+from typing_extensions import Final
+
+__author__: Final[str]
+__copyright__: Final[str]
+__license__: Final[str]
+__version__: Final[str]
+__maintainer__: Final = __author__  # noqa: F821  # False-positive
+__email__: Final[str]

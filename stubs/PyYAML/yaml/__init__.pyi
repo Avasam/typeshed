@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from re import Pattern
 from typing import Any, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
 from .constructor import BaseConstructor
@@ -21,8 +21,8 @@ from .tokens import *
 # FIXME: the functions really return str if encoding is None, otherwise bytes. Waiting for python/mypy#5621
 _Yaml: TypeAlias = Any
 
-__with_libyaml__: Any
-__version__: str
+__with_libyaml__: Final[bool]
+__version__: Final[str]
 
 _T = TypeVar("_T")
 _Constructor = TypeVar("_Constructor", bound=BaseConstructor)

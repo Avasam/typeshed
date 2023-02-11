@@ -1,9 +1,12 @@
 import sys
 from collections.abc import Callable, Mapping, Sequence
 from typing import ClassVar
-from typing_extensions import Final, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
-__docformat__: str
+__author__: Final[str]
+__version__: Final[str]
+# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
+__docformat__: Final[Literal["restructuredtext en"]]
 
 paFloat32: Final[int]
 paInt32: Final[int]

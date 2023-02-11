@@ -3,9 +3,9 @@ from _typeshed import Self
 from collections.abc import Iterator
 from types import TracebackType
 from typing import Protocol
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
-__version__: str
+__version__: Final[str]
 
 class _Stream(Protocol):
     def isatty(self) -> bool: ...

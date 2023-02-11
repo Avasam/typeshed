@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import Final
 
-__author__: str
-__copyright__: str
-__license__: str
+__author__: Final[str]
+__copyright__: Final[str]
+__license__: Final[str]
 
 class FlexTemplate:
     pdf: Any

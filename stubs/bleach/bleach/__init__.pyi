@@ -1,5 +1,5 @@
 from collections.abc import Container, Iterable
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 from .callbacks import _Callback
 from .css_sanitizer import CSSSanitizer
@@ -14,8 +14,8 @@ from .sanitizer import (
 
 __all__ = ["clean", "linkify"]
 
-__releasedate__: str
-__version__: str
+__releasedate__: Final[str]
+__version__: Final[str]
 
 _HTMLAttrKey: TypeAlias = tuple[str | None, str]  # noqa: Y047
 

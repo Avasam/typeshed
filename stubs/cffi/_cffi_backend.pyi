@@ -3,14 +3,14 @@ import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, ClassVar, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing_extensions import Final, Literal, TypeAlias, final
 
 _T = TypeVar("_T")
 
 class _Allocator(Protocol):
     def __call__(self, cdecl: str | CType, init: Any = ...) -> _CDataBase: ...
 
-__version__: str
+__version__: Final[str]
 
 FFI_CDECL: int
 FFI_DEFAULT_ABI: int

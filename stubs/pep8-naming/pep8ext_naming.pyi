@@ -3,8 +3,9 @@ from _typeshed import Incomplete
 from argparse import Namespace
 from collections.abc import Generator, Iterable
 from typing import Any
+from typing_extensions import Final
 
-__version__: str
+__version__: Final[str]
 
 PYTHON_VERSION: tuple[int, int, int]
 CLASS_METHODS: frozenset[str]

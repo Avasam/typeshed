@@ -1,10 +1,11 @@
 from typing import Any
+from typing_extensions import Final
 
-__author__: str
-__copyright__: str
-__contributors__: list[str]
-__version__: str
-__license__: str
+__author__: Final[str]
+__copyright__: Final[str]
+__contributors__: Final[list[str]]
+__version__: Final[str]
+__license__: Final[str]
 
 escape_range: Any
 

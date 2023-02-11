@@ -1,12 +1,13 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from re import Pattern
+from typing_extensions import Final
 
 from fpdf.drawing import PaintedPath
 
 from ._fonttools_shims import BasePen, _TTGlyphSet
 
-__pdoc__: dict[str, bool]
+__pdoc__: Final[dict[str, bool]]
 
 def force_nodocument(item): ...
 

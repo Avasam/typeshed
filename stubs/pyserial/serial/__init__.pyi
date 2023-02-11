@@ -1,4 +1,5 @@
 import sys
+from typing_extensions import Final
 
 from serial.serialutil import *
 
@@ -8,8 +9,8 @@ else:
     from serial.serialposix import PosixPollSerial as PosixPollSerial, Serial as Serial, VTIMESerial as VTIMESerial
 # TODO: java? cli? These platforms raise flake8-pyi Y008. Should they be included with a noqa?
 
-__version__: str
-VERSION: str
+__version__: Final[str]
+VERSION: Final[str]
 protocol_handler_packages: list[str]
 
 def serial_for_url(

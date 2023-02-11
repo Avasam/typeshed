@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
-__version__: str
+__all__ = ["docopt"]
+__version__: Final[str]
 
 _Argv: TypeAlias = Iterable[str] | str
 

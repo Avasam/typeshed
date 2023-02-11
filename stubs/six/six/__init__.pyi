@@ -10,7 +10,7 @@ from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
 from re import Pattern
 from typing import Any, AnyStr, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from six import moves as moves
 
@@ -24,8 +24,8 @@ _T = TypeVar("_T")
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 
-__author__: str
-__version__: str
+__author__: Final[str]
+__version__: Final[str]
 
 PY2: Literal[False]
 PY3: Literal[True]

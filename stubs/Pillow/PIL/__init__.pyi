@@ -1,3 +1,3 @@
-__version__: str
+from ._version import __version__ as __version__
 
 class UnidentifiedImageError(OSError): ...

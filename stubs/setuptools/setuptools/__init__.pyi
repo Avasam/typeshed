@@ -2,13 +2,24 @@ from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
 from distutils.core import Command as _Command
 from typing import Any
+from typing_extensions import Final
 
 from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from setuptools.depends import Require as Require
 from setuptools.dist import Distribution as Distribution
 from setuptools.extension import Extension as Extension
 
-__version__: str
+__all__ = [
+    "setup",
+    "Distribution",
+    "Command",
+    "Extension",
+    "Require",
+    "SetuptoolsDeprecationWarning",
+    "find_packages",
+    "find_namespace_packages",
+]
+__version__: Final[str]
 
 class PackageFinder:
     @classmethod

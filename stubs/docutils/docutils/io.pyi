@@ -8,11 +8,11 @@ from _typeshed import (
 )
 from re import Pattern
 from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from docutils import TransformSpec
 
-__docformat__: str
+__docformat__: Final = "reStructuredText"
 
 class InputError(OSError): ...
 class OutputError(OSError): ...

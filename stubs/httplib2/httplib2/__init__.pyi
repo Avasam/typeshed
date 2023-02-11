@@ -2,14 +2,29 @@ import http.client
 from _typeshed import Incomplete, Self
 from collections.abc import Generator
 from typing import Any, ClassVar
+from typing_extensions import Final
 
 from .error import *
 
-__author__: str
-__copyright__: str
-__contributors__: list[str]
-__license__: str
-__version__: str
+__author__: Final[str]
+__copyright__: Final[str]
+__contributors__: Final[list[str]]
+__license__: Final[str]
+__version__: Final[str]
+
+__all__ = [
+    "debuglevel",
+    "FailedToDecompressContent",
+    "Http",
+    "HttpLib2Error",
+    "ProxyInfo",
+    "RedirectLimit",
+    "RedirectMissingLocation",
+    "Response",
+    "RETRIES",
+    "UnimplementedDigestAuthOptionError",
+    "UnimplementedHmacDigestAuthOptionError",
+]
 
 debuglevel: int
 RETRIES: int

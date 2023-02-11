@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from .core import (
     demojize as demojize,
     distinct_emoji_list as distinct_emoji_list,
@@ -23,8 +25,8 @@ __all__ = [
     "STATUS",
     "LANGUAGES",
 ]
-__version__: str
-__author__: str
-__email__: str
-__source__: str
-__license__: str
+__version__: Final[str]
+__author__: Final[str]
+__email__: Final[str]
+__source__: Final[str]
+__license__: Final[str]

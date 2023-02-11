@@ -3,12 +3,13 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from configparser import RawConfigParser
 from typing import Any, ClassVar
+from typing_extensions import Final
 
 from docutils import SettingsSpec
 from docutils.parsers import Parser
 from docutils.utils import DependencyList
 
-__docformat__: str
+__docformat__: Final = "reStructuredText"
 
 def store_multiple(option, opt, value, parser, *args, **kwargs) -> None: ...
 def read_config_file(option, opt, value, parser) -> None: ...

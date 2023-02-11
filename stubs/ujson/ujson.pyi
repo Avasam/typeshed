@@ -1,6 +1,7 @@
 from typing import IO, Any, AnyStr
+from typing_extensions import Final
 
-__version__: str
+__version__: Final[str]
 
 def encode(
     obj: Any,

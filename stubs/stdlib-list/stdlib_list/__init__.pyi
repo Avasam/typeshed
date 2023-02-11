@@ -1,3 +1,5 @@
+from typing_extensions import Final
+
 from .base import (
     get_canonical_version as get_canonical_version,
     in_stdlib as in_stdlib,
@@ -6,4 +8,4 @@ from .base import (
     stdlib_list as stdlib_list,
 )
 
-__version__: str
+__version__: Final[str]

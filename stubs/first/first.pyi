@@ -1,11 +1,15 @@
 from collections.abc import Callable, Iterable
 from typing import Any, TypeVar, overload
+from typing_extensions import Final
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 
-__license__: str
-__title__: str
+__title__: Final[str]
+__version__: Final[str]
+__author__: Final[str]
+__license__: Final[str]
+__copyright__: Final[str]
 
 @overload
 def first(iterable: Iterable[_T]) -> _T | None: ...

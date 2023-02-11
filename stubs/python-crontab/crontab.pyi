@@ -8,13 +8,15 @@ from datetime import datetime
 from logging import Logger
 from types import TracebackType
 from typing import Any
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Final, SupportsIndex, TypeAlias
 
 from cronlog import CronLog
 
 _User: TypeAlias = str | bool | None
 
-__pkgname__: str
+__pkgname__: Final[str]
+__version__: Final[str]
+
 ITEMREX: re.Pattern[str]
 SPECREX: re.Pattern[str]
 DEVNULL: str

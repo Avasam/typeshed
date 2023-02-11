@@ -1,6 +1,7 @@
 import enum
 from _typeshed import Incomplete
 from typing import Any, NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
@@ -17,7 +18,7 @@ from psutil._common import (
 )
 from psutil._compat import PY3 as PY3
 
-__extra__all__: Any
+__extra__all__: Final[list[str]]
 POWER_SUPPLY_PATH: str
 HAS_PROC_SMAPS: bool
 HAS_PROC_SMAPS_ROLLUP: bool

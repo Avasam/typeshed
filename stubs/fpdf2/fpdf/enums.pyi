@@ -1,6 +1,6 @@
 from _typeshed import Self
 from enum import Enum, Flag, IntEnum, IntFlag
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from .syntax import Name
 
@@ -202,4 +202,4 @@ class EncryptionMethod(Enum):
     RC4: int
     AES_128: int
 
-__pdoc__: dict[str, bool]
+__pdoc__: Final[dict[str, bool]]

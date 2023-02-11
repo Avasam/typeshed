@@ -3,10 +3,10 @@ from _typeshed import Incomplete, StrPath
 from collections.abc import Callable, Iterable, Sequence
 from contextlib import _GeneratorContextManager
 from io import BytesIO
-from pathlib import PurePath
+from pathlib import Path, PurePath
 from re import Pattern
 from typing import Any, ClassVar, NamedTuple, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from fpdf import ViewerPreferences
 from PIL import Image
@@ -40,7 +40,12 @@ _Orientation: TypeAlias = Literal["", "portrait", "p", "P", "landscape", "l", "L
 _Format: TypeAlias = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
 _FontStyle: TypeAlias = Literal["", "B", "I"]
 _FontStyles: TypeAlias = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
+# Public global variables:
+FPDF_VERSION: Final[str]
 PAGE_FORMATS: dict[_Format, tuple[float, float]]
+
+# Private global variables: (re-exported in other fpdf2 modules)
+FPDF_FONT_DIR: Final[Path]
 
 class TitleStyle(NamedTuple):
     font_family: str | None = ...

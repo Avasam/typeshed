@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable, Mapping
 from typing import Any, AnyStr, Generic, TypeVar, overload
-from typing_extensions import Literal, final
+from typing_extensions import Final, Literal, final
 
 from . import _regex
 from ._regex_core import *
@@ -12,7 +12,69 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 
-__version__: str
+__all__ = [
+    "cache_all",
+    "compile",
+    "DEFAULT_VERSION",
+    "escape",
+    "findall",
+    "finditer",
+    "fullmatch",
+    "match",
+    "purge",
+    "search",
+    "split",
+    "splititer",
+    "sub",
+    "subf",
+    "subfn",
+    "subn",
+    "template",
+    "Scanner",
+    "A",
+    "ASCII",
+    "B",
+    "BESTMATCH",
+    "D",
+    "DEBUG",
+    "E",
+    "ENHANCEMATCH",
+    "S",
+    "DOTALL",
+    "F",
+    "FULLCASE",
+    "I",
+    "IGNORECASE",
+    "L",
+    "LOCALE",
+    "M",
+    "MULTILINE",
+    "P",
+    "POSIX",
+    "R",
+    "REVERSE",
+    "T",
+    "TEMPLATE",
+    "U",
+    "UNICODE",
+    "V0",
+    "VERSION0",
+    "V1",
+    "VERSION1",
+    "X",
+    "VERBOSE",
+    "W",
+    "WORD",
+    "error",
+    "Regex",
+    "__version__",
+    "__doc__",
+    "RegexFlag",
+    "Pattern",
+    "Match",
+]
+
+__version__: Final[str]
 
 def compile(
     pattern: AnyStr | Pattern[AnyStr],

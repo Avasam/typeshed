@@ -3,8 +3,11 @@ from collections import OrderedDict
 from collections.abc import Mapping
 from types import GeneratorType
 from typing import Any, overload
+from typing_extensions import Final
 
-__license__: str
+__author__: Final[str]
+__version__: Final[str]
+__license__: Final[str]
 
 class ParsingInterrupted(Exception): ...
 

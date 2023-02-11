@@ -1,2 +1,4 @@
-__author__: str
-__version__: tuple[int, int, int]
+from typing_extensions import Final
+
+__author__: Final[str]
+__version__: Final[tuple[int, int, int]]

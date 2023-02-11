@@ -1,6 +1,6 @@
 from collections.abc import Callable, Iterable, Iterator
 from typing import Any, TypeVar
-from typing_extensions import TypeAlias, TypedDict
+from typing_extensions import Final, TypeAlias, TypedDict
 
 _T = TypeVar("_T")
 _Callback: TypeAlias = Callable[[str, _Result], object]
@@ -48,9 +48,9 @@ class _ResultHostPort(TypedDict):
     state: str
     version: str
 
-__last_modification__: str
-__author__: str
-__version__: str
+__last_modification__: Final[str]
+__author__: Final[str]
+__version__: Final[str]
 
 class PortScanner:
     def __init__(self, nmap_search_path: Iterable[str] = ...) -> None: ...

@@ -3,7 +3,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from psutil._common import (
     AIX as AIX,
@@ -133,10 +133,131 @@ else:
 
     def sensors_battery(): ...
 
+__all__ = [
+    "Error",
+    "NoSuchProcess",
+    "ZombieProcess",
+    "AccessDenied",
+    "TimeoutExpired",
+    "version_info",
+    "__version__",
+    "STATUS_RUNNING",
+    "STATUS_IDLE",
+    "STATUS_SLEEPING",
+    "STATUS_DISK_SLEEP",
+    "STATUS_STOPPED",
+    "STATUS_TRACING_STOP",
+    "STATUS_ZOMBIE",
+    "STATUS_DEAD",
+    # "STATUS_WLISHED",
+    "CONN_SYN_SENT",
+    "CONN_SYN_RECV",
+    "CONN_FIN_WAIT1",
+    "CONN_FIN_WAIT2",
+    "CONN_TIME_WAIT",
+    "CONN_CLOSE",
+    "CONN_CLOSE_WAIT",
+    "CONN_LAST_ACK",
+    "CONN_LISTEN",
+    "CONN_CLOSING",
+    "CONN_NONE",
+    "AF_LINK",
+    "NIC_DUPLEX_FULL",
+    "NIC_DUPLEX_HALF",
+    "NIC_DUPLEX_UNKNOWN",
+    "POWER_TIME_UNKNOWN",
+    "POWER_TIME_UNLIMITED",
+    "BSD",
+    "FREEBSD",
+    "LINUX",
+    "NETBSD",
+    "OPENBSD",
+    "MACOS",
+    "OSX",
+    "POSIX",
+    "SUNOS",
+    "WINDOWS",
+    "AIX",
+    "Process",
+    "Popen",
+    "pid_exists",
+    "pids",
+    "process_iter",
+    "wait_procs",
+    "virtual_memory",
+    "swap_memory",
+    "cpu_times",
+    "cpu_percent",
+    "cpu_times_percent",
+    "cpu_count",
+    "cpu_stats",
+    "net_io_counters",
+    "net_connections",
+    "net_if_addrs",
+    "net_if_stats",
+    "disk_io_counters",
+    "disk_partitions",
+    "disk_usage",
+    "users",
+    "boot_time",
+    "cpu_freq",
+    "getloadavg",
+    "sensors_battery",
+    "CONN_ESTABLISHED",
+    "STATUS_LOCKED",
+    "STATUS_PARKED",
+    "STATUS_WAITING",
+    "STATUS_WAKING",
+]
+if sys.platform == "win32":
+    __all__ += [
+        "win_service_iter",
+        "win_service_get",
+        "ABOVE_NORMAL_PRIORITY_CLASS",
+        "BELOW_NORMAL_PRIORITY_CLASS",
+        "HIGH_PRIORITY_CLASS",
+        "IDLE_PRIORITY_CLASS",
+        "NORMAL_PRIORITY_CLASS",
+        "REALTIME_PRIORITY_CLASS",
+        "IOPRIO_VERYLOW",
+        "IOPRIO_LOW",
+        "IOPRIO_NORMAL",
+        "IOPRIO_HIGH",
+        "CONN_DELETE_TCB",
+        "AF_LINK",
+    ]
+elif sys.platform == "linux":
+    __all__ += [
+        "PROCFS_PATH",
+        "IOPRIO_CLASS_BE",
+        "IOPRIO_CLASS_IDLE",
+        "IOPRIO_CLASS_NONE",
+        "IOPRIO_CLASS_RT",
+        "RLIMIT_AS",
+        "RLIMIT_CORE",
+        "RLIMIT_CPU",
+        "RLIMIT_DATA",
+        "RLIMIT_FSIZE",
+        "RLIMIT_LOCKS",
+        "RLIMIT_MEMLOCK",
+        "RLIMIT_MSGQUEUE",
+        "RLIMIT_NICE",
+        "RLIMIT_NOFILE",
+        "RLIMIT_NPROC",
+        "RLIMIT_RSS",
+        "RLIMIT_RTPRIO",
+        "RLIMIT_RTTIME",
+        "RLIMIT_SIGPENDING",
+        "RLIMIT_STACK",
+        "RLIM_INFINITY",
+        "sensors_fans",
+        "sensors_temperatures",
+    ]
+
 AF_LINK: int
 version_info: tuple[int, int, int]
-__version__: str
-__author__: str
+__version__: Final[str]
+__author__: Final[str]
 
 _Status: TypeAlias = Literal[
     "running",

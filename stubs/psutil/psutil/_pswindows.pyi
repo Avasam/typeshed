@@ -2,6 +2,7 @@ import enum
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     ENCODING as ENCODING,
@@ -27,7 +28,7 @@ from psutil._psutil_windows import (
     REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
 )
 
-__extra__all__: Any
+__extra__all__: Final[list[str]]
 CONN_DELETE_TCB: str
 ERROR_PARTIAL_COPY: int
 PYPY: Any

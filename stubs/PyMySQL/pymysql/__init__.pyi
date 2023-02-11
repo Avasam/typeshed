@@ -1,3 +1,6 @@
+from typing_extensions import Final
+
+from . import cursors as cursors
 from .connections import Connection as Connection
 from .constants import FIELD_TYPE as FIELD_TYPE
 from .converters import escape_dict as escape_dict, escape_sequence as escape_sequence, escape_string as escape_string
@@ -44,7 +47,7 @@ ROWID: DBAPISet
 def Binary(x) -> bytes: ...
 def get_client_info() -> str: ...
 
-__version__: str
+__version__: Final[str]
 version_info: tuple[int, int, int, str, int]
 NULL: str
 
@@ -54,3 +57,48 @@ connect = Connection
 
 def thread_safe() -> bool: ...
 def install_as_MySQLdb() -> None: ...
+
+__all__ = [
+    "BINARY",
+    "Binary",
+    "Connect",
+    "Connection",
+    "DATE",
+    "Date",
+    "Time",
+    "Timestamp",
+    "DateFromTicks",
+    "TimeFromTicks",
+    "TimestampFromTicks",
+    "DataError",
+    "DatabaseError",
+    "Error",
+    "FIELD_TYPE",
+    "IntegrityError",
+    "InterfaceError",
+    "InternalError",
+    "MySQLError",
+    "NULL",
+    "NUMBER",
+    "NotSupportedError",
+    "DBAPISet",
+    "OperationalError",
+    "ProgrammingError",
+    "ROWID",
+    "STRING",
+    "TIME",
+    "TIMESTAMP",
+    "Warning",
+    "apilevel",
+    "connect",
+    "connections",
+    "constants",
+    "converters",
+    "cursors",
+    "get_client_info",
+    "paramstyle",
+    "threadsafety",
+    "version_info",
+    "install_as_MySQLdb",
+    "__version__",
+]

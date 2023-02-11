@@ -2,7 +2,7 @@ from _typeshed import Self
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 import psycopg2
 import psycopg2.extensions
@@ -66,7 +66,7 @@ sqlstate_errors: dict[Any, Any]
 string_types: dict[Any, Any]
 threadsafety: int
 
-__libpq_version__: int
+__libpq_version__: Final[int]
 
 class cursor:
     arraysize: int

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from contextlib import AbstractContextManager
 from typing import Any, NamedTuple
+from typing_extensions import Final
 
 from psutil._common import (
     FREEBSD as FREEBSD,
@@ -15,7 +16,7 @@ from psutil._common import (
     usage_percent as usage_percent,
 )
 
-__extra__all__: Any
+__extra__all__: Final[list[str]]
 PROC_STATUSES: Any
 TCP_STATUSES: Any
 PAGESIZE: Any
