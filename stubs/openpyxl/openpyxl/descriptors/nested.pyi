@@ -13,10 +13,20 @@ from .base import _M, _N, _T, _ConvertibleToBool, _ConvertibleToFloat, _Converti
 
 _T_co = TypeVar("_T_co", covariant=True)
 
-# Usually an Element() from either lxml or xml.etree (has a 'tag' element)
-class _HasTagAndGet(Protocol[_T_co]):
-    tag: Any  # str | None | Callable[..., Any]
+class _HasGet(Protocol[_T_co]):
     def get(self, __value: str) -> _T_co | None: ...
+
+class _HasText(Protocol):
+    text: str
+
+class _HasAttrib(Protocol):
+    attrib: Iterable[Any]  # AnyOf[dict[str, str], Iterable[tuple[str, str]]]
+
+class _HasTextAndAttrib(_HasText, _HasAttrib, Protocol): ...  # noqa: Y046
+
+# Usually an Element() from either lxml or xml.etree (has a 'tag' element)
+class _HasTagAndGet(_HasGet[_T_co]):
+    tag: Any  # str | None | Callable[..., Any]
 
 class _HasTagAndText(Protocol):
     tag: str | Callable[..., Any]
