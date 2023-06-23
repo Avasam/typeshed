@@ -16,6 +16,7 @@ from openpyxl.descriptors.base import (
 )
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedNoneSet, NestedValue, _HasTagAndGet, _NestedNoneSetParam
+from openpyxl.descriptors.sequence import NestedSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor, _PresetColors
 from openpyxl.drawing.effect import (
@@ -180,7 +181,7 @@ class GradientFillProperties(Serialisable):
     namespace: ClassVar[str]
     flip: NoneSet[_PropertiesFlip]
     rotWithShape: Bool[Literal[True]]
-    gsLst: Incomplete
+    gsLst: NestedSequence[GradientStop, Literal[False], Literal[False]]
     stop_list: Alias
     lin: Typed[LinearShadeProperties, Literal[True]]
     linear: Alias
@@ -191,7 +192,7 @@ class GradientFillProperties(Serialisable):
         self,
         flip: _PropertiesFlip | Literal["none"] | None = None,
         rotWithShape: _ConvertibleToBool | None = None,
-        gsLst=(),
+        gsLst: _SequenceParam[GradientStop | _ConvertibleToFloat | None] = (),
         lin: LinearShadeProperties | None = None,
         path: PathShadeProperties | None = None,
         tileRect: RelativeRect | None = None,

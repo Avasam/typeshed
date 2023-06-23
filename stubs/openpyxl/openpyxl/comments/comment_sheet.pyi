@@ -7,6 +7,7 @@ from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
 from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.sequence import NestedSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
 
@@ -106,11 +107,11 @@ class CommentRecord(Serialisable):
 class CommentSheet(Serialisable):
     tagname: ClassVar[str]
     authors: Typed[AuthorList, Literal[False]]
-    commentList: Incomplete
+    commentList: NestedSequence[CommentRecord, Literal[False], Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     mime_type: str
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, authors: AuthorList, commentList: Incomplete | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, authors: AuthorList, commentList: _SequenceParam[CommentRecord | str], extLst: Unused = None) -> None: ...
     def to_tree(self): ...
     @property
     def comments(self) -> Generator[Incomplete, None, None]: ...

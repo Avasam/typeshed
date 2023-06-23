@@ -4,6 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
 from openpyxl.descriptors.nested import NestedString, NestedText
+from openpyxl.descriptors.sequence import Sequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
@@ -82,13 +83,19 @@ class Text(Serialisable):
     tagname: ClassVar[str]
     t: NestedText[str, Literal[True]]
     plain: Alias
-    r: Incomplete
+    r: Sequence[RichText, Literal[True], Literal[False]]
     formatted: Alias
-    rPh: Incomplete
+    rPh: Sequence[PhoneticText, Literal[True], Literal[False]]
     phonetic: Alias
     phoneticPr: Typed[_PhoneticProperties, Literal[True]]
     PhoneticProperties: Alias
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, t: object = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
+    def __init__(
+        self,
+        t: object = None,
+        r: _SequenceParam[RichText | InlineFont | None] = (),
+        rPh: _SequenceParam[PhoneticText | _ConvertibleToInt | None] = (),
+        phoneticPr: _PhoneticProperties | None = None,
+    ) -> None: ...
     @property
     def content(self): ...

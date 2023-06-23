@@ -1,30 +1,35 @@
 from _typeshed import Incomplete, Unused
 from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.sequence import MultiSequence, MultiSequencePart, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.pivot.fields import Boolean, DateTimeField, Error, Index, Missing, Number, Text
+
+_RecordFields: TypeAlias = Missing | Number | Boolean | Error | Text | DateTimeField | Index
 
 class Record(Serialisable):
     tagname: ClassVar[str]
-    m: Incomplete
-    n: Incomplete
-    b: Incomplete
-    e: Incomplete
-    s: Incomplete
-    d: Incomplete
-    x: Incomplete
+    _fields: MultiSequence[_RecordFields]
+    m: MultiSequencePart[Missing]
+    n: MultiSequencePart[Number]
+    b: MultiSequencePart[Boolean]
+    e: MultiSequencePart[Error]
+    s: MultiSequencePart[Text]
+    d: MultiSequencePart[DateTimeField]
+    x: MultiSequencePart[Index]
     def __init__(
         self,
-        _fields=(),
-        m: Incomplete | None = None,
-        n: Incomplete | None = None,
-        b: Incomplete | None = None,
-        e: Incomplete | None = None,
-        s: Incomplete | None = None,
-        d: Incomplete | None = None,
-        x: Incomplete | None = None,
+        _fields: _SequenceParam[_RecordFields] = (),
+        m: Unused = None,
+        n: Unused = None,
+        b: Unused = None,
+        e: Unused = None,
+        s: Unused = None,
+        d: Unused = None,
+        x: Unused = None,
     ) -> None: ...
 
 class RecordList(Serialisable):

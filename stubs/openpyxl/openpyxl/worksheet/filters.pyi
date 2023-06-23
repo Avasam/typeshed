@@ -19,6 +19,7 @@ from openpyxl.descriptors.base import (
     _ConvertibleToInt,
 )
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.sequence import ValueSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 
 _SortConditionSortBy: TypeAlias = Literal["value", "cellColor", "fontColor", "icon"]
@@ -243,14 +244,14 @@ class Filters(Serialisable):
     tagname: ClassVar[str]
     blank: Bool[Literal[True]]
     calendarType: NoneSet[_FiltersCalendarType]
-    filter: Incomplete
+    filter: ValueSequence[str, Literal[False], Literal[False]]
     dateGroupItem: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         blank: _ConvertibleToBool | None = None,
         calendarType: _FiltersCalendarType | Literal["none"] | None = None,
-        filter=(),
+        filter: _SequenceParam[object] = (),
         dateGroupItem=(),
     ) -> None: ...
 

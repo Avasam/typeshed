@@ -17,12 +17,14 @@ from openpyxl.descriptors.base import (
 )
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedInteger, _HasTagAndGet
+from openpyxl.descriptors.sequence import MultiSequence, MultiSequencePart, NestedSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
+from openpyxl.pivot.fields import Boolean, DateTimeField, Error, Missing, Number, Text, TupleList
 from openpyxl.pivot.table import PivotArea
 
 _RangePrGroupBy: TypeAlias = Literal["range", "seconds", "minutes", "hours", "days", "months", "quarters", "years"]
 _CacheSourceType: TypeAlias = Literal["worksheet", "external", "consolidation", "scenario"]
+_SharedItemsFields: TypeAlias = Missing | Number | Boolean | Error | Text | DateTimeField
 
 class MeasureDimensionMap(Serialisable):
     tagname: ClassVar[str]
@@ -434,12 +436,13 @@ class FieldGroup(Serialisable):
 
 class SharedItems(Serialisable):
     tagname: ClassVar[str]
-    m: Incomplete
-    n: Incomplete
-    b: Incomplete
-    e: Incomplete
-    s: Incomplete
-    d: Incomplete
+    _fields: MultiSequence[_SharedItemsFields]
+    m: MultiSequencePart[Missing]
+    n: MultiSequencePart[Number]
+    b: MultiSequencePart[Boolean]
+    e: MultiSequencePart[Error]
+    s: MultiSequencePart[Text]
+    d: MultiSequencePart[DateTimeField]
     containsSemiMixedTypes: Bool[Literal[True]]
     containsNonDate: Bool[Literal[True]]
     containsDate: Bool[Literal[True]]
@@ -456,7 +459,7 @@ class SharedItems(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        _fields=(),
+        _fields: _SequenceParam[_SharedItemsFields] = (),
         containsSemiMixedTypes: _ConvertibleToBool | None = None,
         containsNonDate: _ConvertibleToBool | None = None,
         containsDate: _ConvertibleToBool | None = None,
@@ -581,17 +584,22 @@ class Page(Serialisable):
     tagname: ClassVar[str]
     pageItem: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, pageItem: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Unused = None, pageItem: Incomplete | None = None) -> None: ...
     @property
     def count(self): ...
 
 class Consolidation(Serialisable):
     tagname: ClassVar[str]
     autoPage: Bool[Literal[True]]
-    pages: Incomplete
-    rangeSets: Incomplete
+    pages: NestedSequence[Page, Literal[False], Literal[False]]
+    rangeSets: NestedSequence[RangeSet, Literal[False], Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, autoPage: _ConvertibleToBool | None = None, pages=(), rangeSets=()) -> None: ...
+    def __init__(
+        self,
+        autoPage: _ConvertibleToBool | None = None,
+        pages: _SequenceParam[Page | object] = (),  # Anything is convertible to Page
+        rangeSets: _SequenceParam[RangeSet] = (),
+    ) -> None: ...
 
 class WorksheetSource(Serialisable):
     tagname: ClassVar[str]
@@ -637,18 +645,18 @@ class CacheDefinition(Serialisable):
     minRefreshableVersion: Integer[Literal[True]]
     recordCount: Integer[Literal[True]]
     upgradeOnRefresh: Bool[Literal[True]]
-    tupleCache: Typed[TupleCache, Literal[True]]
     supportSubquery: Bool[Literal[True]]
     supportAdvancedDrill: Bool[Literal[True]]
     cacheSource: Typed[CacheSource, Literal[True]]
-    cacheFields: Incomplete
-    cacheHierarchies: Incomplete
-    kpis: Incomplete
-    calculatedItems: Incomplete
-    calculatedMembers: Incomplete
-    dimensions: Incomplete
-    measureGroups: Incomplete
-    maps: Incomplete
+    cacheFields: NestedSequence[CacheField, Literal[False], Literal[False]]
+    cacheHierarchies: NestedSequence[CacheHierarchy, Literal[True], Literal[False]]
+    kpis: NestedSequence[PCDKPI, Literal[True], Literal[False]]
+    tupleCache: Typed[TupleCache, Literal[True]]
+    calculatedItems: NestedSequence[CalculatedItem, Literal[False], Literal[False]]
+    calculatedMembers: NestedSequence[CalculatedMember, Literal[False], Literal[False]]
+    dimensions: NestedSequence[PivotDimension, Literal[True], Literal[False]]
+    measureGroups: NestedSequence[MeasureGroup, Literal[False], Literal[False]]
+    maps: NestedSequence[MeasureDimensionMap, Literal[False], Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
@@ -675,14 +683,14 @@ class CacheDefinition(Serialisable):
         supportAdvancedDrill: _ConvertibleToBool | None = None,
         *,
         cacheSource: CacheSource,
-        cacheFields=(),
-        cacheHierarchies=(),
-        kpis=(),
-        calculatedItems=(),
-        calculatedMembers=(),
-        dimensions=(),
-        measureGroups=(),
-        maps=(),
+        cacheFields: _SequenceParam[CacheField] = (),
+        cacheHierarchies: _SequenceParam[CacheHierarchy | None] = (),
+        kpis: _SequenceParam[PCDKPI | None] = (),
+        calculatedItems: _SequenceParam[CalculatedItem] = (),
+        calculatedMembers: _SequenceParam[CalculatedMember] = (),
+        dimensions: _SequenceParam[PivotDimension | None] = (),
+        measureGroups: _SequenceParam[MeasureGroup | str] = (),
+        maps: _SequenceParam[MeasureDimensionMap | _ConvertibleToInt | None] = (),
         extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
@@ -708,14 +716,14 @@ class CacheDefinition(Serialisable):
         supportSubquery: _ConvertibleToBool | None,
         supportAdvancedDrill: _ConvertibleToBool | None,
         cacheSource: CacheSource,
-        cacheFields=(),
-        cacheHierarchies=(),
-        kpis=(),
-        calculatedItems=(),
-        calculatedMembers=(),
-        dimensions=(),
-        measureGroups=(),
-        maps=(),
+        cacheFields: _SequenceParam[CacheField] = (),
+        cacheHierarchies: _SequenceParam[CacheHierarchy | None] = (),
+        kpis: _SequenceParam[PCDKPI | None] = (),
+        calculatedItems: _SequenceParam[CalculatedItem] = (),
+        calculatedMembers: _SequenceParam[CalculatedMember] = (),
+        dimensions: _SequenceParam[PivotDimension | None] = (),
+        measureGroups: _SequenceParam[MeasureGroup | str] = (),
+        maps: _SequenceParam[MeasureDimensionMap | _ConvertibleToInt | None] = (),
         extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...

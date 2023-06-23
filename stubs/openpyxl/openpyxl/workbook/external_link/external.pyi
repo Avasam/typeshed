@@ -4,6 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.nested import NestedText
+from openpyxl.descriptors.sequence import ValueSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
@@ -37,9 +38,9 @@ class ExternalSheetDataSet(Serialisable):
     def __init__(self, sheetData: Incomplete | None = None) -> None: ...
 
 class ExternalSheetNames(Serialisable):
-    sheetName: Incomplete
+    sheetName: ValueSequence[str, Literal[False], Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, sheetName=()) -> None: ...
+    def __init__(self, sheetName: _SequenceParam[object] = ()) -> None: ...
 
 class ExternalDefinedName(Serialisable):
     tagname: ClassVar[str]

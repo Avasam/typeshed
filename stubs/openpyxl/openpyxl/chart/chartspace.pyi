@@ -3,15 +3,16 @@ from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.legend import Legend
-from openpyxl.chart.pivot import PivotSource
+from openpyxl.chart.pivot import PivotFormat, PivotSource
 from openpyxl.chart.plotarea import PlotArea
 from openpyxl.chart.print_settings import PrintSettings
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedMinMax, NestedNoneSet, NestedString, _HasTagAndGet, _NestedNoneSetParam
+from openpyxl.descriptors.sequence import NestedSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorMapping
 
@@ -21,7 +22,7 @@ class ChartContainer(Serialisable):
     tagname: ClassVar[str]
     title: Typed[Title, Literal[True]]
     autoTitleDeleted: NestedBool[Literal[True]]
-    pivotFmts: Incomplete
+    pivotFmts: NestedSequence[PivotFormat, Literal[False], Literal[False]]
     view3D: Incomplete
     floor: Incomplete
     sideWall: Incomplete
@@ -37,7 +38,7 @@ class ChartContainer(Serialisable):
         self,
         title: Title | None = None,
         autoTitleDeleted: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        pivotFmts=(),
+        pivotFmts: _SequenceParam[PivotFormat | _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt] = (),
         view3D: Incomplete | None = None,
         floor: Incomplete | None = None,
         sideWall: Incomplete | None = None,

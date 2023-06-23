@@ -4,7 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.axis import ChartLines
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import (
     NestedBool,
@@ -15,6 +15,7 @@ from openpyxl.descriptors.nested import (
     _HasTagAndGet,
     _NestedNoneSetParam,
 )
+from openpyxl.descriptors.sequence import ValueSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 
 from ._chart import ChartBase
@@ -74,9 +75,9 @@ class DoughnutChart(_PieChartBase):
 
 class CustomSplit(Serialisable):
     tagname: ClassVar[str]
-    secondPiePt: Incomplete
+    secondPiePt: ValueSequence[int, Literal[False], Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, secondPiePt=()) -> None: ...
+    def __init__(self, secondPiePt: _SequenceParam[_ConvertibleToInt] = ()) -> None: ...
 
 class ProjectedPieChart(_PieChartBase):
     tagname: ClassVar[str]

@@ -5,12 +5,15 @@ from typing_extensions import Literal, TypeAlias
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedString
+from openpyxl.descriptors.sequence import NestedSequence, _SequenceParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
+from openpyxl.workbook.external_reference import ExternalReference
 from openpyxl.workbook.function_group import FunctionGroupList
 from openpyxl.workbook.properties import CalcProperties, FileVersion, WorkbookProperties
 from openpyxl.workbook.protection import FileSharing, WorkbookProtection
 from openpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
+from openpyxl.workbook.views import BookView, CustomWorkbookView, _BookViewVilibility
 from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
 
 _ChildSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
@@ -58,15 +61,15 @@ class WorkbookPackage(Serialisable):
     workbookPr: Typed[WorkbookProperties, Literal[True]]
     properties: Alias
     workbookProtection: Typed[WorkbookProtection, Literal[True]]
-    bookViews: Incomplete
-    sheets: Incomplete
+    bookViews: NestedSequence[BookView, Literal[False], Literal[False]]
+    sheets: NestedSequence[ChildSheet, Literal[False], Literal[False]]
     functionGroups: Typed[FunctionGroupList, Literal[True]]
-    externalReferences: Incomplete
+    externalReferences: NestedSequence[ExternalReference, Literal[False], Literal[False]]
     definedNames: Typed[DefinedNameList, Literal[True]]
     calcPr: Typed[CalcProperties, Literal[True]]
     oleSize: NestedString[Literal[True]]
-    customWorkbookViews: Incomplete
-    pivotCaches: Incomplete
+    customWorkbookViews: NestedSequence[CustomWorkbookView, Literal[False], Literal[False]]
+    pivotCaches: NestedSequence[PivotCache, Literal[True], Literal[False]]
     smartTagPr: Typed[SmartTagProperties, Literal[True]]
     smartTagTypes: Typed[SmartTagList, Literal[True]]
     webPublishing: Typed[WebPublishing, Literal[True]]
@@ -82,15 +85,15 @@ class WorkbookPackage(Serialisable):
         fileSharing: FileSharing | None = None,
         workbookPr: WorkbookProperties | None = None,
         workbookProtection: WorkbookProtection | None = None,
-        bookViews=(),
-        sheets=(),
+        bookViews: _SequenceParam[BookView | _BookViewVilibility | Literal["none"] | None] = (),
+        sheets: _SequenceParam[ChildSheet] = (),
         functionGroups: FunctionGroupList | None = None,
-        externalReferences=(),
+        externalReferences: _SequenceParam[ExternalReference | str | None] = (),
         definedNames: DefinedNameList | None = None,
         calcPr: CalcProperties | None = None,
         oleSize: object = None,
-        customWorkbookViews=(),
-        pivotCaches=(),
+        customWorkbookViews: _SequenceParam[CustomWorkbookView] = (),
+        pivotCaches: _SequenceParam[PivotCache | _ConvertibleToInt | None] = (),
         smartTagPr: SmartTagProperties | None = None,
         smartTagTypes: SmartTagList | None = None,
         webPublishing: WebPublishing | None = None,
