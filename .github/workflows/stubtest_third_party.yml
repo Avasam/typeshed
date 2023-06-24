@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-
+#
 env:
   # A few env vars to speedup brew install
   HOMEBREW_NO_ANALYTICS: 1
