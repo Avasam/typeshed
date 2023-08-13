@@ -5,5 +5,11 @@
 from _typeshed import Incomplete
 
 def preflow_push(
-    G, s, t, capacity: str = ..., residual: Incomplete | None = ..., global_relabel_freq: int = ..., value_only: bool = ...
+    G,
+    s,
+    t,
+    capacity: str = "capacity",
+    residual: Incomplete | None = None,
+    global_relabel_freq: int = 1,
+    value_only: bool = False,
 ): ...

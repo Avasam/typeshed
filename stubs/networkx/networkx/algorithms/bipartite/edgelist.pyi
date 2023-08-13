@@ -4,23 +4,23 @@
 
 from _typeshed import Incomplete
 
-def write_edgelist(G, path, comments: str = ..., delimiter: str = ..., data: bool = ..., encoding: str = ...) -> None: ...
-def generate_edgelist(G, delimiter: str = ..., data: bool = ...) -> None: ...
+def write_edgelist(G, path, comments: str = "#", delimiter: str = " ", data: bool = True, encoding: str = "utf-8") -> None: ...
+def generate_edgelist(G, delimiter: str = " ", data: bool = True) -> None: ...
 def parse_edgelist(
     lines,
-    comments: str = ...,
-    delimiter: Incomplete | None = ...,
-    create_using: Incomplete | None = ...,
-    nodetype: Incomplete | None = ...,
-    data: bool = ...,
+    comments: str = "#",
+    delimiter: Incomplete | None = None,
+    create_using: Incomplete | None = None,
+    nodetype: Incomplete | None = None,
+    data: bool = True,
 ): ...
 def read_edgelist(
     path,
-    comments: str = ...,
-    delimiter: Incomplete | None = ...,
-    create_using: Incomplete | None = ...,
-    nodetype: Incomplete | None = ...,
-    data: bool = ...,
-    edgetype: Incomplete | None = ...,
-    encoding: str = ...,
+    comments: str = "#",
+    delimiter: Incomplete | None = None,
+    create_using: Incomplete | None = None,
+    nodetype: Incomplete | None = None,
+    data: bool = True,
+    edgetype: Incomplete | None = None,
+    encoding: str = "utf-8",
 ): ...

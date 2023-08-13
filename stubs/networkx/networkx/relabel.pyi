@@ -12,38 +12,38 @@ _X = TypeVar("_X")
 _Y = TypeVar("_Y")
 
 @overload
-def relabel_nodes(G: Graph[_X], mapping: Mapping[_X, _Y], copy: bool = ...) -> Graph[_X | _Y]: ...
+def relabel_nodes(G: Graph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> Graph[_X | _Y]: ...
 @overload
-def relabel_nodes(G: DiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = ...) -> DiGraph[_X | _Y]: ...
+def relabel_nodes(G: DiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> DiGraph[_X | _Y]: ...
 @overload
-def relabel_nodes(G: MultiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = ...) -> MultiGraph[_X | _Y]: ...
+def relabel_nodes(G: MultiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> MultiGraph[_X | _Y]: ...
 @overload
-def relabel_nodes(G: MultiDiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = ...) -> MultiDiGraph[_X | _Y]: ...
+def relabel_nodes(G: MultiDiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> MultiDiGraph[_X | _Y]: ...
 @overload
 def convert_node_labels_to_integers(
     G: Graph[Incomplete],
-    first_label: int = ...,
-    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = ...,
-    label_attribute: Incomplete | None = ...,
+    first_label: int = 0,
+    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = "default",
+    label_attribute: Incomplete | None = None,
 ) -> Graph[int]: ...
 @overload
 def convert_node_labels_to_integers(
     G: DiGraph[Incomplete],
-    first_label: int = ...,
-    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = ...,
-    label_attribute: Incomplete | None = ...,
+    first_label: int = 0,
+    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = "default",
+    label_attribute: Incomplete | None = None,
 ) -> DiGraph[int]: ...
 @overload
 def convert_node_labels_to_integers(
     G: MultiGraph[Incomplete],
-    first_label: int = ...,
-    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = ...,
-    label_attribute: Incomplete | None = ...,
+    first_label: int = 0,
+    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = "default",
+    label_attribute: Incomplete | None = None,
 ) -> MultiGraph[int]: ...
 @overload
 def convert_node_labels_to_integers(
     G: MultiDiGraph[Incomplete],
-    first_label: int = ...,
-    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = ...,
-    label_attribute: Incomplete | None = ...,
+    first_label: int = 0,
+    ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = "default",
+    label_attribute: Incomplete | None = None,
 ) -> MultiDiGraph[int]: ...

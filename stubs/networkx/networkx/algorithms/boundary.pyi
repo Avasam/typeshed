@@ -12,26 +12,26 @@ _U = TypeVar("_U")
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
+    nbunch2: Iterable[_T] | None = None,
     data: Literal[False] = False,
     keys: Literal[False] = False,
-    default=...,
+    default=None,
 ) -> Iterable[tuple[_T, _T]]: ...
 @overload
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
+    nbunch2: Iterable[_T] | None = None,
     data: Literal[True] = True,
     keys: Literal[False] = False,
-    default=...,
+    default=None,
 ) -> Iterable[tuple[_T, _T, dict[str, Incomplete]]]: ...
 @overload
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
-    data: str = ...,
+    nbunch2: Iterable[_T] | None = None,
+    data: str = False,
     keys: Literal[False] = False,
     default: _U = None,
 ) -> Iterable[tuple[_T, _T, dict[str, _U]]]: ...
@@ -39,27 +39,27 @@ def edge_boundary(
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
+    nbunch2: Iterable[_T] | None = None,
     data: Literal[False] = False,
     keys: Literal[True] = True,
-    default=...,
+    default=None,
 ) -> Iterable[tuple[_T, _T, int]]: ...
 @overload
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
+    nbunch2: Iterable[_T] | None = None,
     data: Literal[True] = True,
     keys: Literal[True] = True,
-    default=...,
+    default=None,
 ) -> Iterable[tuple[_T, _T, int, dict[str, Incomplete]]]: ...
 @overload
 def edge_boundary(
     G: Graph[_T],
     nbunch1: Iterable[_T],
-    nbunch2: Iterable[_T] | None = ...,
-    data: str = ...,
+    nbunch2: Iterable[_T] | None = None,
+    data: str = False,
     keys: Literal[True] = True,
     default: _U = None,
 ) -> Iterable[tuple[_T, _T, int, dict[str, _U]]]: ...
-def node_boundary(G: Graph[_T], nbunch1: Iterable[_T], nbunch2: Iterable[_T] | None = ...) -> Iterable[_T]: ...
+def node_boundary(G: Graph[_T], nbunch1: Iterable[_T], nbunch2: Iterable[_T] | None = None) -> Iterable[_T]: ...

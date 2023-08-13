@@ -18,15 +18,30 @@ class _CholeskySolver:
 
 class _LUSolver:
     def __init__(self, A) -> None: ...
-    def solve(self, B, tol: Incomplete | None = ...): ...
+    def solve(self, B, tol: Incomplete | None = None): ...
 
 def algebraic_connectivity(
-    G, weight: str = ..., normalized: bool = ..., tol: float = ..., method: str = ..., seed: Incomplete | None = ...
+    G,
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed: Incomplete | None = None,
 ): ...
 def fiedler_vector(
-    G, weight: str = ..., normalized: bool = ..., tol: float = ..., method: str = ..., seed: Incomplete | None = ...
+    G,
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed: Incomplete | None = None,
 ): ...
 def spectral_ordering(
-    G, weight: str = ..., normalized: bool = ..., tol: float = ..., method: str = ..., seed: Incomplete | None = ...
+    G,
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed: Incomplete | None = None,
 ): ...
 def setup_module(module) -> None: ...

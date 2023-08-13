@@ -4,22 +4,22 @@
 
 from _typeshed import Incomplete
 
-def generate_multiline_adjlist(G, delimiter: str = ...) -> None: ...
-def write_multiline_adjlist(G, path, delimiter: str = ..., comments: str = ..., encoding: str = ...) -> None: ...
+def generate_multiline_adjlist(G, delimiter: str = " ") -> None: ...
+def write_multiline_adjlist(G, path, delimiter: str = " ", comments: str = "#", encoding: str = "utf-8") -> None: ...
 def parse_multiline_adjlist(
     lines,
-    comments: str = ...,
-    delimiter: Incomplete | None = ...,
-    create_using: Incomplete | None = ...,
-    nodetype: Incomplete | None = ...,
-    edgetype: Incomplete | None = ...,
+    comments: str = "#",
+    delimiter: Incomplete | None = None,
+    create_using: Incomplete | None = None,
+    nodetype: Incomplete | None = None,
+    edgetype: Incomplete | None = None,
 ): ...
 def read_multiline_adjlist(
     path,
-    comments: str = ...,
-    delimiter: Incomplete | None = ...,
-    create_using: Incomplete | None = ...,
-    nodetype: Incomplete | None = ...,
-    edgetype: Incomplete | None = ...,
-    encoding: str = ...,
+    comments: str = "#",
+    delimiter: Incomplete | None = None,
+    create_using: Incomplete | None = None,
+    nodetype: Incomplete | None = None,
+    edgetype: Incomplete | None = None,
+    encoding: str = "utf-8",
 ): ...
