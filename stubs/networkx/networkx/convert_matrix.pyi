@@ -20,14 +20,14 @@ def to_pandas_adjacency(
     nonedge: float = 0.0,
 ) -> pandas.DataFrame: ...
 @overload
-def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[Graph[Incomplete]] = None) -> Graph[Incomplete]: ...
+def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[Graph[Incomplete]] = ...) -> Graph[Incomplete]: ...
 @overload
-def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[DiGraph[Incomplete]] = None) -> DiGraph[Incomplete]: ...
+def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[DiGraph[Incomplete]] = ...) -> DiGraph[Incomplete]: ...
 @overload
-def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[MultiGraph[Incomplete]] = None) -> MultiGraph[Incomplete]: ...
+def from_pandas_adjacency(df: pandas.DataFrame, create_using: type[MultiGraph[Incomplete]] = ...) -> MultiGraph[Incomplete]: ...
 @overload
 def from_pandas_adjacency(
-    df: pandas.DataFrame, create_using: type[MultiDiGraph[Incomplete]] = None
+    df: pandas.DataFrame, create_using: type[MultiDiGraph[Incomplete]] = ...
 ) -> MultiDiGraph[Incomplete]: ...
 def to_pandas_edgelist(
     G: Graph[_Node],
@@ -43,7 +43,7 @@ def from_pandas_edgelist(
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[Graph[Incomplete]] = None,
+    create_using: type[Graph[Incomplete]] = ...,
 ) -> Graph[Incomplete]: ...
 @overload
 def from_pandas_edgelist(
@@ -51,7 +51,7 @@ def from_pandas_edgelist(
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[DiGraph[Incomplete]] = None,
+    create_using: type[DiGraph[Incomplete]] = ...,
 ) -> DiGraph[Incomplete]: ...
 @overload
 def from_pandas_edgelist(
@@ -59,7 +59,7 @@ def from_pandas_edgelist(
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[MultiGraph[Incomplete]] = None,
+    create_using: type[MultiGraph[Incomplete]] = ...,
 ) -> MultiGraph[Incomplete]: ...
 @overload
 def from_pandas_edgelist(
@@ -67,7 +67,7 @@ def from_pandas_edgelist(
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[MultiDiGraph[Incomplete]] = None,
+    create_using: type[MultiDiGraph[Incomplete]] = ...,
 ) -> MultiDiGraph[Incomplete]: ...
 def to_numpy_array(
     G: Graph[_Node],
@@ -80,17 +80,17 @@ def to_numpy_array(
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[Graph[Incomplete]] = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[Graph[Incomplete]] = ...
 ) -> Graph[Incomplete]: ...
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[DiGraph[Incomplete]] = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[DiGraph[Incomplete]] = ...
 ) -> DiGraph[Incomplete]: ...
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[MultiGraph[Incomplete]] = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[MultiGraph[Incomplete]] = ...
 ) -> MultiGraph[Incomplete]: ...
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[MultiDiGraph[Incomplete]] = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[MultiDiGraph[Incomplete]] = ...
 ) -> MultiDiGraph[Incomplete]: ...

@@ -5,7 +5,7 @@
 from _typeshed import Incomplete
 
 def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
-def draw_networkx(G, pos: Incomplete | None = None, arrows: bool = None, with_labels: bool = True, **kwds) -> None: ...
+def draw_networkx(G, pos: Incomplete | None = None, arrows: bool = ..., with_labels: bool = True, **kwds) -> None: ...
 def draw_networkx_nodes(
     G,
     pos,
@@ -13,7 +13,7 @@ def draw_networkx_nodes(
     node_size: int = 300,
     node_color: str = "#1f78b4",
     node_shape: str = "o",
-    alpha: float = None,
+    alpha: float = ...,
     cmap: Incomplete | None = None,
     vmin: Incomplete | None = None,
     vmax: Incomplete | None = None,
@@ -30,14 +30,14 @@ def draw_networkx_edges(
     width: float = 1.0,
     edge_color: str = "k",
     style: str = "solid",
-    alpha: float = None,
-    arrowstyle: str = None,
+    alpha: float = ...,
+    arrowstyle: str = ...,
     arrowsize: int = 10,
     edge_cmap: Incomplete | None = None,
     edge_vmin: Incomplete | None = None,
     edge_vmax: Incomplete | None = None,
     ax: Incomplete | None = None,
-    arrows: bool = None,
+    arrows: bool = ...,
     label: Incomplete | None = None,
     node_size: int = 300,
     nodelist: Incomplete | None = None,
@@ -53,7 +53,7 @@ def draw_networkx_labels(
     font_color: str = "k",
     font_family: str = "sans-serif",
     font_weight: str = "normal",
-    alpha: float = None,
+    alpha: float = ...,
     bbox: Incomplete | None = None,
     ax: Incomplete | None = None,
     **kwds,
@@ -67,7 +67,7 @@ def draw_networkx_edge_labels(
     font_color: str = "k",
     font_family: str = "sans-serif",
     font_weight: str = "normal",
-    alpha: float = None,
+    alpha: float = ...,
     bbox: Incomplete | None = None,
     ax: Incomplete | None = None,
     rotate: bool = True,
