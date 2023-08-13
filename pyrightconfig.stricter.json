@@ -45,6 +45,7 @@
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
+        "stubs/networkx",
         "stubs/oauthlib",
         "stubs/openpyxl",
         "stubs/Pillow",

@@ -3,7 +3,6 @@ from collections.abc import Iterable
 from typing_extensions import TypeAlias
 
 import numpy
-import scipy
 from networkx.classes.graph import EdgePlus, Graph, _Node
 
 Data: TypeAlias = (
@@ -12,5 +11,6 @@ Data: TypeAlias = (
     | dict[_Node, Iterable[_Node]]
     | Iterable[EdgePlus[_Node]]
     | numpy.ndarray[_Node, Incomplete]
-    | scipy.sparse.base.spmatrix
+    # scipy is untyped
+    # | scipy.sparse.base.spmatrix
 )
