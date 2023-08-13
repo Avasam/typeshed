@@ -5,10 +5,10 @@
 from _typeshed import Incomplete
 
 def LFR_benchmark_graph(
-    n,
-    tau1,
-    tau2,
-    mu,
+    n: Incomplete,
+    tau1: Incomplete,
+    tau2: Incomplete,
+    mu: Incomplete,
     average_degree: Incomplete | None = ...,
     min_degree: Incomplete | None = ...,
     max_degree: Incomplete | None = ...,
