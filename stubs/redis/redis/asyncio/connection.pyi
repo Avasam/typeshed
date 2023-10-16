@@ -2,67 +2,27 @@ import asyncio
 import enum
 import ssl
 from _typeshed import Incomplete
+from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
 from redis import RedisError
 from redis.asyncio.retry import Retry
 from redis.credentials import CredentialProvider
-from redis.exceptions import ResponseError
-from redis.typing import EncodableT, EncodedT
+from redis.typing import EncodableT
 
-hiredis: Any
 SYM_STAR: bytes
 SYM_DOLLAR: bytes
 SYM_CRLF: bytes
 SYM_LF: bytes
 SYM_EMPTY: bytes
-SERVER_CLOSED_CONNECTION_ERROR: str
 
 class _Sentinel(enum.Enum):
     sentinel: Any
 
-SENTINEL: Any
-MODULE_LOAD_ERROR: str
-NO_SUCH_MODULE_ERROR: str
-MODULE_UNLOAD_NOT_POSSIBLE_ERROR: str
-MODULE_EXPORTS_DATA_TYPES_ERROR: str
-
-class Encoder:
-    encoding: Any
-    encoding_errors: Any
-    decode_responses: Any
-    def __init__(self, encoding: str, encoding_errors: str, decode_responses: bool) -> None: ...
-    def encode(self, value: EncodableT) -> EncodedT: ...
-    def decode(self, value: EncodableT, force: bool = False) -> EncodableT: ...
-
-ExceptionMappingT: TypeAlias = Mapping[str, type[Exception] | Mapping[str, type[Exception]]]
-
-class BaseParser:
-    EXCEPTION_CLASSES: ExceptionMappingT
-    def __init__(self, socket_read_size: int) -> None: ...
-    @classmethod
-    def parse_error(cls, response: str) -> ResponseError: ...
-    def on_disconnect(self) -> None: ...
-    def on_connect(self, connection: Connection): ...
-    async def read_response(self, disable_decoding: bool = False) -> EncodableT | ResponseError | list[EncodableT] | None: ...
-
-class PythonParser(BaseParser):
-    encoder: Any
-    def __init__(self, socket_read_size: int) -> None: ...
-    def on_connect(self, connection: Connection): ...
-    def on_disconnect(self) -> None: ...
-    async def read_response(self, disable_decoding: bool = False) -> EncodableT | ResponseError | None: ...
-
-class HiredisParser(BaseParser):
-    def __init__(self, socket_read_size: int) -> None: ...
-    def on_connect(self, connection: Connection): ...
-    def on_disconnect(self) -> None: ...
-    async def read_from_socket(self) -> Literal[True]: ...
-    async def read_response(self, disable_decoding: bool = False) -> EncodableT | list[EncodableT]: ...  # type: ignore[override]
-
-DefaultParser: type[PythonParser | HiredisParser]
+SENTINEL: object
+DefaultParser: type[AsyncBaseParser]
 
 class ConnectCallbackProtocol(Protocol):
     def __call__(self, connection: Connection): ...
@@ -71,6 +31,72 @@ class AsyncConnectCallbackProtocol(Protocol):
     async def __call__(self, connection: Connection): ...
 
 ConnectCallbackT: TypeAlias = ConnectCallbackProtocol | AsyncConnectCallbackProtocol
+
+class AbstractConnection:
+    db: Incomplete
+    client_name: Incomplete
+    lib_name: Incomplete
+    lib_version: Incomplete
+    credential_provider: Incomplete
+    password: Incomplete
+    username: Incomplete
+    socket_timeout: Incomplete
+    socket_connect_timeout: Incomplete
+    retry_on_timeout: Incomplete
+    retry_on_error: Incomplete
+    retry: Incomplete
+    health_check_interval: Incomplete
+    next_health_check: int
+    encoder: Incomplete
+    redis_connect_func: Incomplete
+    protocol: Incomplete
+    def __init__(
+        self,
+        *,
+        db: str | int = ...,
+        password: str | None = ...,
+        socket_timeout: float | None = ...,
+        socket_connect_timeout: float | None = ...,
+        retry_on_timeout: bool = ...,
+        retry_on_error: list[Incomplete] | _Sentinel = ...,
+        encoding: str = ...,
+        encoding_errors: str = ...,
+        decode_responses: bool = ...,
+        parser_class: type[BaseParser] = ...,
+        socket_read_size: int = ...,
+        health_check_interval: float = ...,
+        client_name: str | None = ...,
+        lib_name: str | None = ...,
+        lib_version: str | None = ...,
+        username: str | None = ...,
+        retry: Retry | None = ...,
+        redis_connect_func: ConnectCallbackT | None = ...,
+        encoder_class: type[Encoder] = ...,
+        credential_provider: CredentialProvider | None = ...,
+        protocol: int | None = ...,
+    ) -> None: ...
+    @abstractmethod
+    def repr_pieces(self): ...
+    @property
+    def is_connected(self): ...
+    def set_parser(self, parser_class: type[BaseParser]) -> None: ...
+    async def connect(self): ...
+    async def on_connect(self) -> None: ...
+    async def disconnect(self, nowait: bool = ...) -> None: ...
+    async def check_health(self) -> None: ...
+    async def send_packed_command(self, command: bytes | str | Iterable[bytes], check_health: bool = ...) -> None: ...
+    async def send_command(self, *args: Any, **kwargs: Any) -> None: ...
+    async def can_read_destructive(self): ...
+    async def read_response(
+        self,
+        disable_decoding: bool = ...,
+        timeout: float | None = ...,
+        *,
+        disconnect_on_error: bool = ...,
+        push_request: bool | None = ...,
+    ): ...
+    def pack_command(self, *args: EncodableT) -> list[bytes]: ...
+    def pack_commands(self, commands: Iterable[Iterable[EncodableT]]) -> list[bytes]: ...
 
 class Connection:
     pid: Any
@@ -123,8 +149,6 @@ class Connection:
     def repr_pieces(self): ...
     @property
     def is_connected(self): ...
-    def register_connect_callback(self, callback) -> None: ...
-    def clear_connect_callbacks(self) -> None: ...
     def set_parser(self, parser_class) -> None: ...
     async def connect(self) -> None: ...
     async def on_connect(self) -> None: ...
@@ -258,7 +282,6 @@ class ConnectionPool:
     def get_encoder(self): ...
     def make_connection(self): ...
     async def release(self, connection: Connection): ...
-    def owns_connection(self, connection: Connection): ...
     async def disconnect(self, inuse_connections: bool = True): ...
 
 class BlockingConnectionPool(ConnectionPool):

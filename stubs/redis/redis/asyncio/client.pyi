@@ -9,10 +9,11 @@ from redis import RedisError
 from redis.asyncio.connection import ConnectCallbackT, Connection, ConnectionPool
 from redis.asyncio.lock import Lock
 from redis.asyncio.retry import Retry
-from redis.client import AbstractRedis, _CommandOptions, _Key, _StrType, _Value
-from redis.commands import AsyncCoreCommands, AsyncSentinelCommands, RedisModuleCommands
 from redis.credentials import CredentialProvider
 from redis.typing import ChannelT, EncodableT, KeyT, PatternT, StreamIdT
+
+from ..client import AbstractRedis, _CommandOptions, _StrType, _Value
+from ..commands import AsyncCoreCommands, AsyncSentinelCommands, RedisModuleCommands
 
 PubSubHandler: TypeAlias = Callable[[dict[str, str]], Awaitable[None]]
 
@@ -26,10 +27,6 @@ ResponseCallbackT: TypeAlias = ResponseCallbackProtocol | AsyncResponseCallbackP
 
 class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], AsyncSentinelCommands, Generic[_StrType]):
     response_callbacks: MutableMapping[str | bytes, ResponseCallbackT]
-    auto_close_connection_pool: bool
-    connection_pool: Any
-    single_connection_client: Any
-    connection: Any
     @overload
     @classmethod
     def from_url(
@@ -106,6 +103,12 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         redis_connect_func: ConnectCallbackT | None = None,
         credential_provider: CredentialProvider | None = None,
     ) -> Redis[bytes]: ...
+    @classmethod
+    def from_pool(cls, connection_pool: ConnectionPool) -> Redis[Incomplete]: ...
+    auto_close_connection_pool: bool
+    connection_pool: Any
+    single_connection_client: Any
+    connection: Any
     @overload
     def __init__(
         self: Redis[str],
@@ -181,6 +184,10 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
     def __await__(self) -> Generator[Any, None, Self]: ...
     async def initialize(self) -> Self: ...
     def set_response_callback(self, command: str, callback: ResponseCallbackT): ...
+    def get_encoder(self): ...
+    def get_connection_kwargs(self): ...
+    def get_retry(self) -> Retry | None: ...
+    def set_retry(self, retry: Retry) -> None: ...
     def load_external_module(self, funcname, func) -> None: ...
     def pipeline(self, transaction: bool = True, shard_hint: str | None = None) -> Pipeline[_StrType]: ...
     async def transaction(
@@ -233,7 +240,7 @@ class Monitor:
     async def __aenter__(self) -> Self: ...
     async def __aexit__(self, *args: Unused) -> None: ...
     async def next_command(self) -> MonitorCommandInfo: ...
-    def listen(self) -> AsyncIterator[MonitorCommandInfo]: ...
+    async def listen(self) -> AsyncIterator[MonitorCommandInfo]: ...
 
 class PubSub:
     PUBLISH_MESSAGE_TYPES: ClassVar[tuple[str, ...]]
@@ -244,6 +251,7 @@ class PubSub:
     ignore_subscribe_messages: bool
     connection: Any
     encoder: Any
+    push_handler_func: Incomplete
     health_check_response: Iterable[str | bytes]
     channels: Any
     pending_unsubscribe_channels: Any
@@ -261,19 +269,21 @@ class PubSub:
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __del__(self) -> None: ...
+    async def aclose(self) -> None: ...
+    async def close(self) -> Awaitable[NoReturn]: ...
     async def reset(self) -> None: ...
-    def close(self) -> Awaitable[NoReturn]: ...
     async def on_connect(self, connection: Connection): ...
     @property
     def subscribed(self) -> bool: ...
     async def execute_command(self, *args: EncodableT): ...
+    async def connect(self) -> None: ...
     async def parse_response(self, block: bool = True, timeout: float = 0): ...
     async def check_health(self) -> None: ...
     async def psubscribe(self, *args: ChannelT, **kwargs: PubSubHandler): ...
     def punsubscribe(self, *args: ChannelT) -> Awaitable[Any]: ...
     async def subscribe(self, *args: ChannelT, **kwargs: Callable[..., Any]): ...
     def unsubscribe(self, *args) -> Awaitable[Any]: ...
-    def listen(self) -> AsyncIterator[Any]: ...
+    async def listen(self) -> AsyncIterator[Any]: ...
     async def get_message(self, ignore_subscribe_messages: bool = False, timeout: float = 0.0): ...
     def ping(self, message: Incomplete | None = None) -> Awaitable[Any]: ...
     async def handle_message(self, response, ignore_subscribe_messages: bool = False): ...
@@ -315,6 +325,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def __len__(self) -> int: ...
     def __bool__(self) -> bool: ...
     async def reset(self) -> None: ...  # type: ignore[override]
+    async def aclose(self) -> None: ...
     def multi(self) -> None: ...
     def execute_command(self, *args, **kwargs) -> Pipeline[_StrType] | Awaitable[Pipeline[_StrType]]: ...
     async def immediate_execute_command(self, *args, **options): ...
@@ -325,8 +336,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     async def load_scripts(self) -> None: ...
     async def execute(self, raise_on_error: bool = True): ...
     async def discard(self) -> None: ...
-    async def watch(self, *names: KeyT) -> bool: ...
-    async def unwatch(self) -> bool: ...
+    async def watch(self, *names: KeyT) -> bool: ...  # type: ignore[override]  # Incompatible return type
+    async def unwatch(self) -> bool: ...  # type: ignore[override]  # Incompatible return type
     # region acl commands
     def acl_cat(self, category: str | None = None, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def acl_deluser(self, *username: str, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -366,22 +377,22 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # endregion
     # region BasicKey commands
     def append(self, key, value) -> Any: ...  # type: ignore[override]
-    def bitcount(self, key: _Key, start: int | None = None, end: int | None = None, mode: str | None = None) -> Any: ...  # type: ignore[override]
+    def bitcount(self, key: KeyT, start: int | None = None, end: int | None = None, mode: str | None = None) -> Any: ...  # type: ignore[override]
     def bitfield(self, key, default_overflow: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     def bitop(self, operation, dest, *keys) -> Any: ...  # type: ignore[override]
-    def bitpos(self, key: _Key, bit: int, start: int | None = None, end: int | None = None, mode: str | None = None) -> Any: ...  # type: ignore[override]
+    def bitpos(self, key: KeyT, bit: int, start: int | None = None, end: int | None = None, mode: str | None = None) -> Any: ...  # type: ignore[override]
     def copy(self, source, destination, destination_db: Incomplete | None = None, replace: bool = False) -> Any: ...  # type: ignore[override]
     def decr(self, name, amount: int = 1) -> Any: ...  # type: ignore[override]
     def decrby(self, name, amount: int = 1) -> Any: ...  # type: ignore[override]
-    def delete(self, *names: _Key) -> Any: ...  # type: ignore[override]
-    def dump(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def exists(self, *names: _Key) -> Any: ...  # type: ignore[override]
+    def delete(self, *names: KeyT) -> Any: ...  # type: ignore[override]
+    def dump(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def exists(self, *names: KeyT) -> Any: ...  # type: ignore[override]
     def expire(  # type: ignore[override]
-        self, name: _Key, time: int | timedelta, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
+        self, name: KeyT, time: int | timedelta, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
     ) -> Any: ...
     def expireat(self, name, when, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False) -> Any: ...  # type: ignore[override]
-    def get(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def getdel(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def get(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def getdel(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def getex(  # type: ignore[override]
         self,
         name,
@@ -391,41 +402,41 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         pxat: Incomplete | None = None,
         persist: bool = False,
     ) -> Any: ...
-    def getbit(self, name: _Key, offset: int) -> Any: ...  # type: ignore[override]
+    def getbit(self, name: KeyT, offset: int) -> Any: ...  # type: ignore[override]
     def getrange(self, key, start, end) -> Any: ...  # type: ignore[override]
     def getset(self, name, value) -> Any: ...  # type: ignore[override]
-    def incr(self, name: _Key, amount: int = 1) -> Any: ...  # type: ignore[override]
-    def incrby(self, name: _Key, amount: int = 1) -> Any: ...  # type: ignore[override]
-    def incrbyfloat(self, name: _Key, amount: float = 1.0) -> Any: ...  # type: ignore[override]
-    def keys(self, pattern: _Key = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def incr(self, name: KeyT, amount: int = 1) -> Any: ...  # type: ignore[override]
+    def incrby(self, name: KeyT, amount: int = 1) -> Any: ...  # type: ignore[override]
+    def incrbyfloat(self, name: KeyT, amount: float = 1.0) -> Any: ...  # type: ignore[override]
+    def keys(self, pattern: KeyT = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def lmove(  # type: ignore[override]
         self,
-        first_list: _Key,
-        second_list: _Key,
+        first_list: KeyT,
+        second_list: KeyT,
         src: Literal["LEFT", "RIGHT"] = "LEFT",
         dest: Literal["LEFT", "RIGHT"] = "RIGHT",
     ) -> Any: ...
     def blmove(  # type: ignore[override]
         self,
-        first_list: _Key,
-        second_list: _Key,
+        first_list: KeyT,
+        second_list: KeyT,
         timeout: float,
         src: Literal["LEFT", "RIGHT"] = "LEFT",
         dest: Literal["LEFT", "RIGHT"] = "RIGHT",
     ) -> Any: ...
-    def mget(self, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def mset(self, mapping: Mapping[_Key, _Value]) -> Any: ...  # type: ignore[override]
-    def msetnx(self, mapping: Mapping[_Key, _Value]) -> Any: ...  # type: ignore[override]
-    def move(self, name: _Key, db: int) -> Any: ...  # type: ignore[override]
-    def persist(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def mget(self, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def mset(self, mapping: Mapping[KeyT, _Value]) -> Any: ...  # type: ignore[override]
+    def msetnx(self, mapping: Mapping[KeyT, _Value]) -> Any: ...  # type: ignore[override]
+    def move(self, name: KeyT, db: int) -> Any: ...  # type: ignore[override]
+    def persist(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def pexpire(  # type: ignore[override]
-        self, name: _Key, time: int | timedelta, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
+        self, name: KeyT, time: int | timedelta, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
     ) -> Any: ...
     def pexpireat(  # type: ignore[override]
-        self, name: _Key, when: int | datetime, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
+        self, name: KeyT, when: int | datetime, nx: bool = False, xx: bool = False, gt: bool = False, lt: bool = False
     ) -> Any: ...
     def psetex(self, name, time_ms, value) -> Any: ...  # type: ignore[override]
-    def pttl(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def pttl(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def hrandfield(self, key, count: Incomplete | None = None, withvalues: bool = False) -> Any: ...  # type: ignore[override]
     def randomkey(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def rename(self, src, dst) -> Any: ...  # type: ignore[override]
@@ -442,7 +453,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     ) -> Any: ...
     def set(  # type: ignore[override]
         self,
-        name: _Key,
+        name: KeyT,
         value: _Value,
         ex: None | int | timedelta = None,
         px: None | int | timedelta = None,
@@ -453,9 +464,9 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         exat: Incomplete | None = None,
         pxat: Incomplete | None = None,
     ) -> Any: ...
-    def setbit(self, name: _Key, offset: int, value: int) -> Any: ...  # type: ignore[override]
-    def setex(self, name: _Key, time: int | timedelta, value: _Value) -> Any: ...  # type: ignore[override]
-    def setnx(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
+    def setbit(self, name: KeyT, offset: int, value: int) -> Any: ...  # type: ignore[override]
+    def setex(self, name: KeyT, time: int | timedelta, value: _Value) -> Any: ...  # type: ignore[override]
+    def setnx(self, name: KeyT, value: _Value) -> Any: ...  # type: ignore[override]
     def setrange(self, name, offset, value) -> Any: ...  # type: ignore[override]
     def stralgo(  # type: ignore[override]
         self,
@@ -472,36 +483,36 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def strlen(self, name) -> Any: ...  # type: ignore[override]
     def substr(self, name, start, end: int = -1) -> Any: ...  # type: ignore[override]
     def touch(self, *args) -> Any: ...  # type: ignore[override]
-    def ttl(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def ttl(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def type(self, name) -> Any: ...  # type: ignore[override]
-    def unlink(self, *names: _Key) -> Any: ...  # type: ignore[override]
+    def unlink(self, *names: KeyT) -> Any: ...  # type: ignore[override]
     # endregion
     # region hyperlog commands
-    def pfadd(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
-    def pfcount(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def pfmerge(self, dest: _Key, *sources: _Key) -> Any: ...  # type: ignore[override]
+    def pfadd(self, name: KeyT, *values: _Value) -> Any: ...  # type: ignore[override]
+    def pfcount(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def pfmerge(self, dest: KeyT, *sources: KeyT) -> Any: ...  # type: ignore[override]
     # endregion
     # region hash commands
-    def hdel(self, name: _Key, *keys: _Key) -> Any: ...  # type: ignore[override]
-    def hexists(self, name: _Key, key: _Key) -> Any: ...  # type: ignore[override]
-    def hget(self, name: _Key, key: _Key) -> Any: ...  # type: ignore[override]
-    def hgetall(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def hincrby(self, name: _Key, key: _Key, amount: int = 1) -> Any: ...  # type: ignore[override]
-    def hincrbyfloat(self, name: _Key, key: _Key, amount: float = 1.0) -> Any: ...  # type: ignore[override]
-    def hkeys(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def hlen(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def hdel(self, name: KeyT, *keys: KeyT) -> Any: ...  # type: ignore[override]
+    def hexists(self, name: KeyT, key: KeyT) -> Any: ...  # type: ignore[override]
+    def hget(self, name: KeyT, key: KeyT) -> Any: ...  # type: ignore[override]
+    def hgetall(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def hincrby(self, name: KeyT, key: KeyT, amount: int = 1) -> Any: ...  # type: ignore[override]
+    def hincrbyfloat(self, name: KeyT, key: KeyT, amount: float = 1.0) -> Any: ...  # type: ignore[override]
+    def hkeys(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def hlen(self, name: KeyT) -> Any: ...  # type: ignore[override]
     @overload
     def hset(  # type: ignore[override]
-        self, name: _Key, key: _Key, value: _Value, mapping: Mapping[_Key, _Value] | None = None, items: Incomplete | None = None
+        self, name: KeyT, key: KeyT, value: _Value, mapping: Mapping[KeyT, _Value] | None = None, items: Incomplete | None = None
     ) -> Any: ...
     @overload
-    def hset(self, name: _Key, key: None, value: None, mapping: Mapping[_Key, _Value], items: Incomplete | None = None) -> Any: ...  # type: ignore[override]
+    def hset(self, name: KeyT, key: None, value: None, mapping: Mapping[KeyT, _Value], items: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     @overload
-    def hset(self, name: _Key, *, mapping: Mapping[_Key, _Value], items: Incomplete | None = None) -> Any: ...  # type: ignore[override]
-    def hsetnx(self, name: _Key, key: _Key, value: _Value) -> Any: ...  # type: ignore[override]
-    def hmset(self, name: _Key, mapping: Mapping[_Key, _Value]) -> Any: ...  # type: ignore[override]
-    def hmget(self, name: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def hvals(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def hset(self, name: KeyT, *, mapping: Mapping[KeyT, _Value], items: Incomplete | None = None) -> Any: ...  # type: ignore[override]
+    def hsetnx(self, name: KeyT, key: KeyT, value: _Value) -> Any: ...  # type: ignore[override]
+    def hmset(self, name: KeyT, mapping: Mapping[KeyT, _Value]) -> Any: ...  # type: ignore[override]
+    def hmget(self, name: KeyT, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def hvals(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def hstrlen(self, name, key) -> Any: ...  # type: ignore[override]
     # endregion
     # region geo commands
@@ -584,18 +595,18 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload
     def brpop(self, keys: _Value | Iterable[_Value], timeout: float) -> Any: ...  # type: ignore[override]
     def brpoplpush(self, src, dst, timeout: int | None = 0) -> Any: ...  # type: ignore[override]
-    def lindex(self, name: _Key, index: int) -> Any: ...  # type: ignore[override]
+    def lindex(self, name: KeyT, index: int) -> Any: ...  # type: ignore[override]
     def linsert(  # type: ignore[override]
-        self, name: _Key, where: Literal["BEFORE", "AFTER", "before", "after"], refvalue: _Value, value: _Value
+        self, name: KeyT, where: Literal["BEFORE", "AFTER", "before", "after"], refvalue: _Value, value: _Value
     ) -> Any: ...
-    def llen(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def llen(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def lpop(self, name, count: int | None = None) -> Any: ...  # type: ignore[override]
     def lpush(self, name: _Value, *values: _Value) -> Any: ...  # type: ignore[override]
     def lpushx(self, name, value) -> Any: ...  # type: ignore[override]
-    def lrange(self, name: _Key, start: int, end: int) -> Any: ...  # type: ignore[override]
-    def lrem(self, name: _Key, count: int, value: _Value) -> Any: ...  # type: ignore[override]
-    def lset(self, name: _Key, index: int, value: _Value) -> Any: ...  # type: ignore[override]
-    def ltrim(self, name: _Key, start: int, end: int) -> Any: ...  # type: ignore[override]
+    def lrange(self, name: KeyT, start: int, end: int) -> Any: ...  # type: ignore[override]
+    def lrem(self, name: KeyT, count: int, value: _Value) -> Any: ...  # type: ignore[override]
+    def lset(self, name: KeyT, index: int, value: _Value) -> Any: ...  # type: ignore[override]
+    def ltrim(self, name: KeyT, start: int, end: int) -> Any: ...  # type: ignore[override]
     def rpop(self, name, count: int | None = None) -> Any: ...  # type: ignore[override]
     def rpoplpush(self, src, dst) -> Any: ...  # type: ignore[override]
     def rpush(self, name: _Value, *values: _Value) -> Any: ...  # type: ignore[override]
@@ -604,11 +615,11 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def sort(
         self,
-        name: _Key,
+        name: KeyT,
         start: int | None = None,
         num: int | None = None,
-        by: _Key | None = None,
-        get: _Key | Sequence[_Key] | None = None,
+        by: KeyT | None = None,
+        get: KeyT | Sequence[KeyT] | None = None,
         desc: bool = False,
         alpha: bool = False,
         store: None = None,
@@ -617,28 +628,28 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def sort(
         self,
-        name: _Key,
+        name: KeyT,
         start: int | None = None,
         num: int | None = None,
-        by: _Key | None = None,
-        get: _Key | Sequence[_Key] | None = None,
+        by: KeyT | None = None,
+        get: KeyT | Sequence[KeyT] | None = None,
         desc: bool = False,
         alpha: bool = False,
         *,
-        store: _Key,
+        store: KeyT,
         groups: bool = False,
     ) -> Any: ...
     @overload  # type: ignore[override]
     def sort(
         self,
-        name: _Key,
+        name: KeyT,
         start: int | None,
         num: int | None,
-        by: _Key | None,
-        get: _Key | Sequence[_Key] | None,
+        by: KeyT | None,
+        get: KeyT | Sequence[KeyT] | None,
         desc: bool,
         alpha: bool,
-        store: _Key,
+        store: KeyT,
         groups: bool = False,
     ) -> Any: ...
     # endregion
@@ -646,52 +657,52 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def scan(  # type: ignore[override]
         self,
         cursor: int = 0,
-        match: _Key | None = None,
+        match: KeyT | None = None,
         count: int | None = None,
         _type: str | None = None,
         **kwargs: _CommandOptions,
     ) -> Any: ...
-    def sscan(self, name: _Key, cursor: int = 0, match: _Key | None = None, count: int | None = None) -> Any: ...  # type: ignore[override]
-    def hscan(self, name: _Key, cursor: int = 0, match: _Key | None = None, count: int | None = None) -> Any: ...  # type: ignore[override]
+    def sscan(self, name: KeyT, cursor: int = 0, match: KeyT | None = None, count: int | None = None) -> Any: ...  # type: ignore[override]
+    def hscan(self, name: KeyT, cursor: int = 0, match: KeyT | None = None, count: int | None = None) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
-    def zscan(self, name: _Key, cursor: int = 0, match: _Key | None = None, count: int | None = None) -> Any: ...
+    def zscan(self, name: KeyT, cursor: int = 0, match: KeyT | None = None, count: int | None = None) -> Any: ...
     @overload  # type: ignore[override]
     def zscan(
         self,
-        name: _Key,
+        name: KeyT,
         cursor: int = 0,
-        match: _Key | None = None,
+        match: KeyT | None = None,
         count: int | None = None,
         *,
         score_cast_func: Callable[[_StrType], Any],
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zscan(
-        self, name: _Key, cursor: int, match: _Key | None, count: int | None, score_cast_func: Callable[[_StrType], Any]
+        self, name: KeyT, cursor: int, match: KeyT | None, count: int | None, score_cast_func: Callable[[_StrType], Any]
     ) -> Any: ...
     # endregion
     # region set commands
-    def sadd(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
-    def scard(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def sdiff(self, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def sdiffstore(self, dest: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def sinter(self, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def sinterstore(self, dest: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def sismember(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
-    def smembers(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def sadd(self, name: KeyT, *values: _Value) -> Any: ...  # type: ignore[override]
+    def scard(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def sdiff(self, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def sdiffstore(self, dest: KeyT, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def sinter(self, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def sinterstore(self, dest: KeyT, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def sismember(self, name: KeyT, value: _Value) -> Any: ...  # type: ignore[override]
+    def smembers(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def smismember(self, name, values, *args) -> Any: ...  # type: ignore[override]
-    def smove(self, src: _Key, dst: _Key, value: _Value) -> Any: ...  # type: ignore[override]
+    def smove(self, src: KeyT, dst: KeyT, value: _Value) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
-    def spop(self, name: _Key, count: None = None) -> Any: ...
+    def spop(self, name: KeyT, count: None = None) -> Any: ...
     @overload  # type: ignore[override]
-    def spop(self, name: _Key, count: int) -> Any: ...
+    def spop(self, name: KeyT, count: int) -> Any: ...
     @overload  # type: ignore[override]
-    def srandmember(self, name: _Key, number: None = None) -> Any: ...
+    def srandmember(self, name: KeyT, number: None = None) -> Any: ...
     @overload  # type: ignore[override]
-    def srandmember(self, name: _Key, number: int) -> Any: ...
-    def srem(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
-    def sunion(self, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
-    def sunionstore(self, dest: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
+    def srandmember(self, name: KeyT, number: int) -> Any: ...
+    def srem(self, name: KeyT, *values: _Value) -> Any: ...  # type: ignore[override]
+    def sunion(self, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
+    def sunionstore(self, dest: KeyT, keys: KeyT | Iterable[KeyT], *args: KeyT) -> Any: ...  # type: ignore[override]
     # endregion
     # region stream commands
     def xack(self, name, groupname, *ids) -> Any: ...  # type: ignore[override]
@@ -738,10 +749,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def xinfo_consumers(self, name, groupname) -> Any: ...  # type: ignore[override]
     def xinfo_groups(self, name) -> Any: ...  # type: ignore[override]
     def xinfo_stream(self, name, full: bool = False) -> Any: ...  # type: ignore[override]
-    def xlen(self, name: _Key) -> Any: ...  # type: ignore[override]
+    def xlen(self, name: KeyT) -> Any: ...  # type: ignore[override]
     def xpending(self, name, groupname) -> Any: ...  # type: ignore[override]
     def xpending_range(  # type: ignore[override]
-        self, name: _Key, groupname, min, max, count: int, consumername: Incomplete | None = None, idle: int | None = None
+        self, name: KeyT, groupname, min, max, count: int, consumername: Incomplete | None = None, idle: int | None = None
     ) -> Any: ...
     def xrange(self, name, min: str = "-", max: str = "+", count: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     def xread(self, streams, count: Incomplete | None = None, block: Incomplete | None = None) -> Any: ...  # type: ignore[override]
@@ -762,8 +773,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # region sorted set commands
     def zadd(  # type: ignore[override]
         self,
-        name: _Key,
-        mapping: Mapping[_Key, _Value],
+        name: KeyT,
+        mapping: Mapping[KeyT, _Value],
         nx: bool = False,
         xx: bool = False,
         ch: bool = False,
@@ -771,29 +782,29 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         gt: Incomplete | None = False,
         lt: Incomplete | None = False,
     ) -> Any: ...
-    def zcard(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def zcount(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
+    def zcard(self, name: KeyT) -> Any: ...  # type: ignore[override]
+    def zcount(self, name: KeyT, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zdiff(self, keys, withscores: bool = False) -> Any: ...  # type: ignore[override]
     def zdiffstore(self, dest, keys) -> Any: ...  # type: ignore[override]
-    def zincrby(self, name: _Key, amount: float, value: _Value) -> Any: ...  # type: ignore[override]
+    def zincrby(self, name: KeyT, amount: float, value: _Value) -> Any: ...  # type: ignore[override]
     def zinter(self, keys, aggregate: Incomplete | None = None, withscores: bool = False) -> Any: ...  # type: ignore[override]
-    def zinterstore(self, dest: _Key, keys: Iterable[_Key], aggregate: Literal["SUM", "MIN", "MAX"] | None = None) -> Any: ...  # type: ignore[override]
-    def zlexcount(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
-    def zpopmax(self, name: _Key, count: int | None = None) -> Any: ...  # type: ignore[override]
-    def zpopmin(self, name: _Key, count: int | None = None) -> Any: ...  # type: ignore[override]
+    def zinterstore(self, dest: KeyT, keys: Iterable[KeyT], aggregate: Literal["SUM", "MIN", "MAX"] | None = None) -> Any: ...  # type: ignore[override]
+    def zlexcount(self, name: KeyT, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
+    def zpopmax(self, name: KeyT, count: int | None = None) -> Any: ...  # type: ignore[override]
+    def zpopmin(self, name: KeyT, count: int | None = None) -> Any: ...  # type: ignore[override]
     def zrandmember(self, key, count: Incomplete | None = None, withscores: bool = False) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
-    def bzpopmax(self, keys: _Key | Iterable[_Key], timeout: Literal[0] = 0) -> Any: ...
+    def bzpopmax(self, keys: KeyT | Iterable[KeyT], timeout: Literal[0] = 0) -> Any: ...
     @overload  # type: ignore[override]
-    def bzpopmax(self, keys: _Key | Iterable[_Key], timeout: float) -> Any: ...
+    def bzpopmax(self, keys: KeyT | Iterable[KeyT], timeout: float) -> Any: ...
     @overload  # type: ignore[override]
-    def bzpopmin(self, keys: _Key | Iterable[_Key], timeout: Literal[0] = 0) -> Any: ...
+    def bzpopmin(self, keys: KeyT | Iterable[KeyT], timeout: Literal[0] = 0) -> Any: ...
     @overload  # type: ignore[override]
-    def bzpopmin(self, keys: _Key | Iterable[_Key], timeout: float) -> Any: ...
+    def bzpopmin(self, keys: KeyT | Iterable[KeyT], timeout: float) -> Any: ...
     @overload  # type: ignore[override]
     def zrange(
         self,
-        name: _Key,
+        name: KeyT,
         start: int,
         end: int,
         desc: bool,
@@ -807,7 +818,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def zrange(
         self,
-        name: _Key,
+        name: KeyT,
         start: int,
         end: int,
         desc: bool,
@@ -821,7 +832,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def zrange(
         self,
-        name: _Key,
+        name: KeyT,
         start: int,
         end: int,
         *,
@@ -835,7 +846,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def zrange(
         self,
-        name: _Key,
+        name: KeyT,
         start: int,
         end: int,
         *,
@@ -849,7 +860,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def zrange(
         self,
-        name: _Key,
+        name: KeyT,
         start: int,
         end: int,
         desc: bool = False,
@@ -862,13 +873,13 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zrevrange(
-        self, name: _Key, start: int, end: int, withscores: Literal[True], score_cast_func: Callable[[_StrType], None]
+        self, name: KeyT, start: int, end: int, withscores: Literal[True], score_cast_func: Callable[[_StrType], None]
     ) -> Any: ...
     @overload  # type: ignore[override]
-    def zrevrange(self, name: _Key, start: int, end: int, withscores: Literal[True]) -> Any: ...
+    def zrevrange(self, name: KeyT, start: int, end: int, withscores: Literal[True]) -> Any: ...
     @overload  # type: ignore[override]
     def zrevrange(
-        self, name: _Key, start: int, end: int, withscores: bool = False, score_cast_func: Callable[[Any], Any] = ...
+        self, name: KeyT, start: int, end: int, withscores: bool = False, score_cast_func: Callable[[Any], Any] = ...
     ) -> Any: ...
     def zrangestore(  # type: ignore[override]
         self,
@@ -882,12 +893,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         offset: Incomplete | None = None,
         num: Incomplete | None = None,
     ) -> Any: ...
-    def zrangebylex(self, name: _Key, min: _Value, max: _Value, start: int | None = None, num: int | None = None) -> Any: ...  # type: ignore[override]
-    def zrevrangebylex(self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None) -> Any: ...  # type: ignore[override]
+    def zrangebylex(self, name: KeyT, min: _Value, max: _Value, start: int | None = None, num: int | None = None) -> Any: ...  # type: ignore[override]
+    def zrevrangebylex(self, name: KeyT, max: _Value, min: _Value, start: int | None = None, num: int | None = None) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
     def zrangebyscore(
         self,
-        name: _Key,
+        name: KeyT,
         min: _Value,
         max: _Value,
         start: int | None = None,
@@ -898,12 +909,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zrangebyscore(
-        self, name: _Key, min: _Value, max: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
+        self, name: KeyT, min: _Value, max: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zrangebyscore(
         self,
-        name: _Key,
+        name: KeyT,
         min: _Value,
         max: _Value,
         start: int | None = None,
@@ -914,7 +925,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     @overload  # type: ignore[override]
     def zrevrangebyscore(
         self,
-        name: _Key,
+        name: KeyT,
         max: _Value,
         min: _Value,
         start: int | None = None,
@@ -925,12 +936,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zrevrangebyscore(
-        self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
+        self, name: KeyT, max: _Value, min: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> Any: ...
     @overload  # type: ignore[override]
     def zrevrangebyscore(
         self,
-        name: _Key,
+        name: KeyT,
         max: _Value,
         min: _Value,
         start: int | None = None,
@@ -938,15 +949,15 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         withscores: bool = False,
         score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> Any: ...
-    def zrank(self, name: _Key, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
-    def zrem(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
-    def zremrangebylex(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
-    def zremrangebyrank(self, name: _Key, min: int, max: int) -> Any: ...  # type: ignore[override]
-    def zremrangebyscore(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
-    def zrevrank(self, name: _Key, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
-    def zscore(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
+    def zrank(self, name: KeyT, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
+    def zrem(self, name: KeyT, *values: _Value) -> Any: ...  # type: ignore[override]
+    def zremrangebylex(self, name: KeyT, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
+    def zremrangebyrank(self, name: KeyT, min: int, max: int) -> Any: ...  # type: ignore[override]
+    def zremrangebyscore(self, name: KeyT, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
+    def zrevrank(self, name: KeyT, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
+    def zscore(self, name: KeyT, value: _Value) -> Any: ...  # type: ignore[override]
     def zunion(self, keys, aggregate: Incomplete | None = None, withscores: bool = False) -> Any: ...  # type: ignore[override]
-    def zunionstore(self, dest: _Key, keys: Iterable[_Key], aggregate: Literal["SUM", "MIN", "MAX"] | None = None) -> Any: ...  # type: ignore[override]
+    def zunionstore(self, dest: KeyT, keys: Iterable[KeyT], aggregate: Literal["SUM", "MIN", "MAX"] | None = None) -> Any: ...  # type: ignore[override]
     def zmscore(self, key, members) -> Any: ...  # type: ignore[override]
     # endregion
     # region management commands
@@ -1021,7 +1032,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def psync(self, replicationid, offset) -> Any: ...  # type: ignore[override]
     def swapdb(self, first, second, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def select(self, index, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def info(self, section: _Key | None = None, *args: _Key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def info(self, section: KeyT | None = None, *args: KeyT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def lastsave(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def lolwut(self, *version_numbers: _Value, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def migrate(  # type: ignore[override]
@@ -1070,10 +1081,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def command_getkeys(self, *args) -> Any: ...  # type: ignore[override]
     # endregion
     # region pubsub commands
-    def publish(self, channel: _Key, message: _Key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def pubsub_channels(self, pattern: _Key = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def publish(self, channel: KeyT, message: KeyT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def pubsub_channels(self, pattern: KeyT = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def pubsub_numpat(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def pubsub_numsub(self, *args: _Key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def pubsub_numsub(self, *args: KeyT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     # endregion
     # region script commands
     def eval(self, script, numkeys, *keys_and_args) -> Any: ...  # type: ignore[override]

@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+DEFAULT_CAP: float
+DEFAULT_BASE: float
+
 class AbstractBackoff(ABC):
     def reset(self) -> None: ...
     @abstractmethod
@@ -26,6 +29,7 @@ class EqualJitterBackoff(AbstractBackoff):
 
 class DecorrelatedJitterBackoff(AbstractBackoff):
     def __init__(self, cap: float = 0.512, base: float = 0.008) -> None: ...
+    def reset(self) -> None: ...
     def compute(self, failures: int) -> float: ...
 
 def default_backoff() -> EqualJitterBackoff: ...

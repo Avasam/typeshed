@@ -3,18 +3,18 @@ from types import TracebackType
 from typing import Any, ClassVar, Protocol
 from typing_extensions import Self
 
-from redis.client import Redis
+from .client import Redis
 
 class _Local(Protocol):
     token: str | bytes | None
 
 class Lock:
-    LUA_EXTEND_SCRIPT: ClassVar[str]
-    LUA_REACQUIRE_SCRIPT: ClassVar[str]
-    LUA_RELEASE_SCRIPT: ClassVar[str]
+    lua_release: ClassVar[Incomplete | None]
     lua_extend: ClassVar[Incomplete | None]
     lua_reacquire: ClassVar[Incomplete | None]
-    lua_release: ClassVar[Incomplete | None]
+    LUA_RELEASE_SCRIPT: ClassVar[str]
+    LUA_EXTEND_SCRIPT: ClassVar[str]
+    LUA_REACQUIRE_SCRIPT: ClassVar[str]
     redis: Redis[Any]
     name: str
     timeout: float | None

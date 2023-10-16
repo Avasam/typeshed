@@ -1,26 +1,29 @@
 from _typeshed import Incomplete
 from collections.abc import Awaitable, Callable, Mapping
 from types import TracebackType
-from typing import Any, Generic
+from typing import Any, Generic, TypeVar
 from typing_extensions import Self
 
 from redis.asyncio.client import ResponseCallbackT
-from redis.asyncio.connection import BaseParser, Connection, Encoder
 from redis.asyncio.parser import CommandsParser
-from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster, LoadBalancer
-
-# TODO: add  AsyncRedisClusterCommands stubs
-# from redis.commands import AsyncRedisClusterCommands
-from redis.commands.core import _StrType
+from redis.commands import AsyncRedisClusterCommands
 from redis.credentials import CredentialProvider
 from redis.retry import Retry
 from redis.typing import AnyKeyT, EncodableT, KeyT
 
+from ..client import AbstractRedis, _StrType
+from .connection import BaseParser, Connection, Encoder
+
+# This TypeVar exists at runtime
+TargetNodesT = TypeVar("TargetNodesT", str, ClusterNode, list[ClusterNode], dict[Any, ClusterNode])  # noqa: Y001
+
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands, Generic[_StrType]):  # type: ignore[misc]  # Incompatible base class
+    @classmethod
+    def from_url(cls, url: str, **kwargs) -> Self: ...
     retry: Retry | None
     connection_kwargs: dict[str, Any]
     nodes_manager: NodesManager
@@ -28,6 +31,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
     read_from_replicas: bool
     reinitialize_steps: int
     cluster_error_retry_attempts: int
+    connection_error_retry_attempts: Incomplete
     reinitialize_counter: int
     commands_parser: CommandsParser
     node_flags: set[str]
@@ -95,11 +99,11 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
     def keyslot(self, key: EncodableT) -> int: ...
     def get_encoder(self) -> Encoder: ...
     def get_connection_kwargs(self) -> dict[str, Any | None]: ...
+    def get_retry(self) -> Retry | None: ...
+    def set_retry(self, retry: Retry) -> None: ...
     def set_response_callback(self, command: str, callback: ResponseCallbackT) -> None: ...
     async def execute_command(self, *args: EncodableT, **kwargs: Any) -> Any: ...
     def pipeline(self, transaction: Any | None = None, shard_hint: Any | None = None) -> ClusterPipeline[_StrType]: ...
-    @classmethod
-    def from_url(cls, url: str, **kwargs) -> Self: ...
 
 class ClusterNode:
     host: str
@@ -132,11 +136,11 @@ class NodesManager:
     startup_nodes: dict[str, ClusterNode]
     require_full_coverage: bool
     connection_kwargs: dict[str, Any]
+    address_remap: Callable[[str, int], tuple[str, int]] | None
     default_node: ClusterNode | None
     nodes_cache: dict[str, ClusterNode]
     slots_cache: dict[int, list[ClusterNode]]
     read_load_balancer: LoadBalancer
-    address_remap: Callable[[str, int], tuple[str, int]] | None
     def __init__(
         self,
         startup_nodes: list[ClusterNode],
@@ -152,7 +156,7 @@ class NodesManager:
     async def close(self, attr: str = "nodes_cache") -> None: ...
     def remap_host_port(self, host: str, port: int) -> tuple[str, int]: ...
 
-class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class ClusterPipeline(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands, Generic[_StrType]):  # type: ignore[misc]  # Incompatible base class
     def __init__(self, client: RedisCluster[_StrType]) -> None: ...
     async def initialize(self) -> Self: ...
     async def __aenter__(self) -> Self: ...
@@ -168,7 +172,7 @@ class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  
     def __len__(self) -> int: ...
     def execute_command(self, *args: KeyT | EncodableT, **kwargs: Any) -> Self: ...
     async def execute(self, raise_on_error: bool = True, allow_redirections: bool = True) -> list[Any]: ...
-    def mset_nonatomic(self, mapping: Mapping[AnyKeyT, EncodableT]) -> Self: ...
+    def mset_nonatomic(self, mapping: Mapping[AnyKeyT, EncodableT]) -> Self: ...  # type: ignore[override]  # Incompatible return type
 
 class PipelineCommand:
     args: Any

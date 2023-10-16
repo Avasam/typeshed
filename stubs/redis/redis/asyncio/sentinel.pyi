@@ -2,11 +2,12 @@ from _typeshed import Incomplete
 from collections.abc import AsyncIterator, Iterable, Mapping, Sequence
 from typing import Any, overload
 
-from redis.asyncio.client import Redis
 from redis.asyncio.connection import Connection, ConnectionPool, SSLConnection
 from redis.commands import AsyncSentinelCommands
 from redis.exceptions import ConnectionError
 from redis.typing import EncodableT
+
+from .client import Redis
 
 class MasterNotFoundError(ConnectionError): ...
 class SlaveNotFoundError(ConnectionError): ...

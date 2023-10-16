@@ -1,8 +1,8 @@
 from types import TracebackType
 from typing import Any, Generic
 
-from redis.asyncio.client import Pipeline, Redis
-from redis.client import _StrType
+from ..client import _StrType
+from .client import Pipeline, Redis
 
 def from_url(url: str, **kwargs) -> Redis[Any]: ...
 

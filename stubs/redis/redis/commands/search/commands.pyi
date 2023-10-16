@@ -6,6 +6,7 @@ from typing_extensions import Literal, TypeAlias
 from .aggregation import AggregateRequest, AggregateResult, Cursor
 from .query import Query
 from .result import Result
+from .suggestion import SuggestionParser
 
 _QueryParams: TypeAlias = Mapping[str, str | float]
 
@@ -17,6 +18,7 @@ SEARCH_CMD: Literal["FT.SEARCH"]
 ADD_CMD: Literal["FT.ADD"]
 ADDHASH_CMD: Literal["FT.ADDHASH"]
 DROP_CMD: Literal["FT.DROP"]
+DROPINDEX_CMD: str
 EXPLAIN_CMD: Literal["FT.EXPLAIN"]
 EXPLAINCLI_CMD: Literal["FT.EXPLAINCLI"]
 DEL_CMD: Literal["FT.DEL"]
@@ -44,7 +46,12 @@ SYNDUMP_CMD: Literal["FT.SYNDUMP"]
 
 NOOFFSETS: Literal["NOOFFSETS"]
 NOFIELDS: Literal["NOFIELDS"]
+NOHL: str
+NOFREQS: str
+MAXTEXTFIELDS: str
+TEMPORARY: str
 STOPWORDS: Literal["STOPWORDS"]
+SKIPINITIALSCAN: str
 WITHSCORES: Literal["WITHSCORES"]
 FUZZY: Literal["FUZZY"]
 WITHPAYLOADS: Literal["WITHPAYLOADS"]
@@ -109,3 +116,18 @@ class SearchCommands:
     def sugget(self, key, prefix, fuzzy: bool = False, num: int = 10, with_scores: bool = False, with_payloads: bool = False): ...
     def synupdate(self, groupid, skipinitial: bool = False, *terms): ...
     def syndump(self): ...
+
+class AsyncSearchCommands(SearchCommands):
+    async def info(self): ...
+    async def search(self, query: str | Query, query_params: dict[str, str | float] = ...): ...  # type: ignore[override]  # Incompatible return type
+    async def aggregate(self, query: str | Query, query_params: dict[str, str | float] = ...): ...  # type: ignore[override]  # Incompatible return type
+    async def spellcheck(
+        self, query, distance: Incomplete | None = ..., include: Incomplete | None = ..., exclude: Incomplete | None = ...
+    ): ...
+    async def config_set(self, option: str, value: str) -> bool: ...  # type: ignore[override]  # Incompatible return type
+    async def config_get(self, option: str) -> str: ...  # type: ignore[override]  # Incompatible return type
+    async def load_document(self, id): ...
+    async def sugadd(self, key, *suggestions, **kwargs): ...
+    async def sugget(
+        self, key: str, prefix: str, fuzzy: bool = ..., num: int = ..., with_scores: bool = ..., with_payloads: bool = ...
+    ) -> list[SuggestionParser]: ...

@@ -1,5 +1,40 @@
-from . import backoff, client, connection, credentials, exceptions, sentinel, utils
-from .cluster import RedisCluster as RedisCluster
+from redis.backoff import default_backoff as default_backoff
+from redis.client import Redis as Redis, StrictRedis as StrictRedis
+from redis.cluster import RedisCluster as RedisCluster
+from redis.connection import (
+    BlockingConnectionPool as BlockingConnectionPool,
+    Connection as Connection,
+    ConnectionPool as ConnectionPool,
+    SSLConnection as SSLConnection,
+    UnixDomainSocketConnection as UnixDomainSocketConnection,
+)
+from redis.credentials import (
+    CredentialProvider as CredentialProvider,
+    UsernamePasswordCredentialProvider as UsernamePasswordCredentialProvider,
+)
+from redis.exceptions import (
+    AuthenticationError as AuthenticationError,
+    AuthenticationWrongNumberOfArgsError as AuthenticationWrongNumberOfArgsError,
+    BusyLoadingError as BusyLoadingError,
+    ChildDeadlockedError as ChildDeadlockedError,
+    ConnectionError as ConnectionError,
+    DataError as DataError,
+    InvalidResponse as InvalidResponse,
+    OutOfMemoryError as OutOfMemoryError,
+    PubSubError as PubSubError,
+    ReadOnlyError as ReadOnlyError,
+    RedisError as RedisError,
+    ResponseError as ResponseError,
+    TimeoutError as TimeoutError,
+    WatchError as WatchError,
+)
+from redis.sentinel import (
+    Sentinel as Sentinel,
+    SentinelConnectionPool as SentinelConnectionPool,
+    SentinelManagedConnection as SentinelManagedConnection,
+    SentinelManagedSSLConnection as SentinelManagedSSLConnection,
+)
+from redis.utils import from_url as from_url
 
 __all__ = [
     "AuthenticationError",
@@ -15,6 +50,7 @@ __all__ = [
     "from_url",
     "default_backoff",
     "InvalidResponse",
+    "OutOfMemoryError",
     "PubSubError",
     "ReadOnlyError",
     "Redis",
@@ -32,41 +68,6 @@ __all__ = [
     "UnixDomainSocketConnection",
     "WatchError",
 ]
-
-default_backoff = backoff.default_backoff
-
-Redis = client.Redis
-
-BlockingConnectionPool = connection.BlockingConnectionPool
-Connection = connection.Connection
-ConnectionPool = connection.ConnectionPool
-SSLConnection = connection.SSLConnection
-StrictRedis = client.StrictRedis
-UnixDomainSocketConnection = connection.UnixDomainSocketConnection
-
-from_url = utils.from_url
-
-Sentinel = sentinel.Sentinel
-SentinelConnectionPool = sentinel.SentinelConnectionPool
-SentinelManagedConnection = sentinel.SentinelManagedConnection
-SentinelManagedSSLConnection = sentinel.SentinelManagedSSLConnection
-
-AuthenticationError = exceptions.AuthenticationError
-AuthenticationWrongNumberOfArgsError = exceptions.AuthenticationWrongNumberOfArgsError
-BusyLoadingError = exceptions.BusyLoadingError
-ChildDeadlockedError = exceptions.ChildDeadlockedError
-ConnectionError = exceptions.ConnectionError
-DataError = exceptions.DataError
-InvalidResponse = exceptions.InvalidResponse
-PubSubError = exceptions.PubSubError
-ReadOnlyError = exceptions.ReadOnlyError
-RedisError = exceptions.RedisError
-ResponseError = exceptions.ResponseError
-TimeoutError = exceptions.TimeoutError
-WatchError = exceptions.WatchError
-
-CredentialProvider = credentials.CredentialProvider
-UsernamePasswordCredentialProvider = credentials.UsernamePasswordCredentialProvider
 
 __version__: str
 VERSION: tuple[int | str, ...]

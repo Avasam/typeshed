@@ -1,4 +1,4 @@
-from _typeshed import Unused
+from _typeshed import Incomplete, Unused
 from collections.abc import Iterable, Mapping
 from contextlib import AbstractContextManager
 from typing import Any, TypeVar, overload
@@ -9,6 +9,8 @@ from .client import Pipeline, Redis, _StrType
 _T = TypeVar("_T")
 
 HIREDIS_AVAILABLE: bool
+HIREDIS_PACK_AVAILABLE: Incomplete
+SSL_AVAILABLE: bool
 CRYPTOGRAPHY_AVAILABLE: bool
 
 @overload
@@ -21,3 +23,6 @@ def safe_str(value: object) -> str: ...
 def dict_merge(*dicts: Mapping[str, _T]) -> dict[str, _T]: ...
 def list_keys_to_dict(key_list, callback): ...  # unused, alias for `dict.fromkeys`
 def merge_result(command: Unused, res: Mapping[Any, Iterable[_T]]) -> list[_T]: ...
+def warn_deprecated(name, reason: str = ..., version: str = ..., stacklevel: int = ...) -> None: ...
+def deprecated_function(reason: str = ..., version: str = ..., name: Incomplete | None = ...): ...
+def get_lib_version(): ...

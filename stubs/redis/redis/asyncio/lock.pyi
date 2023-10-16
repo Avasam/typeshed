@@ -4,8 +4,9 @@ from types import SimpleNamespace, TracebackType
 from typing import Any, ClassVar
 from typing_extensions import Self
 
-from redis.asyncio import Redis
 from redis.commands.core import AsyncScript
+
+from ..asyncio.client import Redis
 
 class Lock:
     lua_release: ClassVar[AsyncScript | None]

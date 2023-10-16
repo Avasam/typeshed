@@ -1,6 +1,6 @@
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
-_Key: TypeAlias = bytes | str | memoryview
+from redis.typing import KeyT
 
 ADD_CMD: Literal["TS.ADD"]
 ALTER_CMD: Literal["TS.ALTER"]
@@ -23,7 +23,7 @@ REVRANGE_CMD: Literal["TS.REVRANGE"]
 class TimeSeriesCommands:
     def create(
         self,
-        key: _Key,
+        key: KeyT,
         retention_msecs: int | None = None,
         uncompressed: bool | None = False,
         labels: dict[str, str] | None = None,
@@ -32,7 +32,7 @@ class TimeSeriesCommands:
     ): ...
     def alter(
         self,
-        key: _Key,
+        key: KeyT,
         retention_msecs: int | None = None,
         labels: dict[str, str] | None = None,
         chunk_size: int | None = None,
@@ -40,7 +40,7 @@ class TimeSeriesCommands:
     ): ...
     def add(
         self,
-        key: _Key,
+        key: KeyT,
         timestamp: int | str,
         value: float,
         retention_msecs: int | None = None,
@@ -52,7 +52,7 @@ class TimeSeriesCommands:
     def madd(self, ktv_tuples): ...
     def incrby(
         self,
-        key: _Key,
+        key: KeyT,
         value: float,
         timestamp: int | str | None = None,
         retention_msecs: int | None = None,
@@ -62,7 +62,7 @@ class TimeSeriesCommands:
     ): ...
     def decrby(
         self,
-        key: _Key,
+        key: KeyT,
         value: float,
         timestamp: int | str | None = None,
         retention_msecs: int | None = None,
@@ -72,12 +72,12 @@ class TimeSeriesCommands:
     ): ...
     def delete(self, key, from_time, to_time): ...
     def createrule(
-        self, source_key: _Key, dest_key: _Key, aggregation_type: str, bucket_size_msec: int, align_timestamp: int | None = None
+        self, source_key: KeyT, dest_key: KeyT, aggregation_type: str, bucket_size_msec: int, align_timestamp: int | None = None
     ): ...
     def deleterule(self, source_key, dest_key): ...
     def range(
         self,
-        key: _Key,
+        key: KeyT,
         from_time: int | str,
         to_time: int | str,
         count: int | None = None,
@@ -93,7 +93,7 @@ class TimeSeriesCommands:
     ): ...
     def revrange(
         self,
-        key: _Key,
+        key: KeyT,
         from_time: int | str,
         to_time: int | str,
         count: int | None = None,
@@ -147,7 +147,7 @@ class TimeSeriesCommands:
         bucket_timestamp: str | None = None,
         empty: bool | None = False,
     ): ...
-    def get(self, key: _Key, latest: bool | None = False): ...
+    def get(self, key: KeyT, latest: bool | None = False): ...
     def mget(
         self,
         filters: list[str],
