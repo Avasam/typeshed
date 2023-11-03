@@ -7,6 +7,7 @@ from typing import Any, TextIO, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 import flask
+from alembic.config import Config as AlembicConfig
 from flask_sqlalchemy import SQLAlchemy
 
 _T = TypeVar("_T")
@@ -17,7 +18,7 @@ _AlembicConfigValue: TypeAlias = Any
 alembic_version: tuple[int, int, int]
 log: Logger
 
-class Config:  # should inherit from alembic.config.Config which is not possible yet
+class Config(AlembicConfig):
     template_directory: str | None
     # Same as alembic.config.Config + template_directory kwarg
     def __init__(
