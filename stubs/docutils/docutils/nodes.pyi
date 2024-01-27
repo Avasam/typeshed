@@ -22,7 +22,11 @@ class Node:
     # TODO: `parent` is actually `Node | None``, but `None`` only happens rarely,
     #       i.e. for synthetic nodes or `document`.
     #       See https://github.com/python/typeshed/blob/main/CONTRIBUTING.md#the-any-trick
-    parent: Self | Any
+    # `parent` is also often a superclass w/o being a Node exactly
+    @property
+    def parent(self) -> Self | Any: ...
+    @parent.setter
+    def parent(self, value: Node) -> Node: ...
     source: str | None
     line: int | None
     document: document | None
