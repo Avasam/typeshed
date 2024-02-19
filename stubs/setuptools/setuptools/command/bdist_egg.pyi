@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import ClassVar
 
 from .. import Command
 
@@ -8,9 +9,9 @@ def sorted_walk(dir) -> Generator[Incomplete, None, None]: ...
 def write_stub(resource, pyfile) -> None: ...
 
 class bdist_egg(Command):
-    description: str
-    user_options: Incomplete
-    boolean_options: Incomplete
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     bdist_dir: Incomplete
     plat_name: Incomplete
     keep_temp: int

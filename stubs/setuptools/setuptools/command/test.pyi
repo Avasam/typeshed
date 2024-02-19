@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from types import ModuleType
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self
 from unittest import TestLoader, TestSuite
 
@@ -22,8 +22,8 @@ class NonDataProperty(Generic[_T]):
     def __get__(self, obj: Any, objtype: Unused = None) -> _T: ...
 
 class test(Command):
-    description: str
-    user_options: Any
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str, str]]]
     test_suite: Any
     test_module: Any
     test_loader: Any

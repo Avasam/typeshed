@@ -7,6 +7,7 @@ def make_writable(target) -> None: ...
 
 class build_py(orig.build_py):
     editable_mode: ClassVar[bool]
+    # existing_egg_info_dir: Private API, internal use only.
     package_data: Any
     exclude_package_data: Any
     def finalize_options(self) -> None: ...

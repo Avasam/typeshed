@@ -1,7 +1,8 @@
 from collections.abc import Generator
+from re import Pattern
 from typing import Any
 
-WHEEL_NAME: Any
+WHEEL_NAME = Pattern().match
 NAMESPACE_PACKAGE_INIT: str
 
 def unpack(src_dir, dst_dir) -> None: ...

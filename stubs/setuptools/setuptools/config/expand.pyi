@@ -2,13 +2,14 @@ import os
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from importlib.machinery import ModuleSpec
+from itertools import chain
 from types import TracebackType
 from typing import TypeVar
 from typing_extensions import Self, TypeAlias
 
 from ..dist import Distribution
 
-chain_iter: Incomplete
+chain_iter = chain.from_iterable
 _Path: TypeAlias = str | os.PathLike[Incomplete]
 _K = TypeVar("_K")
 _VCo = TypeVar("_VCo", covariant=True)
@@ -18,7 +19,7 @@ class StaticModule:
     def __getattr__(self, attr): ...
 
 def glob_relative(patterns: Iterable[str], root_dir: _Path | None = None) -> list[str]: ...
-def read_files(filepaths: str | bytes | Iterable[_Path], root_dir: Incomplete | None = None) -> str: ...
+def read_files(filepaths: str | Iterable[_Path], root_dir: Incomplete | None = None) -> str: ...
 def read_attr(attr_desc: str, package_dir: Mapping[str, str] | None = None, root_dir: _Path | None = None): ...
 def resolve_class(
     qualified_class_name: str, package_dir: Mapping[str, str] | None = None, root_dir: _Path | None = None

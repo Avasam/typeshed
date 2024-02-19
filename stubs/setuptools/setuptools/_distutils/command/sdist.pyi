@@ -1,16 +1,17 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..cmd import Command
 
 class sdist(Command):
     description: str
     def checking_metadata(self): ...
-    user_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: Incomplete
     help_options: Incomplete
-    negative_opt: Incomplete
-    READMES: Incomplete
-    template: Incomplete
+    negative_opt: ClassVar[dict[Incomplete, Incomplete]]
+    READMES: ClassVar[tuple[str, ...]]
+    template: str | None
     manifest: Incomplete
     use_defaults: int
     prune: int

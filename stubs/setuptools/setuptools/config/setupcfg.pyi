@@ -1,6 +1,6 @@
 import os
 from _typeshed import Incomplete
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 from .._distutils.dist import DistributionMetadata
@@ -8,8 +8,8 @@ from ..dist import Distribution
 from . import expand
 
 _Path: TypeAlias = str | os.PathLike[Incomplete]
-SingleCommandOptions: Incomplete
-AllCommandOptions: Incomplete
+SingleCommandOptions: TypeAlias = dict[str, tuple[str, Any]]
+AllCommandOptions: TypeAlias = dict[str, SingleCommandOptions]
 Target = TypeVar("Target", bound=Distribution | DistributionMetadata)  # noqa: Y001 # Exists at runtime
 
 def read_configuration(

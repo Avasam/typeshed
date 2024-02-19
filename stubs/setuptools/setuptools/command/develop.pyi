@@ -1,13 +1,13 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .. import namespaces
 from .easy_install import easy_install
 
 class develop(namespaces.DevelopInstaller, easy_install):
-    description: str
-    user_options: Any
-    boolean_options: Any
-    command_consumes_arguments: bool
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    command_consumes_arguments: ClassVar[bool]
     multi_version: bool
     def run(self) -> None: ...  # type: ignore[override]
     uninstall: Any

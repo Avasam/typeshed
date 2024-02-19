@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 from enum import Enum
 from pathlib import Path
 from types import TracebackType
-from typing import Protocol
+from typing import ClassVar, Protocol
 from typing_extensions import Self, TypeAlias
 
 from .. import Command, errors, namespaces
@@ -14,15 +15,15 @@ _WheelFile: TypeAlias = Incomplete
 _Path: TypeAlias = str | Path
 
 class _EditableMode(Enum):
-    STRICT: str
-    LENIENT: str
-    COMPAT: str
+    STRICT = "strict"
+    LENIENT = "lenient"
+    COMPAT = "compat"
     @classmethod
     def convert(cls, mode: str | None) -> _EditableMode: ...
 
 class editable_wheel(Command):
-    description: str
-    user_options: Incomplete
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     dist_dir: Incomplete
     dist_info_dir: Incomplete
     project_dir: Incomplete
@@ -33,7 +34,7 @@ class editable_wheel(Command):
     def run(self) -> None: ...
 
 class EditableStrategy(Protocol):
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]) -> None: ...
+    def __call__(self, wheel: _WheelFile, files: Iterable[str], mapping: dict[str, str]) -> None: ...
     def __enter__(self): ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
@@ -44,7 +45,7 @@ class _StaticPth:
     name: Incomplete
     path_entries: Incomplete
     def __init__(self, dist: Distribution, name: str, path_entries: list[Path]) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def __call__(self, wheel: _WheelFile, files: Iterable[str], mapping: dict[str, str]): ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
@@ -54,7 +55,7 @@ class _LinkTree(_StaticPth):
     auxiliary_dir: Incomplete
     build_lib: Incomplete
     def __init__(self, dist: Distribution, name: str, auxiliary_dir: _Path, build_lib: _Path) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def __call__(self, wheel: _WheelFile, files: Iterable[str], mapping: dict[str, str]): ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
@@ -64,7 +65,7 @@ class _TopLevelFinder:
     dist: Incomplete
     name: Incomplete
     def __init__(self, dist: Distribution, name: str) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def __call__(self, wheel: _WheelFile, files: Iterable[str], mapping: dict[str, str]): ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None

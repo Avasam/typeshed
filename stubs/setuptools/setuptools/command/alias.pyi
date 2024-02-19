@@ -1,14 +1,14 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .setopt import option_base
 
 def shquote(arg): ...
 
 class alias(option_base):
-    description: str
-    command_consumes_arguments: bool
-    user_options: Any
-    boolean_options: Any
+    description: ClassVar[str]
+    command_consumes_arguments: ClassVar[bool]
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     args: Any
     remove: Any
     def initialize_options(self) -> None: ...
