@@ -1,7 +1,7 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
 from _typeshed import Incomplete, Unused
-from typing import Literal, NoReturn, final, overload
-from typing_extensions import Never, TypeAlias, deprecated
+from typing import Literal, final, overload
+from typing_extensions import TypeAlias, deprecated
 
 from win32.lib.pywintypes import DEVMODEType, IIDType, SECURITY_DESCRIPTORType, SIDType, TimeType
 from win32comext.adsi.adsi import DSOP_SCOPE_INIT_INFOs
@@ -13,8 +13,6 @@ from win32comext.propsys.propsys import PROPVARIANTType
 
 @final
 class PyIDispatch:  # aka: IDispatchType, PyIDispatchType
-    @deprecated("Cannot create 'PyIDispatch' instances.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def Invoke(self, dispid, lcid, flags, bResultWanted, arg: tuple[Incomplete, ...], /): ...
     def InvokeTypes(
         self, dispid, lcid, wFlags, resultTypeDesc, typeDescs: tuple[Incomplete, ...], args: tuple[Incomplete, ...], /
@@ -25,8 +23,6 @@ class PyIDispatch:  # aka: IDispatchType, PyIDispatchType
 
 @final
 class PyIUnknown:  # aka: IUnknownType, PyIUnknown
-    @deprecated("Cannot create 'PyIUnknown' instances.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def QueryInterface(self, iid, useIID: Incomplete | None = ..., /) -> PyIUnknown: ...
 
 class PyIDispatchEx:

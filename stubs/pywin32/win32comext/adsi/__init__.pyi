@@ -1,5 +1,5 @@
-from typing import ClassVar, NoReturn, final
-from typing_extensions import Never, TypeAlias, deprecated
+from typing import ClassVar, final
+from typing_extensions import TypeAlias
 
 import _win32typing
 import win32com.client
@@ -60,8 +60,6 @@ IDispatchType: TypeAlias = _win32typing.PyIDispatch
 @final
 class IADsContainerType:
     __name__: ClassVar[str] = "PyIADsContainer"
-    @deprecated("Cannot create 'PyIADsContainer' instances.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def GetObject(self, _class: str, relativeName: str, /) -> _win32typing.PyIDispatch: ...
     def get_Count(self): ...
     def get_Filter(self): ...

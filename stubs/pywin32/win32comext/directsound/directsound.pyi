@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import ClassVar, NoReturn
-from typing_extensions import Never, deprecated
+from typing import ClassVar
 
 import _win32typing
 from win32.lib.pywintypes import IIDType
@@ -18,8 +17,6 @@ def DSCBUFFERDESC() -> DSCBUFFERDESCType: ...
 
 class DSBCAPSType:
     __name__: ClassVar[str] = "PyDSBCAPS"
-    @deprecated("Cannot create 'PyDSBCAPS' instances. Use win32comext.directsound.directsound.DSBCAPS instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property
@@ -31,8 +28,6 @@ class DSBCAPSType:
 
 class DSBUFFERDESCType:
     __name__: ClassVar[str] = "PyDSBUFFERDESC"
-    @deprecated("Cannot create 'PyDSBUFFERDESC' instances. Use win32comext.directsound.directsound.DSBUFFERDESC instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property
@@ -42,8 +37,6 @@ class DSBUFFERDESCType:
 
 class DSCAPSType:  # aka PyDSCAPS
     __name__: ClassVar[str] = "PyDSCAPSType"
-    @deprecated("Cannot create 'PyDSCAPSType' instances. Use win32comext.directsound.directsound.DSCAPS instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property
@@ -89,8 +82,6 @@ class DSCAPSType:  # aka PyDSCAPS
 
 class DSCBCAPSType:
     __name__: ClassVar[str] = "PyDSCBCAPSType"
-    @deprecated("Cannot create 'PyDSCBCAPSType' instances. Use win32comext.directsound.directsound.DSCBCAPS instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property
@@ -98,8 +89,6 @@ class DSCBCAPSType:
 
 class DSCBUFFERDESCType:
     __name__: ClassVar[str] = "PyDSCBUFFERDESC"
-    @deprecated("Cannot create 'PyDSCBUFFERDESC' instances. Use win32comext.directsound.directsound.DSCBUFFERDESC instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property
@@ -109,8 +98,6 @@ class DSCBUFFERDESCType:
 
 class DSCCAPSType:
     __name__: ClassVar[str] = "PyDSCCAPSType"
-    @deprecated("Cannot create 'PyDSCCAPSType' instances. Use win32comext.directsound.directsound.DSCCAPS instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def dwFlags(self) -> int: ...
     @property

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import ClassVar, Literal, NoReturn, final, overload
-from typing_extensions import Never, TypeAlias, deprecated
+from typing import ClassVar, Literal, final, overload
+from typing_extensions import TypeAlias, deprecated
 
 import _win32typing
 
@@ -47,13 +47,9 @@ class TimeType(datetime):  # aka: PyTime
 @final
 class IIDType:  # __repr__: IID
     __name__: ClassVar[str] = "PyIID"
-    @deprecated("Cannot create 'PyIID' instances. Use pywintypes.IID instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
 
 class SECURITY_DESCRIPTORType:
     __name__: ClassVar[str] = "PySECURITY_DESCRIPTOR"
-    @deprecated("Cannot create 'PySECURITY_DESCRIPTOR' instances. Use pywintypes.SECURITY_DESCRIPTOR instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def Initialize(self) -> None: ...
     def GetSecurityDescriptorOwner(self) -> SIDType: ...
     def GetSecurityDescriptorDacl(self) -> ACLType: ...
@@ -73,15 +69,11 @@ class SECURITY_DESCRIPTORType:
 @final
 class SECURITY_ATTRIBUTESType:
     __name__: ClassVar[str] = "PySECURITY_ATTRIBUTES"
-    @deprecated("Cannot create 'PySECURITY_ATTRIBUTES' instances. Use pywintypes.SECURITY_ATTRIBUTES instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     bInheritHandle: int
     SECURITY_DESCRIPTOR: SECURITY_DESCRIPTORType
 
 class SIDType:
     __name__: ClassVar[str] = "PySID"
-    @deprecated("Cannot create 'PySID' instances. Use pywintypes.SID instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def Initialize(self, idAuthority, numSubauthorities, /) -> None: ...
     def IsValid(self) -> bool: ...
     def SetSubAuthority(self, index, val, /) -> None: ...
@@ -92,8 +84,6 @@ class SIDType:
 
 class ACLType:
     __name__: ClassVar[str] = "PyACL"
-    @deprecated("Cannot create 'PyACL' instances. Use pywintypes.ACL instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     def Initialize(self) -> None: ...
     def IsValid(self) -> bool: ...
     @deprecated(
@@ -150,8 +140,6 @@ which reflects the win32 API and the new functions in this module."""
 
 class HANDLEType:
     __name__: ClassVar[str] = "PyHANDLE"
-    @deprecated("Cannot create 'PyHANDLE' instances. Use pywintypes.HANDLE instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def handle(self) -> int: ...
     def Close(self) -> None: ...
@@ -162,8 +150,6 @@ class HANDLEType:
 @final
 class OVERLAPPEDType:
     __name__: ClassVar[str] = "PyOVERLAPPED"
-    @deprecated("Cannot create 'PyOVERLAPPED' instances. Use pywintypes.OVERLAPPED instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     Offset: int
     OffsetHigh: int
     object: object
@@ -310,8 +296,6 @@ class DEVMODEType:
 
 class WAVEFORMATEXType:
     __name__: ClassVar[str] = "PyWAVEFORMATEX"
-    @deprecated("Cannot create 'WAVEFORMATEXType' instances. Use pywintypes.WAVEFORMATEX instead.")
-    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
     @property
     def wFormatTag(self) -> int: ...
     @property
