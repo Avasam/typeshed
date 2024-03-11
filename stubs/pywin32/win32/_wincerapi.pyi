@@ -1,14 +1,15 @@
 from _typeshed import Incomplete
 
 import _win32typing
+from win32.lib.pywintypes import SECURITY_ATTRIBUTESType
 
 def CeRapiInit() -> None: ...
 def CeRapiUninit() -> None: ...
 def CreateProcess(
     appName: str | None,
     commandLine: str,
-    processAttributes: _win32typing.PySECURITY_ATTRIBUTES | None,
-    threadAttributes: _win32typing.PySECURITY_ATTRIBUTES | None,
+    processAttributes: SECURITY_ATTRIBUTESType | None,
+    threadAttributes: SECURITY_ATTRIBUTESType | None,
     bInheritHandles: int | bool,
     dwCreationFlags: int,
     newEnvironment: dict[str, str] | None,
@@ -23,7 +24,7 @@ def CeCreateFile(
     fileName: str,
     desiredAccess,
     shareMode,
-    attributes: _win32typing.PySECURITY_ATTRIBUTES,
+    attributes: SECURITY_ATTRIBUTESType,
     creationDisposition,
     flagsAndAttributes,
     hTemplateFile: int,
@@ -31,7 +32,7 @@ def CeCreateFile(
 ) -> _win32typing.PyCEHANDLE: ...
 def CeDeleteFile(fileName: str, /) -> None: ...
 def CeMoveFile(existingFileName: str, newFileName: str, /) -> None: ...
-def CeCreateDirectory(name: str, sa: _win32typing.PySECURITY_ATTRIBUTES, /) -> None: ...
+def CeCreateDirectory(name: str, sa: SECURITY_ATTRIBUTESType, /) -> None: ...
 def CeRemoveDirectory(lpPathName: str, /) -> None: ...
 def CeGetTempPath() -> str: ...
 def CeGetSystemInfo(): ...

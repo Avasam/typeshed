@@ -1,14 +1,14 @@
-import _win32typing
+from win32.lib.pywintypes import IIDType
 
-CATID_ActiveScript: _win32typing.PyIID
-CATID_ActiveScriptParse: _win32typing.PyIID
-IID_IActiveScript: _win32typing.PyIID
-IID_IActiveScriptError: _win32typing.PyIID
-IID_IActiveScriptParse: _win32typing.PyIID
-IID_IActiveScriptParseProcedure: _win32typing.PyIID
-IID_IActiveScriptSite: _win32typing.PyIID
-IID_IObjectSafety: _win32typing.PyIID
-IID_IProvideMultipleClassInfo: _win32typing.PyIID
+CATID_ActiveScript: IIDType
+CATID_ActiveScriptParse: IIDType
+IID_IActiveScript: IIDType
+IID_IActiveScriptError: IIDType
+IID_IActiveScriptParse: IIDType
+IID_IActiveScriptParseProcedure: IIDType
+IID_IActiveScriptSite: IIDType
+IID_IObjectSafety: IIDType
+IID_IProvideMultipleClassInfo: IIDType
 INTERFACESAFE_FOR_UNTRUSTED_CALLER: int
 INTERFACESAFE_FOR_UNTRUSTED_DATA: int
 INTERFACE_USES_DISPEX: int

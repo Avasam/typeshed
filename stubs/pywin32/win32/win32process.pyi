@@ -1,18 +1,18 @@
 from _typeshed import Incomplete
 
 import _win32typing
-from win32.lib.pywintypes import error as error
+from win32.lib.pywintypes import SECURITY_ATTRIBUTESType, error as error
 
 def STARTUPINFO() -> _win32typing.PySTARTUPINFO: ...
-def beginthreadex(sa: _win32typing.PySECURITY_ATTRIBUTES, stackSize, entryPoint, args, flags, /) -> tuple[int, Incomplete]: ...
+def beginthreadex(sa: SECURITY_ATTRIBUTESType, stackSize, entryPoint, args, flags, /) -> tuple[int, Incomplete]: ...
 def CreateRemoteThread(
-    hprocess: int, sa: _win32typing.PySECURITY_ATTRIBUTES, stackSize, entryPoint, Parameter, flags, /
+    hprocess: int, sa: SECURITY_ATTRIBUTESType, stackSize, entryPoint, Parameter, flags, /
 ) -> tuple[int, Incomplete]: ...
 def CreateProcess(
     appName: str | None,
     commandLine: str,
-    processAttributes: _win32typing.PySECURITY_ATTRIBUTES | None,
-    threadAttributes: _win32typing.PySECURITY_ATTRIBUTES | None,
+    processAttributes: SECURITY_ATTRIBUTESType | None,
+    threadAttributes: SECURITY_ATTRIBUTESType | None,
     bInheritHandles: int | bool,
     dwCreationFlags: int,
     newEnvironment: dict[str, str] | None,
@@ -24,8 +24,8 @@ def CreateProcessAsUser(
     hToken: int,
     appName: str,
     commandLine: str,
-    processAttributes: _win32typing.PySECURITY_ATTRIBUTES,
-    threadAttributes: _win32typing.PySECURITY_ATTRIBUTES,
+    processAttributes: SECURITY_ATTRIBUTESType,
+    threadAttributes: SECURITY_ATTRIBUTESType,
     bInheritHandles,
     dwCreationFlags,
     newEnvironment,

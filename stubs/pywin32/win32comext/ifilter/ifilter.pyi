@@ -1,4 +1,4 @@
-import _win32typing
+from win32.lib.pywintypes import IIDType
 
 def BindIFilterFromStorage(*args): ...  # incomplete
 def BindIFilterFromStream(*args): ...  # incomplete
@@ -30,4 +30,4 @@ IFILTER_INIT_CANON_SPACES: int
 IFILTER_INIT_HARD_LINE_BREAKS: int
 IFILTER_INIT_INDEXING_ONLY: int
 IFILTER_INIT_SEARCH_LINKS: int
-IID_IFilter: _win32typing.PyIID
+IID_IFilter: IIDType

@@ -1,6 +1,7 @@
 # Can't generate with stubgen because:
 # "ImportError: DLL load failed while importing axdebug: The specified module could not be found."
-import _win32typing
+
+from win32.lib.pywintypes import IIDType
 
 def GetStackAddress(*args): ...  # incomplete
 def GetThreadStateHandle(*args): ...  # incomplete
@@ -78,45 +79,45 @@ APPBREAKFLAG_STEPTYPE_MACHINE: int
 APPBREAKFLAG_STEPTYPE_MASK: int
 APPBREAKFLAG_STEPTYPE_SOURCE: int
 
-IID_IActiveScriptDebug: _win32typing.PyIID
-IID_IActiveScriptErrorDebug: _win32typing.PyIID
-IID_IActiveScriptSiteDebug: _win32typing.PyIID
-IID_IApplicationDebugger: _win32typing.PyIID
-IID_IDebugApplication: _win32typing.PyIID
-IID_IDebugApplicationNode: _win32typing.PyIID
-IID_IDebugApplicationNodeEvents: _win32typing.PyIID
-IID_IDebugApplicationThread: _win32typing.PyIID
-IID_IDebugCodeContext: _win32typing.PyIID
-IID_IDebugDocument: _win32typing.PyIID
-IID_IDebugDocumentContext: _win32typing.PyIID
-IID_IDebugDocumentHelper: _win32typing.PyIID
-IID_IDebugDocumentHost: _win32typing.PyIID
-IID_IDebugDocumentInfo: _win32typing.PyIID
-IID_IDebugDocumentProvider: _win32typing.PyIID
-IID_IDebugDocumentText: _win32typing.PyIID
-IID_IDebugDocumentTextAuthor: _win32typing.PyIID
-IID_IDebugDocumentTextEvents: _win32typing.PyIID
-IID_IDebugDocumentTextExternalAuthor: _win32typing.PyIID
-IID_IDebugExpression: _win32typing.PyIID
-IID_IDebugExpressionCallBack: _win32typing.PyIID
-IID_IDebugExpressionContext: _win32typing.PyIID
-IID_IDebugProperty: _win32typing.PyIID
-IID_IDebugSessionProvider: _win32typing.PyIID
-IID_IDebugStackFrame: _win32typing.PyIID
-IID_IDebugStackFrameSniffer: _win32typing.PyIID
-IID_IDebugStackFrameSnifferEx: _win32typing.PyIID
-IID_IDebugSyncOperation: _win32typing.PyIID
-IID_IEnumDebugApplicationNodes: _win32typing.PyIID
-IID_IEnumDebugCodeContexts: _win32typing.PyIID
-IID_IEnumDebugExpressionContexts: _win32typing.PyIID
-IID_IEnumDebugPropertyInfo: _win32typing.PyIID
-IID_IEnumDebugStackFrames: _win32typing.PyIID
-IID_IEnumRemoteDebugApplicationThreads: _win32typing.PyIID
-IID_IEnumRemoteDebugApplications: _win32typing.PyIID
-IID_IMachineDebugManager: _win32typing.PyIID
-IID_IMachineDebugManagerEvents: _win32typing.PyIID
-IID_IProcessDebugManager: _win32typing.PyIID
-IID_IProvideExpressionContexts: _win32typing.PyIID
-IID_IRemoteDebugApplication: _win32typing.PyIID
-IID_IRemoteDebugApplicationEvents: _win32typing.PyIID
-IID_IRemoteDebugApplicationThread: _win32typing.PyIID
+IID_IActiveScriptDebug: IIDType
+IID_IActiveScriptErrorDebug: IIDType
+IID_IActiveScriptSiteDebug: IIDType
+IID_IApplicationDebugger: IIDType
+IID_IDebugApplication: IIDType
+IID_IDebugApplicationNode: IIDType
+IID_IDebugApplicationNodeEvents: IIDType
+IID_IDebugApplicationThread: IIDType
+IID_IDebugCodeContext: IIDType
+IID_IDebugDocument: IIDType
+IID_IDebugDocumentContext: IIDType
+IID_IDebugDocumentHelper: IIDType
+IID_IDebugDocumentHost: IIDType
+IID_IDebugDocumentInfo: IIDType
+IID_IDebugDocumentProvider: IIDType
+IID_IDebugDocumentText: IIDType
+IID_IDebugDocumentTextAuthor: IIDType
+IID_IDebugDocumentTextEvents: IIDType
+IID_IDebugDocumentTextExternalAuthor: IIDType
+IID_IDebugExpression: IIDType
+IID_IDebugExpressionCallBack: IIDType
+IID_IDebugExpressionContext: IIDType
+IID_IDebugProperty: IIDType
+IID_IDebugSessionProvider: IIDType
+IID_IDebugStackFrame: IIDType
+IID_IDebugStackFrameSniffer: IIDType
+IID_IDebugStackFrameSnifferEx: IIDType
+IID_IDebugSyncOperation: IIDType
+IID_IEnumDebugApplicationNodes: IIDType
+IID_IEnumDebugCodeContexts: IIDType
+IID_IEnumDebugExpressionContexts: IIDType
+IID_IEnumDebugPropertyInfo: IIDType
+IID_IEnumDebugStackFrames: IIDType
+IID_IEnumRemoteDebugApplicationThreads: IIDType
+IID_IEnumRemoteDebugApplications: IIDType
+IID_IMachineDebugManager: IIDType
+IID_IMachineDebugManagerEvents: IIDType
+IID_IProcessDebugManager: IIDType
+IID_IProvideExpressionContexts: IIDType
+IID_IRemoteDebugApplication: IIDType
+IID_IRemoteDebugApplicationEvents: IIDType
+IID_IRemoteDebugApplicationThread: IIDType

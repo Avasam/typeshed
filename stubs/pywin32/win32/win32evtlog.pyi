@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable
 
 import _win32typing
-from win32.lib.pywintypes import error as error
+from win32.lib.pywintypes import SIDType, error as error
 
 def ReadEventLog(
     Handle: _win32typing.PyEVTLOG_HANDLE, Flags: int, Offset: int, Size=..., /
@@ -22,7 +22,7 @@ def ReportEvent(
     Type: int,
     Category: int,
     EventID: int,
-    UserSid: _win32typing.PySID | None,
+    UserSid: SIDType | None,
     Strings: Iterable[str] | None,
     RawData: bytes | None,
     /,

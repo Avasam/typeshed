@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+from typing_extensions import TypeAlias
 
+import _win32typing
 from pythoncom import (
     DISPID_COLLECT as DISPID_COLLECT,
     DISPID_CONSTRUCTOR as DISPID_CONSTRUCTOR,
@@ -11,8 +13,8 @@ from win32com.server.dispatcher import DispatcherTrace as DispatcherTrace, Dispa
 from win32com.server.exception import COMException as COMException
 
 S_OK: int
-IDispatchType: Incomplete
-IUnknownType: Incomplete
+IDispatchType: TypeAlias = _win32typing.PyIDispatch
+IUnknownType: TypeAlias = _win32typing.PyIUnknown
 error: Incomplete
 regSpec: str
 regPolicy: str

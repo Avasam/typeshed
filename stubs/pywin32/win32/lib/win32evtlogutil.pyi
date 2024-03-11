@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable
 
 import _win32typing
+from win32.lib.pywintypes import SIDType
 
 error: Incomplete
 langid: Incomplete
@@ -22,7 +23,7 @@ def ReportEvent(
     eventType: int = ...,
     strings: Iterable[str] | None = ...,
     data: bytes | None = ...,
-    sid: _win32typing.PySID | None = ...,
+    sid: SIDType | None = ...,
 ) -> None: ...
 def FormatMessage(eventLogRecord: _win32typing.PyEventLogRecord, logType: str = ...): ...
 def SafeFormatMessage(eventLogRecord, logType: Incomplete | None = ...): ...

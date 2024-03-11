@@ -11,7 +11,7 @@ def GetObject(Pathname: str | None = ..., Class: Incomplete | None = ..., clsctx
 def GetActiveObject(Class, clsctx=...): ...
 def Moniker(Pathname, clsctx=...): ...
 def Dispatch(
-    dispatch: str | dynamic.PyIDispatchType | dynamic._GoodDispatchTypes | dynamic.PyIUnknownType,
+    dispatch: str | _win32typing.PyIDispatch | dynamic._GoodDispatchTypes | _win32typing.PyIUnknown,
     userName: str | None = ...,
     resultCLSID: _Stringifiable | None = ...,
     typeinfo: _win32typing.PyITypeInfo | None = ...,

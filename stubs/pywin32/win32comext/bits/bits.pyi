@@ -1,4 +1,4 @@
-import _win32typing
+from win32.lib.pywintypes import IIDType
 
 BG_AUTH_SCHEME_BASIC: int
 BG_AUTH_SCHEME_DIGEST: int
@@ -48,14 +48,14 @@ BG_NOTIFY_DISABLE: int
 BG_NOTIFY_JOB_ERROR: int
 BG_NOTIFY_JOB_MODIFICATION: int
 BG_NOTIFY_JOB_TRANSFERRED: int
-CLSID_BackgroundCopyManager: _win32typing.PyIID
-IID_IBackgroundCopyCallback: _win32typing.PyIID
-IID_IBackgroundCopyError: _win32typing.PyIID
-IID_IBackgroundCopyFile: _win32typing.PyIID
-IID_IBackgroundCopyFile2: _win32typing.PyIID
-IID_IBackgroundCopyJob: _win32typing.PyIID
-IID_IBackgroundCopyJob2: _win32typing.PyIID
-IID_IBackgroundCopyJob3: _win32typing.PyIID
-IID_IBackgroundCopyManager: _win32typing.PyIID
-IID_IEnumBackgroundCopyFiles: _win32typing.PyIID
-IID_IEnumBackgroundCopyJobs: _win32typing.PyIID
+CLSID_BackgroundCopyManager: IIDType
+IID_IBackgroundCopyCallback: IIDType
+IID_IBackgroundCopyError: IIDType
+IID_IBackgroundCopyFile: IIDType
+IID_IBackgroundCopyFile2: IIDType
+IID_IBackgroundCopyJob: IIDType
+IID_IBackgroundCopyJob2: IIDType
+IID_IBackgroundCopyJob3: IIDType
+IID_IBackgroundCopyManager: IIDType
+IID_IEnumBackgroundCopyFiles: IIDType
+IID_IEnumBackgroundCopyJobs: IIDType

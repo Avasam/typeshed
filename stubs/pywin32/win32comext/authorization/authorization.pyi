@@ -1,5 +1,5 @@
-import _win32typing
+from win32.lib.pywintypes import IIDType
 
 def EditSecurity(hwndOwner, psi): ...
 
-IID_ISecurityInformation: _win32typing.PyIID
+IID_ISecurityInformation: IIDType

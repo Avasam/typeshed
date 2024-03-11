@@ -1,14 +1,14 @@
-import _win32typing
+from win32.lib.pywintypes import IIDType
 
-CLSID_CTask: _win32typing.PyIID
-CLSID_CTaskScheduler: _win32typing.PyIID
+CLSID_CTask: IIDType
+CLSID_CTaskScheduler: IIDType
 HIGH_PRIORITY_CLASS: int
 IDLE_PRIORITY_CLASS: int
-IID_IProvideTaskPage: _win32typing.PyIID
-IID_IScheduledWorkItem: _win32typing.PyIID
-IID_ITask: _win32typing.PyIID
-IID_ITaskScheduler: _win32typing.PyIID
-IID_ITaskTrigger: _win32typing.PyIID
+IID_IProvideTaskPage: IIDType
+IID_IScheduledWorkItem: IIDType
+IID_ITask: IIDType
+IID_ITaskScheduler: IIDType
+IID_ITaskTrigger: IIDType
 NORMAL_PRIORITY_CLASS: int
 REALTIME_PRIORITY_CLASS: int
 SCHED_E_ACCOUNT_DBASE_CORRUPT: int

@@ -1,4 +1,5 @@
 import _win32typing
+from win32.lib.pywintypes import IIDType
 
 def CoInternetCreateSecurityManager(reserved, /) -> _win32typing.PyIInternetSecurityManager: ...
 def CoInternetIsFeatureEnabled(flags, /): ...
@@ -32,15 +33,15 @@ GET_FEATURE_FROM_THREAD_INTRANET: int
 GET_FEATURE_FROM_THREAD_LOCALMACHINE: int
 GET_FEATURE_FROM_THREAD_RESTRICTED: int
 GET_FEATURE_FROM_THREAD_TRUSTED: int
-IID_IDocHostUIHandler: _win32typing.PyIID
-IID_IHTMLOMWindowServices: _win32typing.PyIID
-IID_IInternetBindInfo: _win32typing.PyIID
-IID_IInternetPriority: _win32typing.PyIID
-IID_IInternetProtocol: _win32typing.PyIID
-IID_IInternetProtocolInfo: _win32typing.PyIID
-IID_IInternetProtocolRoot: _win32typing.PyIID
-IID_IInternetProtocolSink: _win32typing.PyIID
-IID_IInternetSecurityManager: _win32typing.PyIID
+IID_IDocHostUIHandler: IIDType
+IID_IHTMLOMWindowServices: IIDType
+IID_IInternetBindInfo: IIDType
+IID_IInternetPriority: IIDType
+IID_IInternetProtocol: IIDType
+IID_IInternetProtocolInfo: IIDType
+IID_IInternetProtocolRoot: IIDType
+IID_IInternetProtocolSink: IIDType
+IID_IInternetSecurityManager: IIDType
 SET_FEATURE_IN_REGISTRY: int
 SET_FEATURE_ON_PROCESS: int
 SET_FEATURE_ON_THREAD: int

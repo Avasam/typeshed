@@ -8,11 +8,12 @@ from win32com.client import build as build
 
 _T_co = TypeVar("_T_co", covariant=True)
 _T = TypeVar("_T")
+_GoodDispatchTypes: TypeAlias = tuple[type[str], type[IIDType]]
 
 class _DispatchCreateClass(Protocol[_T_co]):
     @staticmethod
     def __call__(
-        IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+        IDispatch: str | _win32typing.PyIDispatch | _GoodDispatchTypes | _win32typing.PyIUnknown,
         olerepr: build.DispatchItem | build.LazyDispatchItem,
         userName: str | None = ...,
         UnicodeToString: None = None,
@@ -32,11 +33,9 @@ def MakeMethod(func, inst, cls): ...
 PyIDispatchType = _win32typing.PyIDispatch
 PyIUnknownType = _win32typing.PyIUnknown
 
-_GoodDispatchTypes: TypeAlias = tuple[type[str], type[IIDType]]
-
 @overload
 def Dispatch(
-    IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+    IDispatch: str | _win32typing.PyIDispatch | _GoodDispatchTypes | _win32typing.PyIUnknown,
     userName: str | None,
     createClass: _DispatchCreateClass[_T],
     typeinfo: _win32typing.PyITypeInfo | None = ...,
@@ -45,7 +44,7 @@ def Dispatch(
 ) -> _T: ...
 @overload
 def Dispatch(
-    IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+    IDispatch: str | _win32typing.PyIDispatch | _GoodDispatchTypes | _win32typing.PyIUnknown,
     userName: str | None = ...,
     createClass: None = None,
     typeinfo: _win32typing.PyITypeInfo | None = ...,

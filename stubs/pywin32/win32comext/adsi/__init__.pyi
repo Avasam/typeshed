@@ -1,7 +1,9 @@
-from _typeshed import Incomplete
+from typing import ClassVar, NoReturn, final
+from typing_extensions import Never, TypeAlias, deprecated
 
 import _win32typing
 import win32com.client
+from win32.lib.pywintypes import IIDType
 from win32comext.adsi.adsi import (
     DBPROPSET_ADSISEARCH as DBPROPSET_ADSISEARCH,
     ADsBuildEnumerator as ADsBuildEnumerator,
@@ -53,8 +55,19 @@ from win32comext.adsi.adsi import (
 )
 
 LCID: int
-IDispatchType: Incomplete
-IADsContainerType: Incomplete
+IDispatchType: TypeAlias = _win32typing.PyIDispatch
+
+@final
+class IADsContainerType:
+    __name__: ClassVar[str] = "PyIADsContainer"
+    @deprecated("Cannot create 'PyIADsContainer' instances.")
+    def __init__(self, *args: Never, **kwargs: Never) -> NoReturn: ...
+    def GetObject(self, _class: str, relativeName: str, /) -> _win32typing.PyIDispatch: ...
+    def get_Count(self): ...
+    def get_Filter(self): ...
+    def put_Filter(self, val, /) -> None: ...
+    def get_Hints(self): ...
+    def put_Hints(self, val, /) -> None: ...
 
 class ADSIEnumerator:
     index: int
@@ -67,7 +80,7 @@ class ADSIDispatch(win32com.client.CDispatch):
     def QueryInterface(self, iid): ...
 
 # Redefinition making "iid" optional.
-def ADsGetObject(path, iid: _win32typing.PyIID = ...): ...
+def ADsGetObject(path, iid: IIDType = ...): ...
 
 # Redefinition with flipped "reserved" and "iid" arguments.
-def ADsOpenObject(path, username, password, reserved: int = ..., iid: _win32typing.PyIID = ...): ...
+def ADsOpenObject(path, username, password, reserved: int = ..., iid: IIDType = ...): ...
