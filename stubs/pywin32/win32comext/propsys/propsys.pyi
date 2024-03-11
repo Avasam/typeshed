@@ -1,5 +1,5 @@
-from typing import ClassVar, final
-from typing_extensions import TypeAlias
+from typing import ClassVar, final, overload
+from typing_extensions import TypeAlias, deprecated
 
 import _win32typing
 from win32.lib.pywintypes import IIDType, com_error
@@ -61,6 +61,10 @@ IID_IPropertySystem: IIDType
 @final
 class PROPVARIANTType:
     __name__: ClassVar[str] = "PyPROPVARIANT"
+    @overload
+    @deprecated("Support for passing two ints to create a 64-bit value is deprecated; pass a single int instead")
+    def __init__(self, Value: tuple[int, int], Type=...) -> None: ...
+    @overload
     def __init__(self, Value, Type=...) -> None: ...
     @property
     def vt(self): ...
