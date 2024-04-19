@@ -15,6 +15,14 @@ set -ex -o pipefail
 PROTOBUF_VERSION=25.3
 MYPY_PROTOBUF_VERSION=3.6.0
 
+if [[ "$OSTYPE" == "msys" ]]; then
+  PYTHON=python
+  ACTIVATE_VENV="source .venv/Scripts/activate"
+else
+  PYTHON=python3
+  ACTIVATE_VENV="source .venv/bin/activate"
+fi
+
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
 PYTHON_PROTOBUF_FILENAME="protobuf-$PROTOBUF_VERSION.zip"
@@ -26,12 +34,12 @@ echo "Working in $TMP_DIR"
 
 # Fetch protoc-python (which contains all the .proto files)
 wget "$PYTHON_PROTOBUF_URL"
-unzip "$PYTHON_PROTOBUF_FILENAME"
+unzip -q "$PYTHON_PROTOBUF_FILENAME"
 
 # Prepare virtualenv
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install grpcio-tools pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+$PYTHON -m venv .venv
+$ACTIVATE_VENV
+$PYTHON -m pip install grpcio-tools pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -53,9 +61,9 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 )
 
 # And regenerate!
-PROTOC_VERSION=$(python3 -m grpc_tools.protoc --version)
+PROTOC_VERSION=$($PYTHON -m grpc_tools.protoc --version)
 echo $PROTOC_VERSION
-python3 -m grpc_tools.protoc \
+$PYTHON -m grpc_tools.protoc \
   --proto_path="$PYTHON_PROTOBUF_DIR/src" \
   --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" \
   $PROTO_FILES
