@@ -82,6 +82,8 @@ ignore = [
     ###
     # Rules we don't want or don't agree with
     ###
+    # Is actually slower for cases relevant to unpacking, set for deprecation: https://github.com/astral-sh/ruff/issues/12754
+    "UP027", # Replace unpacked list comprehension with a generator expression
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
     "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
     # Used for direct, non-subclass type comparison, for example: `type(val) is str`
@@ -162,7 +164,7 @@ extra-standard-library = [
     "pyexpat",
     "zoneinfo",
 ]
-known-first-party = ["ts_utils", "_utils"]
+known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.8"
