@@ -62,7 +62,7 @@ class CommandLineArgs:
 
 
 def valid_path(cmd_arg: str) -> Path:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""
     path = Path(cmd_arg)
     if not path.exists():
         raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
@@ -72,7 +72,7 @@ def valid_path(cmd_arg: str) -> Path:
 
 
 def remove_dev_suffix(version: str) -> str:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""
     if version.endswith("-dev"):
         return version[: -len("-dev")]
     return version
@@ -303,7 +303,6 @@ def test_third_party_distribution(
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
-
     files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
@@ -585,15 +584,15 @@ def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
 
 def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
-    versions = args.python_version or SUPPORTED_VERSIONS
-    platforms = args.platform or [sys.platform]
-    filter = args.filter or DIRECTORIES_TO_TEST
-    exclude = args.exclude or []
+    args.python_version = args.python_version or SUPPORTED_VERSIONS
+    args.platform = args.platform or [sys.platform]
+    args.filter = args.filter or DIRECTORIES_TO_TEST
+    args.exclude = args.exclude or []
     summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
-        for version, platform in product(versions, platforms):
-            config = TestConfig(args.verbose, filter, exclude, version, platform)
+        for version, platform in product(args.python_version, args.platform):
+            config = TestConfig(args.verbose, args.filter, args.exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
             summary.merge(version_summary)
 

@@ -248,8 +248,7 @@ async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aioh
 
 
 def get_updated_version_spec(spec: Specifier, version: packaging.version.Version) -> Specifier:
-    """
-    Given the old specifier and an updated version, returns an updated specifier that has the
+    """Given the old specifier and an updated version, returns an updated specifier that has the
     specificity of the old specifier, but matches the updated version.
 
     For example:
@@ -293,8 +292,7 @@ class GitHubInfo:
 
 
 async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHubInfo | None:
-    """
-    If the project represented by `stub_info` is hosted on GitHub,
+    """If the project represented by `stub_info` is hosted on GitHub,
     return information regarding the project as it exists on GitHub.
 
     Else, return None.
@@ -374,8 +372,7 @@ class DiffAnalysis:
 
     @property
     def runtime_definitely_has_consistent_directory_structure_with_typeshed(self) -> bool:
-        """
-        If 0 .py files in the GitHub diff exist in typeshed's stubs,
+        """If 0 .py files in the GitHub diff exist in typeshed's stubs,
         there's a possibility that the .py files might be found
         in a different directory at runtime.
 
@@ -632,13 +629,13 @@ def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
         return True
 
 
-class RemoteConflict(Exception):
+class RemoteConflictError(Exception):
     pass
 
 
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
-        raise RemoteConflict(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
+        raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
     subprocess.check_call(["git", "push", "origin", branch, "--force"])
 
 
@@ -808,7 +805,7 @@ async def main() -> None:
                     if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
-                except RemoteConflict as e:
+                except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
                     continue
                 raise AssertionError

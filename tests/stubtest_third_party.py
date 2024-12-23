@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test typeshed's third party stubs using stubtest"""
+"""Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations
 
@@ -189,8 +189,7 @@ def run_stubtest(
 
 
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
-    """
-    Use wrapper scripts to run stubtest inside gdb.
+    """Use wrapper scripts to run stubtest inside gdb.
     The wrapper script is used to pass the arguments to the gdb script.
     """
     if sys.platform == "win32":

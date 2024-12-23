@@ -23,8 +23,8 @@ from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
-    "StubMetadata",
     "PackageDependencies",
+    "StubMetadata",
     "StubtestSettings",
     "get_recursive_requirements",
     "read_dependencies",
@@ -184,7 +184,7 @@ _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNOR
 
 
 class NoSuchStubError(ValueError):
-    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist"""
+    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist."""
 
 
 @cache
@@ -304,7 +304,8 @@ def read_metadata(distribution: str) -> StubMetadata:
 def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
     """Updates a distribution's METADATA.toml.
 
-    Return the updated TOML dictionary for use without having to open the file separately."""
+    Return the updated TOML dictionary for use without having to open the file separately.
+    """
     path = metadata_path(distribution)
     try:
         with path.open("rb") as file:
@@ -329,7 +330,7 @@ class PackageDependencies(NamedTuple):
 
 @cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
-    return {read_metadata(dir.name).stub_distribution: dir.name for dir in STUBS_PATH.iterdir()}
+    return {read_metadata(directory.name).stub_distribution: directory.name for directory in STUBS_PATH.iterdir()}
 
 
 @cache

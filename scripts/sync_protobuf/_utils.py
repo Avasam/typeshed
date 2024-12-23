@@ -18,9 +18,11 @@ MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
 def download_file(url: str, destination: StrPath) -> None:
+    if not url.startswith(("http:", "https:")):
+        raise ValueError("URL must start with 'http:' or 'https:'")
     print(f"Downloading '{url}' to '{destination}'")
     resp: HTTPResponse
-    with urlopen(url) as resp, open(destination, "wb") as file:
+    with urlopen(url) as resp, open(destination, "wb") as file:  # noqa: S310 # Validated
         file.write(resp.read())
 
 
@@ -33,7 +35,7 @@ def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
 def run_protoc(
     proto_paths: Iterable[StrPath], mypy_out: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
 ) -> str:
-    """TODO: Describe parameters and return"""
+    """TODO: Describe parameters and return."""
     protoc_version = (
         subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True).stdout.decode().strip()
     )
