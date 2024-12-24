@@ -183,7 +183,6 @@ ignore = [
     "S106", # Possible hardcoded password assigned to argument
     "S107", # Possible hardcoded password assigned to function default
     "S4", # Insecure and vulnerable libraries
-    "S406", # xml.sax methods are vulnerable to XML attacks
     # Often breaks mypy/stubtest
     "FURB180", # Use of metaclass=abc.ABCMeta to define abstract base class
     # Stubs can sometimes re-export entire modules.
