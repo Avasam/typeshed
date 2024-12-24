@@ -5,7 +5,7 @@ from typing_extensions import ParamSpec, Self, TypeAlias
 
 from gevent._types import _Loop
 from gevent.pool import Pool
-from gevent.socket import socket as _GeventSocket
+from gevent.socket import socket as _GeventSocket  # noqa: N812
 from greenlet import greenlet
 
 _P = ParamSpec("_P")

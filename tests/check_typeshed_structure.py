@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""
-Check that the typeshed repository contains the correct files in the
+"""Check that the typeshed repository contains the correct files in the
 correct places, and that various configuration files are correct.
 """
 

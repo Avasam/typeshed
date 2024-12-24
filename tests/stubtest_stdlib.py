@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test typeshed's stdlib using stubtest
+"""Test typeshed's stdlib using stubtest.
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.
 Note that therefore the output of stubtest depends on which Python version it is run with.
@@ -37,7 +37,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
         cmd += ["--ignore-positional-only"]
     print(" ".join(cmd), file=sys.stderr)
     try:
-        subprocess.run(cmd, check=True)
+        subprocess.check_call(cmd)
     except subprocess.CalledProcessError as e:
         print(
             "\nNB: stubtest output depends on the Python version (and system) it is run with. "

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Test typeshed's third party stubs using stubtest"""
+"""Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations
 
 import argparse
+import contextlib
 import os
 import re
 import subprocess
@@ -125,13 +126,11 @@ def run_stubtest(
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
         # Perform some black magic in order to run stubtest inside uWSGI
-        if dist_name == "uWSGI":
-            if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
-                return False
+        if dist_name == "uWSGI" and not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
+            return False
 
-        if dist_name == "gdb":
-            if not setup_gdb_stubtest_command(venv_dir, stubtest_cmd):
-                return False
+        if dist_name == "gdb" and not setup_gdb_stubtest_command(venv_dir, stubtest_cmd):
+            return False
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
@@ -148,11 +147,11 @@ def run_stubtest(
 
             print_divider()
             print("Python version: ", end="", flush=True)
-            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=False)
             print_command_output(ret)
 
             print("\nRan with the following environment:")
-            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True, check=False)
             print_command_output(ret)
             if keep_tmp_dir:
                 print("Path to virtual environment:", venv_dir, flush=True)
@@ -164,7 +163,7 @@ def run_stubtest(
                 print()
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
-                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True, check=False)
                 print_command_output(ret)
 
             print_divider()
@@ -189,8 +188,7 @@ def run_stubtest(
 
 
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
-    """
-    Use wrapper scripts to run stubtest inside gdb.
+    """Use wrapper scripts to run stubtest inside gdb.
     The wrapper script is used to pass the arguments to the gdb script.
     """
     if sys.platform == "win32":
@@ -390,10 +388,7 @@ def main() -> NoReturn:
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    if len(args.dists) == 0:
-        dists = sorted(STUBS_PATH.iterdir())
-    else:
-        dists = [STUBS_PATH / d for d in args.dists]
+    dists = sorted(STUBS_PATH.iterdir()) if len(args.dists) == 0 else [STUBS_PATH / d for d in args.dists]
 
     result = 0
     for i, dist in enumerate(dists):
@@ -411,7 +406,5 @@ def main() -> NoReturn:
 
 
 if __name__ == "__main__":
-    try:
+    with contextlib.suppress(KeyboardInterrupt):
         main()
-    except KeyboardInterrupt:
-        pass

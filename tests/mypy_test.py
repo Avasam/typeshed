@@ -62,7 +62,7 @@ class CommandLineArgs:
 
 
 def valid_path(cmd_arg: str) -> Path:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""
     path = Path(cmd_arg)
     if not path.exists():
         raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
@@ -72,7 +72,7 @@ def valid_path(cmd_arg: str) -> Path:
 
 
 def remove_dev_suffix(version: str) -> str:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""
     if version.endswith("-dev"):
         return version[: -len("-dev")]
     return version
@@ -119,7 +119,7 @@ class TestConfig:
 
 
 def log(args: TestConfig, *varargs: object) -> None:
-    if args.verbose >= 2:
+    if args.verbose >= 2:  # noqa: PLR2004 # astral-sh/ruff#10009
         print(colored(" ".join(map(str, varargs)), "blue"))
 
 
@@ -211,7 +211,7 @@ def run_mypy(
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
-    with tempfile.NamedTemporaryFile("w+") as temp:
+    with tempfile.NamedTemporaryFile("w+", encoding="utf-8") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
             temp.write(f"[mypy-{dist_conf.module_name}]\n")
@@ -253,7 +253,7 @@ def run_mypy(
         mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
-        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
         if result.returncode:
             print_error(f"failure (exit code {result.returncode})\n")
             if result.stdout:
@@ -262,16 +262,15 @@ def run_mypy(
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)}, check=False)
                 print()
         else:
             print_success_msg()
         if result.returncode == 0:
             return MypyResult.SUCCESS
-        elif result.returncode == 1:
+        if result.returncode == 1:
             return MypyResult.FAILURE
-        else:
-            return MypyResult.CRASH
+        return MypyResult.CRASH
 
 
 def add_third_party_files(
@@ -303,7 +302,6 @@ def test_third_party_distribution(
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
-
     files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
@@ -336,7 +334,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     for file in STDLIB_PATH.iterdir():
-        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
+        if file.name in {"VERSIONS", TESTS_DIR} or file.name.startswith("."):
             continue
         add_files(files, file, args)
 
@@ -411,7 +409,7 @@ def setup_venv_for_external_requirements_set(
     uv_command = ["uv", "venv", str(venv_dir)]
     if not args.verbose:
         uv_command.append("--quiet")
-    subprocess.run(uv_command, check=True)
+    subprocess.check_call(uv_command)
     return requirements_set, venv_dir
 
 
@@ -425,7 +423,7 @@ def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_req
     else:
         uv_command.append("--quiet")
     try:
-        subprocess.run(uv_command, check=True, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+        subprocess.check_call(uv_command, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
     except subprocess.CalledProcessError as e:
         print(e.stderr)
         raise
@@ -585,15 +583,15 @@ def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
 
 def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
-    versions = args.python_version or SUPPORTED_VERSIONS
-    platforms = args.platform or [sys.platform]
-    filter = args.filter or DIRECTORIES_TO_TEST
-    exclude = args.exclude or []
+    args.python_version = args.python_version or SUPPORTED_VERSIONS
+    args.platform = args.platform or [sys.platform]
+    args.filter = args.filter or DIRECTORIES_TO_TEST
+    args.exclude = args.exclude or []
     summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
-        for version, platform in product(versions, platforms):
-            config = TestConfig(args.verbose, filter, exclude, version, platform)
+        for version, platform in product(args.python_version, args.platform):
+            config = TestConfig(args.verbose, args.filter, args.exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
             summary.merge(version_summary)
 
