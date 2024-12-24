@@ -253,7 +253,7 @@ def run_mypy(
         mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
-        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
         if result.returncode:
             print_error(f"failure (exit code {result.returncode})\n")
             if result.stdout:
@@ -262,7 +262,7 @@ def run_mypy(
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)}, check=False)
                 print()
         else:
             print_success_msg()
@@ -409,7 +409,7 @@ def setup_venv_for_external_requirements_set(
     uv_command = ["uv", "venv", str(venv_dir)]
     if not args.verbose:
         uv_command.append("--quiet")
-    subprocess.run(uv_command, check=True)
+    subprocess.check_call(uv_command)
     return requirements_set, venv_dir
 
 
@@ -423,7 +423,7 @@ def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_req
     else:
         uv_command.append("--quiet")
     try:
-        subprocess.run(uv_command, check=True, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+        subprocess.check_call(uv_command, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
     except subprocess.CalledProcessError as e:
         print(e.stderr)
         raise

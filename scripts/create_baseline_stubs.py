@@ -46,28 +46,27 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
     Return (normalized project name, installed version) if successful.
     """
-    r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
-    return search_pip_freeze_output(project, r.stdout)
+    return search_pip_freeze_output(project, subprocess.check_output(["pip", "freeze"], text=True))
 
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
+    subprocess.check_call(["stubgen", "-o", output, "-p", package, "--export-less"])
 
 
 def run_stubdefaulter(stub_dir: str) -> None:
     print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
-    subprocess.run(["stubdefaulter", "--packages", stub_dir])
+    subprocess.run(["stubdefaulter", "--packages", stub_dir], check=False)
 
 
 def run_black(stub_dir: str) -> None:
     print(f"Running Black: black {stub_dir}")
-    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")])
+    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")], check=False)
 
 
 def run_ruff(stub_dir: str) -> None:
     print(f"Running Ruff: ruff check {stub_dir} --fix-only")
-    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"])
+    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"], check=False)
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:

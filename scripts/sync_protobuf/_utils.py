@@ -36,9 +36,7 @@ def run_protoc(
     proto_paths: Iterable[StrPath], mypy_out: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
 ) -> str:
     """TODO: Describe parameters and return."""
-    protoc_version = (
-        subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True).stdout.decode().strip()
-    )
+    protoc_version = subprocess.check_output([sys.executable, "-m", "grpc_tools.protoc", "--version"], text=True).strip()
     print()
     print(protoc_version)
     protoc_args = [
@@ -48,5 +46,5 @@ def run_protoc(
         *proto_globs,
     ]
     print("Running: protoc\n    " + "\n    ".join(protoc_args) + "\n")
-    subprocess.run((sys.executable, "-m", "grpc_tools.protoc", *protoc_args), cwd=cwd, check=True)
+    subprocess.check_call((sys.executable, "-m", "grpc_tools.protoc", *protoc_args), cwd=cwd)
     return protoc_version

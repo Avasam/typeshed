@@ -144,7 +144,7 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
-        subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
+        subprocess.check_output(["uv", "venv", venv_location])
         ext_requirements = [str(r) for r in requirements.external_pkgs]
         uv_command = ["uv", "pip", "install", get_mypy_req(), *ext_requirements]
         if sys.platform == "win32":
@@ -155,9 +155,7 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
         if verbosity is Verbosity.VERBOSE:
             verbose_log(f"{package.name}: Setting up venv in {venv_location}. {uv_command=}\n")
         try:
-            subprocess.run(
-                uv_command, check=True, capture_output=True, text=True, env=os.environ | {"VIRTUAL_ENV": venv_location}
-            )
+            subprocess.check_output(uv_command, text=True, env=os.environ | {"VIRTUAL_ENV": venv_location})
         except subprocess.CalledProcessError as e:
             _PRINT_QUEUE.put(f"{package.name}\n{e.stderr}")
             raise
@@ -224,7 +222,7 @@ def run_testcases(
             msg += f"{description}: MYPYPATH not set"
         msg += "\n"
         verbose_log(msg)
-    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
 
 
 @dataclass(frozen=True)

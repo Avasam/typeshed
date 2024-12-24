@@ -616,10 +616,8 @@ def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
         # If the number of lines is >1,
         # it indicates that something about our commit is different to the last commit
         # (Could be the commit "content", or the commit message).
-        commit_comparison = subprocess.run(
-            ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
-        )
-        return len(commit_comparison.stdout.splitlines()) > 1
+        commit_comparison = subprocess.check_output(["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"])
+        return len(commit_comparison.splitlines()) > 1
     except subprocess.CalledProcessError:
         # origin/branch does not exist
         return True
@@ -743,8 +741,8 @@ async def main() -> None:
     dists_to_update = args.distributions or [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
-        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
-        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True, check=False)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True, check=False)
         if diff_result.returncode:
             print("Unexpected exception!")
             print(diff_result.stdout)
@@ -760,9 +758,7 @@ async def main() -> None:
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
-    original_branch = subprocess.run(
-        ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
-    ).stdout.strip()
+    original_branch = subprocess.check_output(["git", "branch", "--show-current"], text=True).strip()
 
     if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])

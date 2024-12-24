@@ -63,7 +63,7 @@ def run_stubtest(
     venv_dir = Path(tmp)
     try:
         try:
-            subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+            subprocess.check_output(["uv", "venv", venv_dir, "--seed"])
         except subprocess.CalledProcessError as e:
             print_command_failure("Failed to create a virtualenv (likely a bug in uv?)", e)
             return False
@@ -93,7 +93,7 @@ def run_stubtest(
 
         pip_cmd = [pip_exe, "install", *dists_to_install]
         try:
-            subprocess.run(pip_cmd, check=True, capture_output=True)
+            subprocess.check_output(pip_cmd)
         except subprocess.CalledProcessError as e:
             print_command_failure("Failed to install", e)
             return False
@@ -133,7 +133,7 @@ def run_stubtest(
             return False
 
         try:
-            subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
+            subprocess.check_output(stubtest_cmd, env=stubtest_env)
         except subprocess.CalledProcessError as e:
             print_error("fail")
 
@@ -147,11 +147,11 @@ def run_stubtest(
 
             print_divider()
             print("Python version: ", end="", flush=True)
-            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=False)
             print_command_output(ret)
 
             print("\nRan with the following environment:")
-            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True, check=False)
             print_command_output(ret)
             if keep_tmp_dir:
                 print("Path to virtual environment:", venv_dir, flush=True)
@@ -163,7 +163,7 @@ def run_stubtest(
                 print()
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
-                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True, check=False)
                 print_command_output(ret)
 
             print_divider()
