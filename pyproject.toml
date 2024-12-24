@@ -102,10 +102,9 @@ extend-safe-fixes = [
 ]
 ignore = [
     # TODO
-    "ASYNC221", # i don't know how to improve subprocess.check_call calls to satisfy this
+    "ASYNC221", # I don't know how to improve subprocess.check_call calls to satisfy this
     "FURB101", # TODO with PTH
     "FURB103", # TODO with PTH
-    "PLW1514",
     "RUF036", # None not at the end of the type annotation. # Request for autofix: astral-sh/ruff#15136
     ###
     # Rules that can conflict with the formatter (Black)
