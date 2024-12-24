@@ -155,7 +155,9 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
         if verbosity is Verbosity.VERBOSE:
             verbose_log(f"{package.name}: Setting up venv in {venv_location}. {uv_command=}\n")
         try:
-            subprocess.check_output(uv_command, text=True, env=os.environ | {"VIRTUAL_ENV": venv_location})
+            subprocess.run(
+                uv_command, check=True, capture_output=True, text=True, env=os.environ | {"VIRTUAL_ENV": venv_location}
+            )
         except subprocess.CalledProcessError as e:
             _PRINT_QUEUE.put(f"{package.name}\n{e.stderr}")
             raise
