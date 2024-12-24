@@ -14,7 +14,7 @@ import pathspec
 from packaging.requirements import Requirement
 
 try:
-    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
+    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType] # noqa: PLC0414
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
@@ -119,8 +119,8 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
-            line = strip_comments(line)
-            if line == "":
+            line = strip_comments(line)  # noqa: PLW2901
+            if not line:
                 continue
             m = VERSION_LINE_RE.match(line)
             assert m, f"invalid VERSIONS line: {line}"
@@ -193,8 +193,7 @@ def allowlists(distribution_name: str) -> list[str]:
 
     if distribution_name == "stdlib":
         return ["common.txt", platform_allowlist, version_allowlist, combined_allowlist, local_version_allowlist]
-    else:
-        return ["stubtest_allowlist.txt", platform_allowlist]
+    return ["stubtest_allowlist.txt", platform_allowlist]
 
 
 # ====================================================================

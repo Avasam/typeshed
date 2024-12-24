@@ -92,7 +92,7 @@ class PypiInfo:
 
     def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
-        release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
+        release_info = max(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))
         return PypiReleaseDownload(
             distribution=self.distribution,
             url=release_info["url"],
@@ -134,8 +134,7 @@ class Update:
     def new_version(self) -> str:
         if self.new_version_spec.operator == "==":
             return str(self.new_version_spec)[2:]
-        else:
-            return str(self.new_version_spec)
+        return str(self.new_version_spec)
 
 
 @dataclass
@@ -200,10 +199,7 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     if not all_python_files:
         return False
 
-    for path in all_python_files:
-        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
-            return False
-    return True
+    return all(any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs) for path in all_python_files)
 
 
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
@@ -303,10 +299,10 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com":
             url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
+            assert len(Path(url_path).parts) == 2  # noqa: PLR2004 # astral-sh/ruff#10009
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == 200:
+                if response.status == HTTPStatus.OK:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
                     return GitHubInfo(repo_path=url_path, tags=tags)
@@ -744,10 +740,7 @@ async def main() -> None:
     parser.add_argument("distributions", nargs="*", help="Distributions to update, default = all")
     args = parser.parse_args()
 
-    if args.distributions:
-        dists_to_update = args.distributions
-    else:
-        dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
+    dists_to_update = args.distributions or [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
@@ -762,9 +755,8 @@ async def main() -> None:
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
             sys.exit(1)
 
-    if args.action_level > ActionLevel.fork:
-        if os.environ.get("GITHUB_TOKEN") is None:
-            raise ValueError("GITHUB_TOKEN environment variable must be set")
+    if args.action_level > ActionLevel.fork and os.environ.get("GITHUB_TOKEN") is None:
+        raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 

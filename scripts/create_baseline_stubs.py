@@ -18,6 +18,7 @@ import re
 import subprocess
 import sys
 import urllib.parse
+from http import HTTPStatus
 from importlib.metadata import distribution
 
 import aiohttp
@@ -72,7 +73,7 @@ def run_ruff(stub_dir: str) -> None:
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
     pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
     async with session.get(f"{pypi_root}/json") as response:
-        if response.status != 200:
+        if response.status != HTTPStatus.OK:
             return {}
         j: dict[str, dict[str, dict[str, str]]]
         j = await response.json()
@@ -90,24 +91,23 @@ async def get_upstream_repo_url(project: str) -> str | None:
 
         # Order the project URLs so that we put the ones
         # that are most likely to point to the source code first
-        urls_to_check: list[str] = []
         url_names_probably_pointing_to_source = ("Source", "Repository", "Homepage")
-        for url_name in url_names_probably_pointing_to_source:
-            if url := project_urls.get(url_name):
-                urls_to_check.append(url)
+        urls_to_check: list[str] = [
+            url for url in (project_urls.get(url_name) for url_name in url_names_probably_pointing_to_source) if url
+        ]
         urls_to_check.extend(
             url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source
         )
 
         for url in urls_to_check:
             # Remove `www.`; replace `http://` with `https://`
-            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)
+            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)  # noqa: PLW2901
             netloc = urllib.parse.urlparse(url).netloc
             if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
                 # truncate to https://site.com/user/repo
                 upstream_repo_url = "/".join(url.split("/")[:5])
                 async with session.get(upstream_repo_url) as response:
-                    if response.status == 200:
+                    if response.status == HTTPStatus.OK:
                         return upstream_repo_url
     return None
 
@@ -218,7 +218,7 @@ def main() -> None:
     info = get_installed_package_info(project)
     if info is None:
         print(f'Error: "{project}" is not installed', file=sys.stderr)
-        print("", file=sys.stderr)
+        print(file=sys.stderr)
         print(f'Suggestion: Run "python3 -m pip install {project}" and try again', file=sys.stderr)
         sys.exit(1)
     project, version = info

@@ -172,7 +172,7 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
-            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+            raise RuntimeError(f"Can't read find the packages associated with requirement {req_name!r}")
         maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
         packages = [name for name in maybe_modules if name is not None and "." not in name]
     else:
@@ -215,7 +215,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
+            _stubs_prefix, _pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
             missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 
@@ -228,10 +228,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        if dry_run:
-            stderr = None
-        else:
-            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
+        stderr = None if dry_run else run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
         if stderr:
             if print_stderr:
                 print(f"\n{stderr}")

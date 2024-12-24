@@ -119,7 +119,7 @@ class TestConfig:
 
 
 def log(args: TestConfig, *varargs: object) -> None:
-    if args.verbose >= 2:
+    if args.verbose >= 2:  # noqa: PLR2004 # astral-sh/ruff#10009
         print(colored(" ".join(map(str, varargs)), "blue"))
 
 
@@ -268,10 +268,9 @@ def run_mypy(
             print_success_msg()
         if result.returncode == 0:
             return MypyResult.SUCCESS
-        elif result.returncode == 1:
+        if result.returncode == 1:
             return MypyResult.FAILURE
-        else:
-            return MypyResult.CRASH
+        return MypyResult.CRASH
 
 
 def add_third_party_files(
@@ -335,7 +334,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     for file in STDLIB_PATH.iterdir():
-        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
+        if file.name in {"VERSIONS", TESTS_DIR} or file.name.startswith("."):
             continue
         add_files(files, file, args)
 

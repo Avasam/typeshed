@@ -21,14 +21,14 @@ _Node: TypeAlias = Document | Element | Text
 
 _Event: TypeAlias = tuple[
     Literal[
-        Literal["START_ELEMENT"],
-        Literal["END_ELEMENT"],
-        Literal["COMMENT"],
-        Literal["START_DOCUMENT"],
-        Literal["END_DOCUMENT"],
-        Literal["PROCESSING_INSTRUCTION"],
-        Literal["IGNORABLE_WHITESPACE"],
-        Literal["CHARACTERS"],
+        "START_ELEMENT",
+        "END_ELEMENT",
+        "COMMENT",
+        "START_DOCUMENT",
+        "END_DOCUMENT",
+        "PROCESSING_INSTRUCTION",
+        "IGNORABLE_WHITESPACE",
+        "CHARACTERS",
     ],
     _Node,
 ]
