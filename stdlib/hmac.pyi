@@ -1,5 +1,5 @@
 import sys
-from _hashlib import HASH as _HashlibHash
+from _hashlib import HASH as _HashlibHash  # noqa: N811 # Not a constant
 from _typeshed import ReadableBuffer, SizedBuffer
 from collections.abc import Callable
 from types import ModuleType

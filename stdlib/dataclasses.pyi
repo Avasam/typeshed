@@ -2,7 +2,7 @@ import enum
 import sys
 import types
 from _typeshed import DataclassInstance
-from builtins import type as Type  # alias to avoid name clashes with fields named "type"
+from builtins import type as Type  # noqa: N812 # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Generic, Literal, Protocol, TypeVar, overload
 from typing_extensions import Never, TypeAlias, TypeIs

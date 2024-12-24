@@ -165,10 +165,11 @@ ignore = [
     # TODO: Ruff 0.8.0 added sorting of __all__ and __slots_. Validate whether we want this in stubs
     "RUF022",
     "RUF023",
-    # Most flake8-bugbear and pep8-naming rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
-    "N", # pep8-naming
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    "N80", # pep8-naming
+    "N815", # pep8-naming
+    "N816", # pep8-naming
+    "N818", # pep8-naming
     # Rules that are out of the control of stub authors:
     "A001", # builtin-variable-shadowing
     "A002", # builtin-argument-shadowing

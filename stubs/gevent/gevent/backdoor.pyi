@@ -3,7 +3,7 @@ from typing import Any, overload
 
 from gevent.baseserver import _Spawner
 from gevent.server import StreamServer, _Address
-from gevent.socket import socket as _GeventSocket
+from gevent.socket import socket as _GeventSocket  # noqa: N812
 from gevent.ssl import SSLContext
 
 class BackdoorServer(StreamServer):

@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from socket import socket as Socket
+from socket import socket
 from typing import AnyStr
 
 from .spawnbase import SpawnBase, _Logfile
@@ -9,14 +9,14 @@ __all__ = ["SocketSpawn"]
 class SocketSpawn(SpawnBase[AnyStr]):
     args: None
     command: None
-    socket: Socket
+    socket: socket
     child_fd: int
     closed: bool
     name: str
     use_poll: bool
     def __init__(
         self,
-        socket: Socket,
+        socket: socket,
         args: None = None,
         timeout: float | None = 30,
         maxread: int = 2000,
