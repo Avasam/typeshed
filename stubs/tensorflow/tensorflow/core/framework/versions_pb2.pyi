@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class VersionDef(google.protobuf.message.Message):
-    """Version information for a piece of serialized data
+    """
+    Version information for a piece of serialized data
 
     There are different types of versions for each type of data
     (GraphDef, etc.), but they all have the same common shape

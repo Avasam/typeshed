@@ -26,7 +26,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class BundleHeaderProto(google.protobuf.message.Message):
-    """Protos used in the tensor bundle module (tf/core/util/tensor_bundle/).
+    """
+    Protos used in the tensor bundle module (tf/core/util/tensor_bundle/).
 
     Special header that is associated with a bundle.
 
@@ -49,7 +50,8 @@ class BundleHeaderProto(google.protobuf.message.Message):
         BIG: BundleHeaderProto._Endianness.ValueType  # 1
 
     class Endianness(_Endianness, metaclass=_EndiannessEnumTypeWrapper):
-        """An enum indicating the endianness of the platform that produced this
+        """
+        An enum indicating the endianness of the platform that produced this
         bundle.  A bundle can only be read by a platform with matching endianness.
         Defaults to LITTLE, as most modern platforms are little-endian.
 
@@ -108,7 +110,8 @@ class BundleEntryProto(google.protobuf.message.Message):
     def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
     @property
     def slices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto]:
-        """Iff present, this entry represents a partitioned tensor.  The previous
+        """
+        Iff present, this entry represents a partitioned tensor.  The previous
         fields are interpreted as follows:
 
           "dtype", "shape": describe the full tensor.

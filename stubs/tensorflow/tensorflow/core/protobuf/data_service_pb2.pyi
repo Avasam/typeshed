@@ -152,7 +152,8 @@ global___ProcessingModeDef = ProcessingModeDef
 
 @typing.final
 class DataServiceMetadata(google.protobuf.message.Message):
-    """Metadata related to tf.data service datasets.
+    """
+    Metadata related to tf.data service datasets.
     Next tag: 4
     """
 
@@ -215,7 +216,8 @@ global___CrossTrainerCacheOptions = CrossTrainerCacheOptions
 
 @typing.final
 class DataServiceConfig(google.protobuf.message.Message):
-    """Data service config available to the client through GetDataServiceConfig RPC.
+    """
+    Data service config available to the client through GetDataServiceConfig RPC.
     Next tag: 2
     """
 

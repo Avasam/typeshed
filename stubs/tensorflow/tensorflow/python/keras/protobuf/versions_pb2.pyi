@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class VersionDef(google.protobuf.message.Message):
-    """This file is a copy of the TensorFlow Versions proto.
+    """
+    This file is a copy of the TensorFlow Versions proto.
     Keep this file in sync with the source proto definition at
     https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/versions.proto
 

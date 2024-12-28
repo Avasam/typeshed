@@ -29,7 +29,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class SavedObjectGraph(google.protobuf.message.Message):
-    """SavedObjectGraph shares some structure with TrackableObjectGraph, but
+    """
+    SavedObjectGraph shares some structure with TrackableObjectGraph, but
     SavedObjectGraph belongs to the MetaGraph and contains pointers to functions
     and type information, while TrackableObjectGraph lives in the checkpoint
     and contains pointers only to variable values.
@@ -59,7 +60,8 @@ class SavedObjectGraph(google.protobuf.message.Message):
     CONCRETE_FUNCTIONS_FIELD_NUMBER: builtins.int
     @property
     def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedObject]:
-        """Flattened list of objects in the object graph.
+        """
+        Flattened list of objects in the object graph.
 
         The position of the object in this list indicates its id.
         Nodes[0] is considered the root node.
@@ -67,7 +69,8 @@ class SavedObjectGraph(google.protobuf.message.Message):
 
     @property
     def concrete_functions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___SavedConcreteFunction]:
-        """Information about captures and output structures in concrete functions.
+        """
+        Information about captures and output structures in concrete functions.
         Referenced from SavedBareConcreteFunction and SavedFunction.
         """
 
@@ -142,7 +145,8 @@ class SavedObject(google.protobuf.message.Message):
     """
     @property
     def children(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference]:
-        """Objects which this object depends on: named edges in the dependency
+        """
+        Objects which this object depends on: named edges in the dependency
         graph.
 
         Note: All kinds of SavedObject may have children, except
@@ -151,14 +155,16 @@ class SavedObject(google.protobuf.message.Message):
 
     @property
     def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference]:
-        """Ordered list of dependencies that must be loaded before this object.
+        """
+        Ordered list of dependencies that must be loaded before this object.
         SavedModel loads with the bottom-up approach, by first creating all objects
         (in the order defined by the dependencies), then connecting the edges.
         """
 
     @property
     def slot_variables(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference]:
-        """Slot variables owned by this object. This describes the three-way
+        """
+        Slot variables owned by this object. This describes the three-way
         (optimizer, variable, slot variable) relationship; none of the three
         depend on the others directly.
 
@@ -183,7 +189,8 @@ class SavedObject(google.protobuf.message.Message):
     def captured_tensor(self) -> global___CapturedTensor: ...
     @property
     def saveable_objects(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___SaveableObject]:
-        """Stores the functions used to save and restore this object. At most one of
+        """
+        Stores the functions used to save and restore this object. At most one of
         `saveable_objects` or `registered_saver` is defined for each SavedObject.
         See the comment below for the difference between SaveableObject and
         registered savers.
@@ -191,7 +198,8 @@ class SavedObject(google.protobuf.message.Message):
 
     @property
     def serialized_user_proto(self) -> google.protobuf.any_pb2.Any:
-        """The user-generated proto storing metadata for this object, to be passed to
+        """
+        The user-generated proto storing metadata for this object, to be passed to
         the registered classes's _deserialize_from_proto method when this object is
         loaded from the SavedModel.
         """
@@ -223,7 +231,8 @@ global___SavedObject = SavedObject
 
 @typing.final
 class SavedUserObject(google.protobuf.message.Message):
-    """A SavedUserObject is an object (in the object-oriented language of the
+    """
+    A SavedUserObject is an object (in the object-oriented language of the
     TensorFlow program) of some user- or framework-defined class other than
     those handled specifically by the other kinds of SavedObjects.
 
@@ -263,7 +272,8 @@ global___SavedUserObject = SavedUserObject
 
 @typing.final
 class SavedAsset(google.protobuf.message.Message):
-    """A SavedAsset points to an asset in the MetaGraph.
+    """
+    A SavedAsset points to an asset in the MetaGraph.
 
     When bound to a function this object evaluates to a tensor with the absolute
     filename. Users should not depend on a particular part of the filename to
@@ -333,7 +343,8 @@ global___CapturedTensor = CapturedTensor
 
 @typing.final
 class SavedConcreteFunction(google.protobuf.message.Message):
-    """Stores low-level information about a concrete function. Referenced in either
+    """
+    Stores low-level information about a concrete function. Referenced in either
     a SavedFunction or a SavedBareConcreteFunction.
     """
 
@@ -346,13 +357,15 @@ class SavedConcreteFunction(google.protobuf.message.Message):
     def bound_inputs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
     def canonicalized_input_signature(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
-        """Input in canonicalized form that was received to create this concrete
+        """
+        Input in canonicalized form that was received to create this concrete
         function.
         """
 
     @property
     def output_signature(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
-        """Output that was the return value of this function after replacing all
+        """
+        Output that was the return value of this function after replacing all
         Tensors with TensorSpecs. This can be an arbitrary nested function and will
         be used to reconstruct the full structure from pure tensors.
         """
@@ -387,7 +400,8 @@ class SavedBareConcreteFunction(google.protobuf.message.Message):
 
     @property
     def function_spec(self) -> global___FunctionSpec:
-        """The spec of the function that this ConcreteFunction is traced from. This
+        """
+        The spec of the function that this ConcreteFunction is traced from. This
         allows the ConcreteFunction to be called with nest structure inputs. This
         field may not be populated. If this field is absent, the concrete function
         can only be called with flat inputs.
@@ -426,7 +440,8 @@ global___SavedConstant = SavedConstant
 
 @typing.final
 class SavedVariable(google.protobuf.message.Message):
-    """Represents a Variable that is initialized by loading the contents from the
+    """
+    Represents a Variable that is initialized by loading the contents from the
     checkpoint.
     """
 
@@ -450,7 +465,8 @@ class SavedVariable(google.protobuf.message.Message):
     def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
     @property
     def experimental_distributed_variable_components(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedVariable]:
-        """List of component variables for a distributed variable.
+        """
+        List of component variables for a distributed variable.
 
         When this field is non-empty, the SavedVariable will be assumed
         to be a distributed variable defined by the components listed here.
@@ -477,7 +493,8 @@ global___SavedVariable = SavedVariable
 
 @typing.final
 class FunctionSpec(google.protobuf.message.Message):
-    """Represents `FunctionSpec` used in `Function`. This represents a
+    """
+    Represents `FunctionSpec` used in `Function`. This represents a
     function that has been wrapped as a TensorFlow `Function`.
     """
 
@@ -494,7 +511,8 @@ class FunctionSpec(google.protobuf.message.Message):
         OFF: FunctionSpec._JitCompile.ValueType  # 2
 
     class JitCompile(_JitCompile, metaclass=_JitCompileEnumTypeWrapper):
-        """Whether the function should be compiled by XLA.
+        """
+        Whether the function should be compiled by XLA.
 
         The public interface to `tf.function` uses an optional boolean to
         represent three distinct states for this field.  Unfortunately, proto3
@@ -538,7 +556,8 @@ global___FunctionSpec = FunctionSpec
 
 @typing.final
 class SavedResource(google.protobuf.message.Message):
-    """A SavedResource represents a TF object that holds state during its lifetime.
+    """
+    A SavedResource represents a TF object that holds state during its lifetime.
     An object of this type can have a reference to a:
     create_resource() and an initialize() function.
     """

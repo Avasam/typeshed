@@ -70,7 +70,8 @@ class TensorProto(google.protobuf.message.Message):
 
     @property
     def half_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Type specific representations that make it easy to create tensor protos in
+        """
+        Type specific representations that make it easy to create tensor protos in
         all languages.  Only the representation corresponding to "dtype" can
         be set.  The values hold the flattened representation of the tensor in
         row major order.
@@ -97,7 +98,8 @@ class TensorProto(google.protobuf.message.Message):
 
     @property
     def scomplex_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
-        """DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
+        """
+        DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
         and imaginary parts of i-th single precision complex.
         """
 
@@ -111,7 +113,8 @@ class TensorProto(google.protobuf.message.Message):
 
     @property
     def dcomplex_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
-        """DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
+        """
+        DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
         and imaginary parts of i-th double precision complex.
         """
 

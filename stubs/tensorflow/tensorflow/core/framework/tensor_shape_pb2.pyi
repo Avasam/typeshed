@@ -54,7 +54,8 @@ class TensorShapeProto(google.protobuf.message.Message):
     """
     @property
     def dim(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorShapeProto.Dim]:
-        """Dimensions of the tensor, such as {"input", 30}, {"output", 40}
+        """
+        Dimensions of the tensor, such as {"input", 30}, {"output", 40}
         for a 30 x 40 2D tensor.  If an entry has size -1, this
         corresponds to a dimension of unknown size. The names are
         optional.

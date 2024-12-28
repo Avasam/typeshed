@@ -14,7 +14,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class StatusProto(google.protobuf.message.Message):
-    """Wire-format for Status.
+    """
+    Wire-format for Status.
     Next tag: 3
     """
 

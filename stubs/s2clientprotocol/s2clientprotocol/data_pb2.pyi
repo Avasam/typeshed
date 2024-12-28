@@ -56,7 +56,8 @@ global___Attribute = Attribute
 
 @typing.final
 class AbilityData(google.protobuf.message.Message):
-    """May not relevant: queueable (everything is queueable).
+    """
+    May not relevant: queueable (everything is queueable).
     May not be important: AbilSetId - marine stim, marauder stim.
     Stuff omitted: transient.
     Stuff that may be important: cost, range, Alignment, targetfilters.

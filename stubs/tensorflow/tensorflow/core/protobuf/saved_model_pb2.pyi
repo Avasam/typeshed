@@ -16,7 +16,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class SavedModel(google.protobuf.message.Message):
-    """SavedModel is the high level serialization format for TensorFlow Models.
+    """
+    SavedModel is the high level serialization format for TensorFlow Models.
     See [todo: doc links, similar to session_bundle] for more information.
     """
 

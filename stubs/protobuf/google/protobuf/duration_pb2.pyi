@@ -43,7 +43,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class Duration(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Duration):
-    """A Duration represents a signed, fixed-length span of time represented
+    """
+    A Duration represents a signed, fixed-length span of time represented
     as a count of seconds and fractions of seconds at nanosecond
     resolution. It is independent of any calendar and concepts like "day"
     or "month". It is related to Timestamp in that the difference between

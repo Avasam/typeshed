@@ -16,7 +16,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class TrackableObjectGraph(google.protobuf.message.Message):
-    """A TensorBundle addition which saves extra information about the objects which
+    """
+    A TensorBundle addition which saves extra information about the objects which
     own variables, allowing for more robust checkpoint loading into modified
     programs.
     """
@@ -121,13 +122,15 @@ class TrackableObjectGraph(google.protobuf.message.Message):
 
         @property
         def registered_saver(self) -> global___RegisteredSaver:
-            """The registered saver used to save this object. If this saver is not
+            """
+            The registered saver used to save this object. If this saver is not
             present when loading the checkpoint, then loading will fail.
             """
 
         @property
         def has_checkpoint_values(self) -> google.protobuf.wrappers_pb2.BoolValue:
-            """Whether this object has checkpoint values or descendants with checkpoint
+            """
+            Whether this object has checkpoint values or descendants with checkpoint
             values. This is computed at save time to avoid traversing the entire
             object graph proto when restoring (which also has to traverse the live
             object graph).

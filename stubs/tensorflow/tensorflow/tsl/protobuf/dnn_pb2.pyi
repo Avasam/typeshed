@@ -236,7 +236,8 @@ class _ConvolutionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     CONVOLUTION: _ConvolutionMode.ValueType  # 1
 
 class ConvolutionMode(_ConvolutionMode, metaclass=_ConvolutionModeEnumTypeWrapper):
-    """Describe the math definition for the conv op. The popular behavior is
+    """
+    Describe the math definition for the conv op. The popular behavior is
     actually called cross-correlation in math, despite the operation is often
     referred as convolution. See cuDNN cudnnConvolutionMode_t.
     """
@@ -413,7 +414,8 @@ class AlgorithmProto(google.protobuf.message.Message):
     def tuning_knobs(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.int]: ...
     @property
     def workspace_size(self) -> google.protobuf.wrappers_pb2.UInt64Value:
-        """For ROCm only, it's impossible to re-query the required workspace size
+        """
+        For ROCm only, it's impossible to re-query the required workspace size
         after running the algorithm search, so we must store the workspace size
         along with the choice of algorithm.  For consistency and convenience,
         cuDNN uses this field in the same way, even though it would be possible to
@@ -440,7 +442,8 @@ global___AlgorithmProto = AlgorithmProto
 
 @typing.final
 class AlgorithmConfigProto(google.protobuf.message.Message):
-    """Proto definition of AlgorithmConfig in "dnn.h".
+    """
+    Proto definition of AlgorithmConfig in "dnn.h".
     TODO(ruochengw): After cl/380702564 is submitted, add support for algorithm
     configs with cuDNN Frontend APIs.
     """

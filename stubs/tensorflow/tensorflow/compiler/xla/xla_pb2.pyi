@@ -57,7 +57,8 @@ global___CompilationEnvironmentsProto = CompilationEnvironmentsProto
 
 @typing.final
 class DebugOptions(google.protobuf.message.Message):
-    """Debugging options for XLA. These options may change at any time - there are
+    """
+    Debugging options for XLA. These options may change at any time - there are
     no guarantees about backward or forward compatibility for these fields.
 
     Debug options naming and organization:
@@ -164,7 +165,8 @@ class DebugOptions(google.protobuf.message.Message):
         COLLECTIVEPERMUTE: DebugOptions._CollectiveOpType.ValueType  # 6
 
     class CollectiveOpType(_CollectiveOpType, metaclass=_CollectiveOpTypeEnumTypeWrapper):
-        """Enum to define all collective ops
+        """
+        Enum to define all collective ops
         that xla supports.
         """
 
@@ -192,7 +194,8 @@ class DebugOptions(google.protobuf.message.Message):
         CUBLASLT: DebugOptions._CommandBufferCmdType.ValueType  # 7
 
     class CommandBufferCmdType(_CommandBufferCmdType, metaclass=_CommandBufferCmdTypeEnumTypeWrapper):
-        """Commands are categorized into 5 types:
+        """
+        Commands are categorized into 5 types:
         FUSION represents regular fusion kernels.
         CUBLAS/CUBLASLT, CUDNN, and COLLECTIVES represent library calls.
         CONDITIONALS represents control flow.
@@ -1152,7 +1155,8 @@ class DebugOptions(google.protobuf.message.Message):
     """
     @property
     def xla_disable_hlo_passes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """List of HLO passes to disable/enable. These names must exactly match the
+        """
+        List of HLO passes to disable/enable. These names must exactly match the
         pass names as specified by the HloPassInterface::name() method.
 
         At least one of xla_disable_hlo_passes and xla_enable_hlo_passes_only must
@@ -1177,7 +1181,8 @@ class DebugOptions(google.protobuf.message.Message):
 
     @property
     def legacy_command_buffer_custom_call_targets(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Custom call targets with legacy registry API (non FFI API),
+        """
+        Custom call targets with legacy registry API (non FFI API),
         that support recording to command buffer custom command,
         i.e., custom call target supports cuda-graph capturing for CUDA devices.
         This flag is read if CUSTOM_CALL command type is recorded into
@@ -1186,7 +1191,8 @@ class DebugOptions(google.protobuf.message.Message):
 
     @property
     def xla_backend_extra_options(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """Next id: 331
+        """
+        Next id: 331
 
         Extra options to pass to the compilation backend (e.g. LLVM); specific
         interpretation of these values is left to the backend.
@@ -1405,7 +1411,8 @@ global___DebugOptions = DebugOptions
 
 @typing.final
 class GpuCompilationEnvironment(google.protobuf.message.Message):
-    """Contains flags which affects the GPU compilation result.
+    """
+    Contains flags which affects the GPU compilation result.
     These flags are part of Debug Options as of now, and will be migrated to
     this proto.
     """
@@ -1451,7 +1458,8 @@ global___ShardableValueUpdatePairProto = ShardableValueUpdatePairProto
 
 @typing.final
 class ExecutionOptions(google.protobuf.message.Message):
-    """These settings control how XLA compiles and/or runs code.  Not all settings
+    """
+    These settings control how XLA compiles and/or runs code.  Not all settings
     will have an effect on every platform.
 
     When adding new fields, keep in mind that boolean fields default to false.
@@ -1531,7 +1539,8 @@ class ExecutionOptions(google.protobuf.message.Message):
     """
     @property
     def shape_with_output_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
-        """This optional field's layout is used as a hint when storing the output of
+        """
+        This optional field's layout is used as a hint when storing the output of
         this computation.  Subsequent transfers of this output array to the client
         may be faster when using this layout.
 
@@ -1542,32 +1551,37 @@ class ExecutionOptions(google.protobuf.message.Message):
     def debug_options(self) -> global___DebugOptions: ...
     @property
     def device_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]:
-        """This optional field specifies a particular set of devices to run the
+        """
+        This optional field specifies a particular set of devices to run the
         computation on. The computation will be partitioned across these devices.
         If not provided, the default device will be chosen.
         """
 
     @property
     def device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto:
-        """This optional field specifies the device assignment if known at compile
+        """
+        This optional field specifies the device assignment if known at compile
         time.
         """
 
     @property
     def auto_spmd_partitioning_mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Device mesh shape used to create the sharding search space when
+        """
+        Device mesh shape used to create the sharding search space when
         use_auto_spmd_partitioning=true.
         """
 
     @property
     def auto_spmd_partitioning_mesh_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Device mesh ids compatible with the above mesh_shape used when
+        """
+        Device mesh ids compatible with the above mesh_shape used when
         use_auto_spmd_partitioning=true.
         """
 
     @property
     def allow_spmd_sharding_propagation_to_parameters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """Allows sharding propagation to propagate to the parameters. This changes
+        """
+        Allows sharding propagation to propagate to the parameters. This changes
         the input shape of the computation (which is undesirable), but it can be
         used to allow to run partial compilation to determine what would be the
         input sharding of a computation if XLA would be allowed to propagate the
@@ -1581,7 +1595,8 @@ class ExecutionOptions(google.protobuf.message.Message):
 
     @property
     def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """Allows sharding propagation to propagate to the outputs. This changes the
+        """
+        Allows sharding propagation to propagate to the outputs. This changes the
         output shape of the computation (which is undesirable), but it can be used
         to allow to run partial compilation to determine what would be the output
         sharding of a computation if XLA would be allowed to propagate the sharding
@@ -1637,7 +1652,8 @@ global___ExecutionOptions = ExecutionOptions
 
 @typing.final
 class HloModuleConfigProto(google.protobuf.message.Message):
-    """Serialization of HloModuleConfig. See the C++ class definition for
+    """
+    Serialization of HloModuleConfig. See the C++ class definition for
     descriptions of each field.
     There are no guarantees of backwards or forwards compatibility.
     Next id: 36.
@@ -1808,7 +1824,8 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     def static_device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto: ...
     @property
     def pre_simulation_device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto:
-        """The original device assignment before being changed by a simulator.
+        """
+        The original device assignment before being changed by a simulator.
         Simulators, like HybridSim, may change the device assignment to a smaller
         topology, to make simulation easier.
         """

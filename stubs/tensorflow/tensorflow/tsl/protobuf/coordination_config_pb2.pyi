@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class CoordinatedJob(google.protobuf.message.Message):
-    """Represents a job type and the number of tasks under this job.
+    """
+    Represents a job type and the number of tasks under this job.
     For example, ("worker", 20) implies that there will be 20 worker tasks.
     """
 
@@ -37,7 +38,8 @@ global___CoordinatedJob = CoordinatedJob
 
 @typing.final
 class CoordinationServiceConfig(google.protobuf.message.Message):
-    """Coordination service configuration parameters.
+    """
+    Coordination service configuration parameters.
     The system picks appropriate values for fields that are not set.
     """
 
@@ -104,7 +106,8 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
     def coordinated_job_list(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedJob]: ...
     @property
     def recoverable_jobs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The list of jobs which are recoverable. If a task in this list fails,
+        """
+        The list of jobs which are recoverable. If a task in this list fails,
         it will not propagate error to other tasks.
         If empty, no jobs will be recoverable and every task failure will cause
         error propagation to other tasks.

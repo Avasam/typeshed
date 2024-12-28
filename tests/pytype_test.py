@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # Lack of pytype typing
 # pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportMissingTypeStubs=false
-"""Test runner for typeshed.
+"""
+Test runner for typeshed.
 
 Depends on pytype being installed.
 
@@ -124,7 +125,8 @@ def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
 
 
 def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
-    """Determine all files to test.
+    """
+    Determine all files to test.
 
     Checks for files in the pytype exclude list and for the stdlib VERSIONS file.
     """
@@ -182,7 +184,8 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
 
 
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
-    """Get names of modules that should be treated as missing.
+    """
+    Get names of modules that should be treated as missing.
 
     Some typeshed stubs depend on dependencies outside of typeshed. Since pytype
     isn't able to read such dependencies, we instead declare them as "missing"

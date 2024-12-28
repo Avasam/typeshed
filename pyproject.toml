@@ -76,6 +76,7 @@ select = [
 ]
 # Enable these on top of the selected pydocstyle convention.
 extend-select = [
+    "D213", # Multi-line docstring summary should start at the second line
     "D402", # First line should not be the function's signature
 ]
 extend-safe-fixes = [

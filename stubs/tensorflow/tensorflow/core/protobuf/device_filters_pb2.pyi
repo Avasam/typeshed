@@ -29,7 +29,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class TaskDeviceFilters(google.protobuf.message.Message):
-    """This file contains protos to be used when defining a TensorFlow
+    """
+    This file contains protos to be used when defining a TensorFlow
     cluster.
 
     Configure device filters for remote tasks in the cluster. When associated

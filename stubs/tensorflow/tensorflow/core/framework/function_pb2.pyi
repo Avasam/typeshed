@@ -44,7 +44,8 @@ global___FunctionDefLibrary = FunctionDefLibrary
 
 @typing.final
 class FunctionDef(google.protobuf.message.Message):
-    """A function can be instantiated when the runtime can bind every attr
+    """
+    A function can be instantiated when the runtime can bind every attr
     with a value. When a GraphDef has a call to a function, it must
     have binding for every attr defined in the signature.
 
@@ -74,7 +75,8 @@ class FunctionDef(google.protobuf.message.Message):
 
     @typing.final
     class ArgAttrs(google.protobuf.message.Message):
-        """Attributes for function arguments. These attributes are the same set of
+        """
+        Attributes for function arguments. These attributes are the same set of
         valid attributes as to _Arg nodes.
         """
 
@@ -183,7 +185,8 @@ class FunctionDef(google.protobuf.message.Message):
     CONTROL_RET_FIELD_NUMBER: builtins.int
     @property
     def signature(self) -> tensorflow.core.framework.op_def_pb2.OpDef:
-        """The definition of the function's name, arguments, return values,
+        """
+        The definition of the function's name, arguments, return values,
         attrs etc.
         """
 
@@ -195,7 +198,8 @@ class FunctionDef(google.protobuf.message.Message):
     def arg_attr(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___FunctionDef.ArgAttrs]: ...
     @property
     def resource_arg_unique_id(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.int]:
-        """Unique IDs for each resource argument, used to track aliasing resources. If
+        """
+        Unique IDs for each resource argument, used to track aliasing resources. If
         Argument A and Argument B alias each other, then
         resource_arg_unique_ids[A.index] == resource_arg_unique_ids[B.index].
 
@@ -208,7 +212,8 @@ class FunctionDef(google.protobuf.message.Message):
 
     @property
     def node_def(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]:
-        """The body of the function.  Unlike the NodeDefs in a GraphDef, attrs
+        """
+        The body of the function.  Unlike the NodeDefs in a GraphDef, attrs
         may have values of type `placeholder` and the `input` field uses
         the "output" format above.
 
@@ -219,13 +224,15 @@ class FunctionDef(google.protobuf.message.Message):
 
     @property
     def ret(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """A mapping from the output arg names from `signature` to the
+        """
+        A mapping from the output arg names from `signature` to the
         outputs from `node_def` that should be returned by the function.
         """
 
     @property
     def control_ret(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """A mapping from control output names from `signature` to node names in
+        """
+        A mapping from control output names from `signature` to node names in
         `node_def` which should be control outputs of this function.
         """
 
@@ -247,7 +254,8 @@ global___FunctionDef = FunctionDef
 
 @typing.final
 class GradientDef(google.protobuf.message.Message):
-    """GradientDef defines the gradient function of a function defined in
+    """
+    GradientDef defines the gradient function of a function defined in
     a function library.
 
     A gradient function g (specified by gradient_func) for a function f
@@ -287,7 +295,8 @@ global___GradientDef = GradientDef
 
 @typing.final
 class RegisteredGradient(google.protobuf.message.Message):
-    """RegisteredGradient stores a gradient function that is registered in the
+    """
+    RegisteredGradient stores a gradient function that is registered in the
     gradients library and used in the ops of a function in the function library.
     Unlike GradientDef, these gradients are identified by op type, and not
     directly linked to any function.

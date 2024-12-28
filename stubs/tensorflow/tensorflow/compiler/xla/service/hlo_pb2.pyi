@@ -120,7 +120,8 @@ class _CustomCallApiVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     """
 
 class CustomCallApiVersion(_CustomCallApiVersion, metaclass=_CustomCallApiVersionEnumTypeWrapper):
-    """The version of the API used by the custom call function. The signatures for
+    """
+    The version of the API used by the custom call function. The signatures for
     each version are given below.
     TODO(b/189822916): Remove this enum when all clients are migrated to the
     status-returning API.
@@ -218,7 +219,8 @@ global___Kind = Kind
 
 @typing.final
 class HloInstructionProto(google.protobuf.message.Message):
-    """Serialization of HloInstruction.
+    """
+    Serialization of HloInstruction.
     Next ID: 90
     """
 
@@ -448,7 +450,8 @@ class HloInstructionProto(google.protobuf.message.Message):
 
     @property
     def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Dimensions present for some operations that require reshaping or
+        """
+        Dimensions present for some operations that require reshaping or
         broadcasting, including Reshape, Reduce, ReduceWindow, and Reverse.
         """
 
@@ -464,13 +467,15 @@ class HloInstructionProto(google.protobuf.message.Message):
     def slice_dimensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloInstructionProto.SliceDimensions]: ...
     @property
     def dynamic_slice_sizes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Describes the [start, start + size) range size for a dynamic slice
+        """
+        Describes the [start, start + size) range size for a dynamic slice
         ('start' is specified dynamically in the second operand of the operation).
         """
 
     @property
     def padding_config(self) -> tensorflow.compiler.xla.xla_data_pb2.PaddingConfig:
-        """The padding configuration that describes the edge padding and interior
+        """
+        The padding configuration that describes the edge padding and interior
         padding of this pad instruction. Only set for pad instructions.
         """
 
@@ -502,7 +507,8 @@ class HloInstructionProto(google.protobuf.message.Message):
     def sharding(self) -> tensorflow.compiler.xla.xla_data_pb2.OpSharding: ...
     @property
     def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ReplicaGroup]:
-        """Deprecated, but keeping for backward compatibility.
+        """
+        Deprecated, but keeping for backward compatibility.
         Use collective_device_list. Cross replica op fields.
         """
 
@@ -538,7 +544,8 @@ class HloInstructionProto(google.protobuf.message.Message):
 
     @property
     def output_operand_aliasing(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.OutputOperandAliasing]:
-        """A list of OutputOperandAliasing pairs that specifies aliasing buffers
+        """
+        A list of OutputOperandAliasing pairs that specifies aliasing buffers
         between output and operands for kCustomCall and kFusion.
         """
 
@@ -548,7 +555,8 @@ class HloInstructionProto(google.protobuf.message.Message):
 
     @property
     def statistics_viz(self) -> tensorflow.compiler.xla.xla_data_pb2.StatisticsViz:
-        """Represents the information for tracking propagation of values within HLO
+        """
+        Represents the information for tracking propagation of values within HLO
         graph.
         """
 
@@ -675,7 +683,8 @@ class HloComputationProto(google.protobuf.message.Message):
     """The name of execution thread this computation belongs to."""
     @property
     def instructions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloInstructionProto]:
-        """The array of instructions is always in a valid dependency order, where
+        """
+        The array of instructions is always in a valid dependency order, where
         operands appear before their users.
         """
 
@@ -701,7 +710,8 @@ global___HloComputationProto = HloComputationProto
 
 @typing.final
 class HloScheduleProto(google.protobuf.message.Message):
-    """Serialization of an HLO schedule. An HLO schedule contains a total order of
+    """
+    Serialization of an HLO schedule. An HLO schedule contains a total order of
     instructions for each non-fusion computation in the module.
     """
 
@@ -759,7 +769,8 @@ class HloInputOutputAliasProto(google.protobuf.message.Message):
 
     @typing.final
     class AliasEntryProto(google.protobuf.message.Message):
-        """The following proto describes a pair of aliased an input
+        """
+        The following proto describes a pair of aliased an input
         (described by parameter number and a ShapeIndex of the parameter)
         and an output (described by a ShapeIndex of the root
         instruction). For example:
@@ -820,7 +831,8 @@ class HloBufferDonorProto(google.protobuf.message.Message):
 
     @typing.final
     class BufferDonorEntryProto(google.protobuf.message.Message):
-        """The following proto describes an input (described by parameter number and a
+        """
+        The following proto describes an input (described by parameter number and a
         ShapeIndex of the parameter) that can donate its butter to any output
         tensor. It is similar to HloInputOutputAliasProto, but without a paired
         output. For example:
@@ -888,7 +900,8 @@ global___CrossProgramPrefetch = CrossProgramPrefetch
 
 @typing.final
 class StackFrameIndexProto(google.protobuf.message.Message):
-    """Serialization of stack frames index representations.
+    """
+    Serialization of stack frames index representations.
     Stack frames index presented in four flat arrays:
     1. File names array.
     2. Function names array.
@@ -1071,7 +1084,8 @@ class HloModuleProto(google.protobuf.message.Message):
     """Uses AutoSharding pass or not."""
     @property
     def computations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloComputationProto]:
-        """The array of computations is always in a valid dependency order, where
+        """
+        The array of computations is always in a valid dependency order, where
         callees appear before their callers.
         """
 
@@ -1148,7 +1162,8 @@ class LogicalBufferProto(google.protobuf.message.Message):
 
     @typing.final
     class Location(google.protobuf.message.Message):
-        """Location represents an instruction and its shape index, which uniquely
+        """
+        Location represents an instruction and its shape index, which uniquely
         identifies a point where a buffer is needed.
         """
 
@@ -1203,7 +1218,8 @@ class BufferAllocationProto(google.protobuf.message.Message):
 
     @typing.final
     class Assigned(google.protobuf.message.Message):
-        """Assigned represents a single LogicalBuffer that is assigned to this
+        """
+        Assigned represents a single LogicalBuffer that is assigned to this
         BufferAllocation.
         """
 
@@ -1275,7 +1291,8 @@ class HeapSimulatorTrace(google.protobuf.message.Message):
 
     @typing.final
     class Event(google.protobuf.message.Message):
-        """The trace includes a list of events, where each event describes one action
+        """
+        The trace includes a list of events, where each event describes one action
         performed by the heap simulator.
         """
 
@@ -1361,7 +1378,8 @@ global___HeapSimulatorTrace = HeapSimulatorTrace
 
 @typing.final
 class HloModuleGroupProto(google.protobuf.message.Message):
-    """An abstraction representing a set of HLO module built to run concurrently
+    """
+    An abstraction representing a set of HLO module built to run concurrently
     across different devices.
     """
 
@@ -1390,7 +1408,8 @@ class BufferAssignmentProto(google.protobuf.message.Message):
 
     @typing.final
     class BufferAlias(google.protobuf.message.Message):
-        """Alias represents a source LogicalBuffer, and the buffer location that
+        """
+        Alias represents a source LogicalBuffer, and the buffer location that
         aliases it.
         """
 
@@ -1459,7 +1478,8 @@ global___HloProto = HloProto
 
 @typing.final
 class HloSnapshot(google.protobuf.message.Message):
-    """Encapsulates HloProto together with the arguments, result, and
+    """
+    Encapsulates HloProto together with the arguments, result, and
     execution_platform. This message is used for purposes such as
     analysis/replay/file-storage.
     """
@@ -1499,7 +1519,8 @@ global___HloSnapshot = HloSnapshot
 
 @typing.final
 class HloModuleMetadataProto(google.protobuf.message.Message):
-    """Metadata for an HLO module. Dumped after HLO passes and before LLO lowering
+    """
+    Metadata for an HLO module. Dumped after HLO passes and before LLO lowering
     with filename module_####.metadata.textproto, where #### is
     canonical_module_id.
     """
@@ -1525,7 +1546,8 @@ class HloModuleMetadataProto(google.protobuf.message.Message):
     """
     @property
     def partitioned_module_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The canonical module ids of the modules that this one is partitioned into,
+        """
+        The canonical module ids of the modules that this one is partitioned into,
         if applicable.
         """
 
@@ -1548,7 +1570,8 @@ global___HloModuleMetadataProto = HloModuleMetadataProto
 
 @typing.final
 class HloPassMetadata(google.protobuf.message.Message):
-    """Metadata for one run of an HLO pass on a module. Provides more information
+    """
+    Metadata for one run of an HLO pass on a module. Provides more information
     when processing debug dumps of HloProtos about the order of HLO passes and
     various other stats like duration. `pass_id` may also be used to identify a
     particular run of a pass in debug info that propagates through stages of
@@ -1591,14 +1614,16 @@ class HloPassMetadata(google.protobuf.message.Message):
     end_timestamp_usec: builtins.int
     @property
     def dump_filenames(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Filenames of the dumps of the module after this pass ran. Module may be
+        """
+        Filenames of the dumps of the module after this pass ran. Module may be
         dumped in multiple formats, and the order of formats in this field will
         stay consistent across passes.
         """
 
     @property
     def module_group_module_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """If the module went through this pass as part of a module group, this is
+        """
+        If the module went through this pass as part of a module group, this is
         set as the ids of all the modules in the module group. Empty otherwise.
         """
 

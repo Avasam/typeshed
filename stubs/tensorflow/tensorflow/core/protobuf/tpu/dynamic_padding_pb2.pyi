@@ -13,7 +13,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class PaddingMap(google.protobuf.message.Message):
-    """A mapping between the dynamic shape dimension of an input and the arg that
+    """
+    A mapping between the dynamic shape dimension of an input and the arg that
     represents the real shape.
     """
 

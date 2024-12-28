@@ -77,7 +77,8 @@ class _TensorDebugModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     """
 
 class TensorDebugMode(_TensorDebugMode, metaclass=_TensorDebugModeEnumTypeWrapper):
-    """Available modes for extracting debugging information from a Tensor.
+    """
+    Available modes for extracting debugging information from a Tensor.
     TODO(cais): Document the detailed column names and semantics in a separate
     markdown file once the implementation settles.
     """
@@ -166,13 +167,15 @@ class DebugEvent(google.protobuf.message.Message):
 
     @property
     def stack_frame_with_id(self) -> global___StackFrameWithId:
-        """A stack frame (filename, line number and column number, function name and
+        """
+        A stack frame (filename, line number and column number, function name and
         code string) with ID.
         """
 
     @property
     def graph_op_creation(self) -> global___GraphOpCreation:
-        """The creation of an op within a graph (e.g., a FuncGraph compiled from
+        """
+        The creation of an op within a graph (e.g., a FuncGraph compiled from
         a Python function).
         """
 
@@ -186,7 +189,8 @@ class DebugEvent(google.protobuf.message.Message):
 
     @property
     def graph_execution_trace(self) -> global___GraphExecutionTrace:
-        """A graph execution trace: Contains information about the intermediate
+        """
+        A graph execution trace: Contains information about the intermediate
         tensors computed during the graph execution.
         """
 
@@ -249,7 +253,8 @@ global___DebugMetadata = DebugMetadata
 
 @typing.final
 class SourceFile(google.protobuf.message.Message):
-    """Content of a source file involved in the execution of the debugged TensorFlow
+    """
+    Content of a source file involved in the execution of the debugged TensorFlow
     program.
     """
 
@@ -289,7 +294,8 @@ class StackFrameWithId(google.protobuf.message.Message):
     """A unique ID for the stack frame: A UUID-like string."""
     @property
     def file_line_col(self) -> tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo.FileLineCol:
-        """Stack frame, i.e., a frame of a stack trace, containing information
+        """
+        Stack frame, i.e., a frame of a stack trace, containing information
         regarding the file name, line number, function name, code content
         of the line, and column number (if available).
         """
@@ -307,7 +313,8 @@ global___StackFrameWithId = StackFrameWithId
 
 @typing.final
 class CodeLocation(google.protobuf.message.Message):
-    """Code location information: A stack trace with host-name information.
+    """
+    Code location information: A stack trace with host-name information.
     Instead of encoding the detailed stack trace, this proto refers to IDs of
     stack frames stored as `StackFrameWithId` protos.
     """
@@ -320,7 +327,8 @@ class CodeLocation(google.protobuf.message.Message):
     """Host name on which the source files are located."""
     @property
     def stack_frame_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """ID to a stack frame, each of which is pointed to
+        """
+        ID to a stack frame, each of which is pointed to
         by a unique ID. The ordering of the frames is consistent with Python's
         `traceback.extract_tb()`.
         """
@@ -422,7 +430,8 @@ class DebuggedGraph(google.protobuf.message.Message):
     """IDs of the immediate enclosing context (graph), if any."""
     @property
     def instrumented_ops(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Names of the instrumented ops. This can be used to look up op name
+        """
+        Names of the instrumented ops. This can be used to look up op name
         based on the numeric-summary tensors (2nd column).
         """
 
@@ -468,7 +477,8 @@ global___DebuggedDevice = DebuggedDevice
 
 @typing.final
 class Execution(google.protobuf.message.Message):
-    """Data relating to the eager execution of an op or a Graph.
+    """
+    Data relating to the eager execution of an op or a Graph.
     For a op that generates N output tensors (N >= 0), only one
     Execution proto will be used to describe the execution event.
     """
@@ -502,13 +512,15 @@ class Execution(google.protobuf.message.Message):
 
     @property
     def output_tensor_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """IDs of the output tensors (if availbable).
+        """
+        IDs of the output tensors (if availbable).
         If specified, must have the same length as tensor_protos.
         """
 
     @property
     def tensor_protos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_pb2.TensorProto]:
-        """Output Tensor values in the type described by `tensor_value_type`.
+        """
+        Output Tensor values in the type described by `tensor_value_type`.
         The length of this should match `num_outputs`.
         """
 
@@ -518,7 +530,8 @@ class Execution(google.protobuf.message.Message):
 
     @property
     def output_tensor_device_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Debugged-generated IDs of the devices on which the output tensors reside.
+        """
+        Debugged-generated IDs of the devices on which the output tensors reside.
         To look up details about the device (e.g., name), cross-reference this
         field with the DebuggedDevice messages.
         """
@@ -543,7 +556,8 @@ global___Execution = Execution
 
 @typing.final
 class GraphExecutionTrace(google.protobuf.message.Message):
-    """Data relating to an execution of a Graph (e.g., an eager execution of a
+    """
+    Data relating to an execution of a Graph (e.g., an eager execution of a
     FuncGraph).
     The values of the intermediate tensors computed in the graph are recorded
     in this proto. A graph execution may correspond to one or more pieces of
@@ -577,7 +591,8 @@ class GraphExecutionTrace(google.protobuf.message.Message):
     """Name of the device that the op belongs to."""
     @property
     def tensor_proto(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
-        """Tensor value in the type described by `tensor_value_type`.
+        """
+        Tensor value in the type described by `tensor_value_type`.
         This tensor may summarize the value of a single intermediate op of the
         graph, or those of multiple intermediate tensors.
         """

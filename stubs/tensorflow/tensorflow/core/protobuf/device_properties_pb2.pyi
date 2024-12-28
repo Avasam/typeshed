@@ -88,7 +88,8 @@ class DeviceProperties(google.protobuf.message.Message):
     """Memory bandwidth in KB/s"""
     @property
     def environment(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """Version of the tools and libraries used with this device (e.g. gcc 4.9,
+        """
+        Version of the tools and libraries used with this device (e.g. gcc 4.9,
         cudnn 5.1)
         """
 

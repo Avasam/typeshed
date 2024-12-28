@@ -19,7 +19,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class OpDef(google.protobuf.message.Message):
-    """Defines an operation. A NodeDef in a GraphDef specifies an Op by
+    """
+    Defines an operation. A NodeDef in a GraphDef specifies an Op by
     using the "op" field which should match the name of a OpDef.
     LINT.IfChange
     """
@@ -76,7 +77,8 @@ class OpDef(google.protobuf.message.Message):
 
         @property
         def experimental_full_type(self) -> tensorflow.core.framework.full_type_pb2.FullTypeDef:
-            """Experimental. Full type declaration for this argument.
+            """
+            Experimental. Full type declaration for this argument.
             The full type specification combines type, type_attr, type_list_attr,
             etc. into a unified representation.
             This declaration may contain non-concrete types (for example,
@@ -105,7 +107,8 @@ class OpDef(google.protobuf.message.Message):
 
     @typing.final
     class AttrDef(google.protobuf.message.Message):
-        """Description of the graph-construction-time configuration of this
+        """
+        Description of the graph-construction-time configuration of this
         Op.  That is to say, this describes the attr fields that will
         be specified in the NodeDef.
         """
@@ -141,13 +144,15 @@ class OpDef(google.protobuf.message.Message):
         minimum: builtins.int
         @property
         def default_value(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
-            """A reasonable default for this attribute if the user does not supply
+            """
+            A reasonable default for this attribute if the user does not supply
             a value.  If not specified, the user must supply a value.
             """
 
         @property
         def allowed_values(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
-            """The set of allowed values.  Has type that is the "list" version
+            """
+            The set of allowed values.  Has type that is the "list" version
             of the "type" field above (uses the "list" field of AttrValue).
             If type == "type" or "list(type)" above, then the "type" field
             of "allowed_values.list" has the set of allowed DataTypes.
@@ -249,7 +254,8 @@ class OpDef(google.protobuf.message.Message):
 
     @property
     def control_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Named control outputs for this operation. Useful only for composite
+        """
+        Named control outputs for this operation. Useful only for composite
         operations (i.e. functions) which want to name different control outputs.
         """
 

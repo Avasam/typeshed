@@ -276,7 +276,8 @@ class FeatureLayersMinimap(google.protobuf.message.Message):
 
     @property
     def unit_type(self) -> s2clientprotocol.common_pb2.ImageData:
-        """Cheat layers, enable with SpatialCameraSetup.allow_cheating_layers.
+        """
+        Cheat layers, enable with SpatialCameraSetup.allow_cheating_layers.
         int32. Unique identifier for type of unit.
         """
 

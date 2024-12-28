@@ -25,7 +25,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ApiDef(google.protobuf.message.Message):
-    """Used to specify and override the default API & behavior in the
+    """
+    Used to specify and override the default API & behavior in the
     generated code for client languages, from what you would get from
     the OpDef alone. There will be a set of ApiDefs that are common
     to all client languages, and another set per client language.
@@ -84,7 +85,8 @@ class ApiDef(google.protobuf.message.Message):
 
     @typing.final
     class Endpoint(google.protobuf.message.Message):
-        """If you specify any endpoint, this will replace all of the
+        """
+        If you specify any endpoint, this will replace all of the
         inherited endpoints.  The first endpoint should be the
         "canonical" endpoint, and should not be deprecated (unless all
         endpoints are deprecated).
@@ -148,7 +150,8 @@ class ApiDef(google.protobuf.message.Message):
 
     @typing.final
     class Attr(google.protobuf.message.Message):
-        """Description of the graph-construction-time configuration of this
+        """
+        Description of the graph-construction-time configuration of this
         Op.  That is to say, this describes the attr fields that will
         be specified in the NodeDef.
         """
@@ -171,7 +174,8 @@ class ApiDef(google.protobuf.message.Message):
         """
         @property
         def default_value(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
-            """Specify a new default value to use for this attr.  This default
+            """
+            Specify a new default value to use for this attr.  This default
             will be used when creating new graphs, as opposed to the
             default in the OpDef, which will be used when interpreting old
             GraphDefs.
@@ -231,7 +235,8 @@ class ApiDef(google.protobuf.message.Message):
     def out_arg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef.Arg]: ...
     @property
     def arg_order(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """List of original in_arg names to specify new argument order.
+        """
+        List of original in_arg names to specify new argument order.
         Length of arg_order should be either empty to keep current order
         or match size of in_arg.
         """

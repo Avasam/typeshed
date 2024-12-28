@@ -56,7 +56,8 @@ class EmbeddingInfo(google.protobuf.message.Message):
     """
     @property
     def tensor_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Shape of the 2D tensor [N x D]. If missing, it will be inferred from the
+        """
+        Shape of the 2D tensor [N x D]. If missing, it will be inferred from the
         model checkpoint.
         """
 

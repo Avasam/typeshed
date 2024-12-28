@@ -24,7 +24,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class OptimizedFunctionGraph(google.protobuf.message.Message):
-    """Optimized function graph after instantiation-related graph optimization
+    """
+    Optimized function graph after instantiation-related graph optimization
     passes (up till before graph partitioning). The first half of the proto is
     representing a GraphDef and the rest of the fields are extra information from
     graph optimizations.
@@ -43,7 +44,8 @@ class OptimizedFunctionGraph(google.protobuf.message.Message):
         JIT: OptimizedFunctionGraph._OptimizationSource.ValueType  # 2
 
     class OptimizationSource(_OptimizationSource, metaclass=_OptimizationSourceEnumTypeWrapper):
-        """Enum for distinguishing the origin where the proto is created.
+        """
+        Enum for distinguishing the origin where the proto is created.
 
         AOT: proto is created in ahead-of-time environment, which can be different
         from the environment where the graph is actually executed.
@@ -97,13 +99,15 @@ class OptimizedFunctionGraph(google.protobuf.message.Message):
 
     @property
     def node_name_to_control_ret(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """Maps from node name to control ret. This is an output from running TF/XLA
+        """
+        Maps from node name to control ret. This is an output from running TF/XLA
         bridge.
         """
 
     @property
     def ret_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.core.framework.types_pb2.DataType.ValueType]:
-        """Return node types of the function. This is an output of graph
+        """
+        Return node types of the function. This is an output of graph
         preprocessing.
         """
 

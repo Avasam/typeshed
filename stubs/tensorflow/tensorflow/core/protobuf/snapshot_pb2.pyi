@@ -18,7 +18,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class SnapshotRecord(google.protobuf.message.Message):
-    """Each SnapshotRecord represents one batch of pre-processed input data. A batch
+    """
+    Each SnapshotRecord represents one batch of pre-processed input data. A batch
     consists of a list of tensors that we encode as TensorProtos. This message
     doesn't store the structure of the batch.
     """

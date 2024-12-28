@@ -20,7 +20,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ErrorSourceProto(google.protobuf.message.Message):
-    """If included as a payload, this message contains the error source information
+    """
+    If included as a payload, this message contains the error source information
     where the error was raised.
     URI: "type.googleapis.com/tensorflow.core.platform.ErrorSourceProto"
     """

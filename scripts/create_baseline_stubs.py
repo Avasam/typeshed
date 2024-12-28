@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Script to generate unannotated baseline stubs using stubgen.
+"""
+Script to generate unannotated baseline stubs using stubgen.
 
 Basic usage:
 $ python3 scripts/create_baseline_stubs.py <project on PyPI>
@@ -38,7 +39,8 @@ def search_pip_freeze_output(project: str, output: str) -> tuple[str, str] | Non
 
 
 def get_installed_package_info(project: str) -> tuple[str, str] | None:
-    """Find package information from pip freeze output.
+    """
+    Find package information from pip freeze output.
 
     Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
     vice versa).

@@ -24,7 +24,8 @@ class NamedTensorProto(google.protobuf.message.Message):
     """Name of the tensor."""
     @property
     def tensor(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
-        """The client can populate a TensorProto using a tensorflow::Tensor`, or
+        """
+        The client can populate a TensorProto using a tensorflow::Tensor`, or
         directly using the protobuf field accessors.
 
         The client specifies whether the returned tensor values should be

@@ -18,7 +18,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class AttrValue(google.protobuf.message.Message):
-    """Protocol buffer representing the value for an attr used to configure an Op.
+    """
+    Protocol buffer representing the value for an attr used to configure an Op.
     Comment indicates the corresponding attr type.  Only the field matching the
     attr type may be filled.
     """
@@ -128,7 +129,8 @@ class AttrValue(google.protobuf.message.Message):
 
     @property
     def func(self) -> global___NameAttrList:
-        """"func" represents a function. func.name is a function's name or
+        """
+        "func" represents a function. func.name is a function's name or
         a primitive op's name. func.attr.first is the name of an attr
         defined for that function. func.attr.second is the value for
         that attr in the instantiation.
@@ -156,7 +158,8 @@ global___AttrValue = AttrValue
 
 @typing.final
 class NameAttrList(google.protobuf.message.Message):
-    """A list of attr names and their values. The whole list is attached
+    """
+    A list of attr names and their values. The whole list is attached
     with a string name.  E.g., MatMul[T=float].
     """
 

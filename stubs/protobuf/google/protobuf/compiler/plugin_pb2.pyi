@@ -78,14 +78,16 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
     """The generator parameter passed on the command-line."""
     @property
     def file_to_generate(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The .proto files that were explicitly listed on the command-line.  The
+        """
+        The .proto files that were explicitly listed on the command-line.  The
         code generator should generate code only for these files.  Each file's
         descriptor will be included in proto_file, below.
         """
 
     @property
     def proto_file(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.descriptor_pb2.FileDescriptorProto]:
-        """FileDescriptorProtos for all files in files_to_generate and everything
+        """
+        FileDescriptorProtos for all files in files_to_generate and everything
         they import.  The files will appear in topological order, so each file
         appears before any file that imports it.
 
@@ -108,7 +110,8 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
 
     @property
     def source_file_descriptors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.descriptor_pb2.FileDescriptorProto]:
-        """File descriptors with all options, including source-retention options.
+        """
+        File descriptors with all options, including source-retention options.
         These descriptors are only provided for the files listed in
         files_to_generate.
         """
@@ -220,7 +223,8 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
         """The file contents."""
         @property
         def generated_code_info(self) -> google.protobuf.descriptor_pb2.GeneratedCodeInfo:
-            """Information describing the file content being inserted. If an insertion
+            """
+            Information describing the file content being inserted. If an insertion
             point is used, this information will be appropriately offset and inserted
             into the code generation metadata for the generated files.
             """

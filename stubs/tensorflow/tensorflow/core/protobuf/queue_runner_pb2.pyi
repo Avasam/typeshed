@@ -37,7 +37,8 @@ class QueueRunnerDef(google.protobuf.message.Message):
 
     @property
     def queue_closed_exception_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType]:
-        """A list of exception types considered to signal a safely closed queue
+        """
+        A list of exception types considered to signal a safely closed queue
         if raised during enqueue operations.
         """
 

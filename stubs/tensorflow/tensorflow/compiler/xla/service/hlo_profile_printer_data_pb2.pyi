@@ -29,7 +29,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class HloProfilePrinterData(google.protobuf.message.Message):
-    """Describes how to pretty-print a profile counter array gathered for a specific
+    """
+    Describes how to pretty-print a profile counter array gathered for a specific
     HloModule.
     """
 
@@ -91,7 +92,8 @@ class HloProfilePrinterData(google.protobuf.message.Message):
         """
         @property
         def instruction_infos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloProfilePrinterData.HloInstructionInfo]:
-            """HloInstructionInfos for every HloInstruction in the HloComputation for
+            """
+            HloInstructionInfos for every HloInstruction in the HloComputation for
             corresponding to this HloComputattionInfo.
             """
 

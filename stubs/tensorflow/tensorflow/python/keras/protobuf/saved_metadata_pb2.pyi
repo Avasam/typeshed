@@ -22,7 +22,8 @@ class SavedMetadata(google.protobuf.message.Message):
     NODES_FIELD_NUMBER: builtins.int
     @property
     def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedObject]:
-        """Nodes represent trackable objects in the SavedModel. The data for every
+        """
+        Nodes represent trackable objects in the SavedModel. The data for every
         Keras object is stored.
         """
 

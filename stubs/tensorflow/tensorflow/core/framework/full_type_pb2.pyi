@@ -298,7 +298,8 @@ class _FullTypeIdEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     """
 
 class FullTypeId(_FullTypeId, metaclass=_FullTypeIdEnumTypeWrapper):
-    """LINT.IfChange
+    """
+    LINT.IfChange
     Experimental. Represents the complete type information of a TensorFlow value.
     """
 
@@ -576,7 +577,8 @@ global___FullTypeId = FullTypeId
 
 @typing.final
 class FullTypeDef(google.protobuf.message.Message):
-    """Highly experimental and very likely to change.
+    """
+    Highly experimental and very likely to change.
     This encoding uses tags instead of dedicated messages for regularity. In
     particular the encoding imposes no restrictions on what the parameters of any
     type should be, which in particular needs to be true for type symbols.

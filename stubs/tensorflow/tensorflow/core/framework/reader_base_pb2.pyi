@@ -13,7 +13,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ReaderBaseState(google.protobuf.message.Message):
-    """For serializing and restoring the state of ReaderBase, see
+    """
+    For serializing and restoring the state of ReaderBase, see
     reader_base.h for details.
     """
 

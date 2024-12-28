@@ -73,7 +73,8 @@ class ServerDef(google.protobuf.message.Message):
 
     @property
     def cluster_device_filters(self) -> tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters:
-        """Device filters for remote tasks in the cluster.
+        """
+        Device filters for remote tasks in the cluster.
         NOTE: This is an experimental feature and only effective in TensorFlow 2.x.
         """
 

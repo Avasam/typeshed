@@ -43,7 +43,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Any):
-    """`Any` contains an arbitrary serialized protocol buffer message along with a
+    """
+    `Any` contains an arbitrary serialized protocol buffer message along with a
     URL that describes the type of the serialized message.
 
     Protobuf library provides support to pack/unpack Any values in the form

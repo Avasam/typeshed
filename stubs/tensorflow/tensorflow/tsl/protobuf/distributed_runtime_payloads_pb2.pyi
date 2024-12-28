@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class GrpcPayloadContainer(google.protobuf.message.Message):
-    """Used to serialize and transmit tensorflow::Status payloads through
+    """
+    Used to serialize and transmit tensorflow::Status payloads through
     grpc::Status `error_details` since grpc::Status lacks payload API.
     TODO(b/204231601): Use GRPC API once supported.
     """
@@ -52,7 +53,8 @@ global___GrpcPayloadContainer = GrpcPayloadContainer
 
 @typing.final
 class GrpcPayloadsLost(google.protobuf.message.Message):
-    """If included as a payload, this message flags the Status to have lost payloads
+    """
+    If included as a payload, this message flags the Status to have lost payloads
     during the GRPC transmission.
     URI: "type.googleapis.com/tensorflow.distributed_runtime.GrpcPayloadsLost"
     """
@@ -67,7 +69,8 @@ global___GrpcPayloadsLost = GrpcPayloadsLost
 
 @typing.final
 class WorkerPossiblyRestarted(google.protobuf.message.Message):
-    """If included as a payload, this message flags the Status to be a possible
+    """
+    If included as a payload, this message flags the Status to be a possible
     outcome of a worker restart.
     URI:
     "type.googleapis.com/tensorflow.distributed_runtime.WorkerPossiblyRestarted"

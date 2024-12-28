@@ -87,7 +87,8 @@ global___ImageData = ImageData
 
 @typing.final
 class PointI(google.protobuf.message.Message):
-    """Point on the screen/minimap (e.g., 0..64).
+    """
+    Point on the screen/minimap (e.g., 0..64).
     Note: bottom left of the screen is 0, 0.
     """
 
@@ -133,7 +134,8 @@ global___RectangleI = RectangleI
 
 @typing.final
 class Point2D(google.protobuf.message.Message):
-    """Point on the game board, 0..255.
+    """
+    Point on the game board, 0..255.
     Note: bottom left of the screen is 0, 0.
     """
 
@@ -156,7 +158,8 @@ global___Point2D = Point2D
 
 @typing.final
 class Point(google.protobuf.message.Message):
-    """Point on the game board, 0..255.
+    """
+    Point on the game board, 0..255.
     Note: bottom left of the screen is 0, 0.
     """
 

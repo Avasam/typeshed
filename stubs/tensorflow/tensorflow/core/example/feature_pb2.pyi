@@ -68,7 +68,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class BytesList(google.protobuf.message.Message):
-    """LINT.IfChange
+    """
+    LINT.IfChange
     Containers to hold repeated fundamental values.
     """
 
@@ -184,7 +185,8 @@ global___Features = Features
 
 @typing.final
 class FeatureList(google.protobuf.message.Message):
-    """Containers for sequential data.
+    """
+    Containers for sequential data.
 
     A FeatureList contains lists of Features.  These may hold zero or more
     Feature values.

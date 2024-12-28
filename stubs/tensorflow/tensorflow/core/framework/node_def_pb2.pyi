@@ -45,7 +45,8 @@ class NodeDef(google.protobuf.message.Message):
         ORIGINAL_FUNC_NAMES_FIELD_NUMBER: builtins.int
         @property
         def original_node_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-            """Opaque string inserted into error messages created by the runtime.
+            """
+            Opaque string inserted into error messages created by the runtime.
 
             This is intended to store the list of names of the nodes from the
             original graph that this node was derived. For example if this node, say
@@ -56,7 +57,8 @@ class NodeDef(google.protobuf.message.Message):
 
         @property
         def original_func_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-            """This is intended to store the list of names of the functions from the
+            """
+            This is intended to store the list of names of the functions from the
             original graph that this node was derived. For example if this node, say
             C, was result of a fusion of node A in function FA and node B in function
             FB, then `original_funcs` would be {FA, FB}. If the node is in the top
@@ -113,7 +115,8 @@ class NodeDef(google.protobuf.message.Message):
     """
     @property
     def input(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Each input is "node:src_output" with "node" being a string name and
+        """
+        Each input is "node:src_output" with "node" being a string name and
         "src_output" indicating which output tensor to use from "node". If
         "src_output" is 0 the ":0" suffix can be omitted.  Regular inputs
         may optionally be followed by control inputs that have the format
@@ -122,7 +125,8 @@ class NodeDef(google.protobuf.message.Message):
 
     @property
     def attr(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]:
-        """Operation-specific graph-construction-time configuration.
+        """
+        Operation-specific graph-construction-time configuration.
         Note that this should include all attrs defined in the
         corresponding OpDef, including those with a value matching
         the default -- this allows the default to change and makes
@@ -142,7 +146,8 @@ class NodeDef(google.protobuf.message.Message):
 
     @property
     def experimental_type(self) -> tensorflow.core.framework.full_type_pb2.FullTypeDef:
-        """The complete type of this node. Experimental and subject to change.
+        """
+        The complete type of this node. Experimental and subject to change.
         Currently, the field only contains the return types of the node. That will
         extend in the future to contain the entire signature of the node, as a
         function type.

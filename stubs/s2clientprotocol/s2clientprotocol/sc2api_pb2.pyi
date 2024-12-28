@@ -246,7 +246,8 @@ class Request(google.protobuf.message.Message):
     id: builtins.int
     @property
     def create_game(self) -> global___RequestCreateGame:
-        """Game Setup
+        """
+        Game Setup
         Send to host to initialize game.
         """
 
@@ -280,7 +281,8 @@ class Request(google.protobuf.message.Message):
 
     @property
     def game_info(self) -> global___RequestGameInfo:
-        """During Game
+        """
+        During Game
         Static data about the current game and map.
         """
 
@@ -318,7 +320,8 @@ class Request(google.protobuf.message.Message):
 
     @property
     def replay_info(self) -> global___RequestReplayInfo:
-        """Other.
+        """
+        Other.
         Returns metadata about a replay file. Does not load the replay.
         """
 
@@ -332,7 +335,8 @@ class Request(google.protobuf.message.Message):
 
     @property
     def ping(self) -> global___RequestPing:
-        """Debugging
+        """
+        Debugging
         Network ping for testing connection.
         """
 
@@ -492,7 +496,8 @@ global___Response = Response
 
 @typing.final
 class RequestCreateGame(google.protobuf.message.Message):
-    """-----------------------------------------------------------------------------
+    """
+    -----------------------------------------------------------------------------
     If successful, puts the game into the status: init_game.
     The next expected request should be RequestJoinGame. Can also quit (exit).
     """
@@ -605,7 +610,8 @@ global___ResponseCreateGame = ResponseCreateGame
 
 @typing.final
 class RequestJoinGame(google.protobuf.message.Message):
-    """-----------------------------------------------------------------------------
+    """
+    -----------------------------------------------------------------------------
     If successful, puts the game into the status: in_game. Will be able to
     request actions, observations and step the game.
     """
@@ -1473,7 +1479,8 @@ global___RequestAvailableMaps = RequestAvailableMaps
 
 @typing.final
 class ResponseAvailableMaps(google.protobuf.message.Message):
-    """This will only contain locally cached BattleNet maps.
+    """
+    This will only contain locally cached BattleNet maps.
     To download all ladder maps, log in and queue into a ladder match.
     To download any other map, play a custom game on that map.
     """
@@ -1502,7 +1509,8 @@ global___ResponseAvailableMaps = ResponseAvailableMaps
 
 @typing.final
 class RequestSaveMap(google.protobuf.message.Message):
-    """-----------------------------------------------------------------------------
+    """
+    -----------------------------------------------------------------------------
     Copies map data into the path specified.
     """
 

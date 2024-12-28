@@ -52,7 +52,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class DoubleValue(google.protobuf.message.Message):
-    """Wrapper message for `double`.
+    """
+    Wrapper message for `double`.
 
     The JSON representation for `DoubleValue` is JSON number.
     """
@@ -73,7 +74,8 @@ global___DoubleValue = DoubleValue
 
 @typing.final
 class FloatValue(google.protobuf.message.Message):
-    """Wrapper message for `float`.
+    """
+    Wrapper message for `float`.
 
     The JSON representation for `FloatValue` is JSON number.
     """
@@ -94,7 +96,8 @@ global___FloatValue = FloatValue
 
 @typing.final
 class Int64Value(google.protobuf.message.Message):
-    """Wrapper message for `int64`.
+    """
+    Wrapper message for `int64`.
 
     The JSON representation for `Int64Value` is JSON string.
     """
@@ -115,7 +118,8 @@ global___Int64Value = Int64Value
 
 @typing.final
 class UInt64Value(google.protobuf.message.Message):
-    """Wrapper message for `uint64`.
+    """
+    Wrapper message for `uint64`.
 
     The JSON representation for `UInt64Value` is JSON string.
     """
@@ -136,7 +140,8 @@ global___UInt64Value = UInt64Value
 
 @typing.final
 class Int32Value(google.protobuf.message.Message):
-    """Wrapper message for `int32`.
+    """
+    Wrapper message for `int32`.
 
     The JSON representation for `Int32Value` is JSON number.
     """
@@ -157,7 +162,8 @@ global___Int32Value = Int32Value
 
 @typing.final
 class UInt32Value(google.protobuf.message.Message):
-    """Wrapper message for `uint32`.
+    """
+    Wrapper message for `uint32`.
 
     The JSON representation for `UInt32Value` is JSON number.
     """
@@ -178,7 +184,8 @@ global___UInt32Value = UInt32Value
 
 @typing.final
 class BoolValue(google.protobuf.message.Message):
-    """Wrapper message for `bool`.
+    """
+    Wrapper message for `bool`.
 
     The JSON representation for `BoolValue` is JSON `true` and `false`.
     """
@@ -199,7 +206,8 @@ global___BoolValue = BoolValue
 
 @typing.final
 class StringValue(google.protobuf.message.Message):
-    """Wrapper message for `string`.
+    """
+    Wrapper message for `string`.
 
     The JSON representation for `StringValue` is JSON string.
     """
@@ -220,7 +228,8 @@ global___StringValue = StringValue
 
 @typing.final
 class BytesValue(google.protobuf.message.Message):
-    """Wrapper message for `bytes`.
+    """
+    Wrapper message for `bytes`.
 
     The JSON representation for `BytesValue` is JSON string.
     """

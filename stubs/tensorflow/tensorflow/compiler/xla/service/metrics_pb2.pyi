@@ -43,7 +43,8 @@ class PassMetrics(google.protobuf.message.Message):
 
     @property
     def custom_metrics(self) -> google.protobuf.any_pb2.Any:
-        """Custom pass metrics. This is kept opaque, via `google.protobuf.Any`, in
+        """
+        Custom pass metrics. This is kept opaque, via `google.protobuf.Any`, in
         order to decouple pass agnostic compilation logs from possibly proprietary
         compiler passes.
         """

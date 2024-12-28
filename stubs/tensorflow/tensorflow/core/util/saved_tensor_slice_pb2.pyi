@@ -33,7 +33,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class SavedSliceMeta(google.protobuf.message.Message):
-    """Metadata describing the set of slices of the same tensor saved in a
+    """
+    Metadata describing the set of slices of the same tensor saved in a
     checkpoint file.
     """
 
@@ -70,7 +71,8 @@ global___SavedSliceMeta = SavedSliceMeta
 
 @typing.final
 class SavedTensorSliceMeta(google.protobuf.message.Message):
-    """Metadata describing the set of tensor slices saved in a checkpoint file.
+    """
+    Metadata describing the set of tensor slices saved in a checkpoint file.
     It is always stored at the beginning of each checkpoint file.
     """
 
@@ -84,7 +86,8 @@ class SavedTensorSliceMeta(google.protobuf.message.Message):
 
     @property
     def versions(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
-        """Compatibility version of this checkpoint.  See core/public/version.h
+        """
+        Compatibility version of this checkpoint.  See core/public/version.h
         for version history.
         """
 
@@ -101,7 +104,8 @@ global___SavedTensorSliceMeta = SavedTensorSliceMeta
 
 @typing.final
 class SavedSlice(google.protobuf.message.Message):
-    """Saved tensor slice: it stores the name of the tensors, the slice, and the
+    """
+    Saved tensor slice: it stores the name of the tensors, the slice, and the
     raw data.
     """
 
@@ -116,13 +120,15 @@ class SavedSlice(google.protobuf.message.Message):
     """
     @property
     def slice(self) -> tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto:
-        """Extent of the slice.  Must have one entry for each of the dimension of the
+        """
+        Extent of the slice.  Must have one entry for each of the dimension of the
         tensor that this slice belongs to.
         """
 
     @property
     def data(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
-        """The raw data of the slice is stored as a TensorProto. Only raw data are
+        """
+        The raw data of the slice is stored as a TensorProto. Only raw data are
         stored (we don't fill in fields such as dtype or tensor_shape).
         """
 
@@ -140,7 +146,8 @@ global___SavedSlice = SavedSlice
 
 @typing.final
 class SavedTensorSlices(google.protobuf.message.Message):
-    """Each record in a v3 checkpoint file is a serialized SavedTensorSlices
+    """
+    Each record in a v3 checkpoint file is a serialized SavedTensorSlices
     message.
     """
 
@@ -150,7 +157,8 @@ class SavedTensorSlices(google.protobuf.message.Message):
     DATA_FIELD_NUMBER: builtins.int
     @property
     def meta(self) -> global___SavedTensorSliceMeta:
-        """This is only present at the first item of each checkpoint file and serves
+        """
+        This is only present at the first item of each checkpoint file and serves
         as a table of contents, listing all the tensor slices saved in this file.
         """
 

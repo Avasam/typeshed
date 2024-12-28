@@ -70,7 +70,8 @@ global___AutotuneAlgorithm = AutotuneAlgorithm
 
 @typing.final
 class ModelProto(google.protobuf.message.Message):
-    """Protocol buffer representing the data used by the autotuning modeling
+    """
+    Protocol buffer representing the data used by the autotuning modeling
     framework.
     """
 

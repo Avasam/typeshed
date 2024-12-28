@@ -18,7 +18,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class CompressedComponentMetadata(google.protobuf.message.Message):
-    """This file contains protocol buffers for working with tf.data Datasets.
+    """
+    This file contains protocol buffers for working with tf.data Datasets.
 
     Metadata describing a compressed component of a dataset element.
     """
@@ -36,7 +37,8 @@ class CompressedComponentMetadata(google.protobuf.message.Message):
 
     @property
     def uncompressed_bytes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The amount of uncompressed tensor data.
+        """
+        The amount of uncompressed tensor data.
         - For string tensors, there is an element for each string indicating the
         size of the string.
         - For all other tensors, there is a single element indicating the size of

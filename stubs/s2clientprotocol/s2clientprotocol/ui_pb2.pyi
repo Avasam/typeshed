@@ -228,7 +228,8 @@ class ProductionPanel(google.protobuf.message.Message):
     def unit(self) -> global___UnitInfo: ...
     @property
     def build_queue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UnitInfo]:
-        """build_queue ONLY gives information about units that are being produced.
+        """
+        build_queue ONLY gives information about units that are being produced.
         Use production_queue instead to see both units being trained as well as research in the queue.
         """
 

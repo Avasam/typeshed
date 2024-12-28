@@ -46,7 +46,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class Api(google.protobuf.message.Message):
-    """Api is a light-weight descriptor for an API Interface.
+    """
+    Api is a light-weight descriptor for an API Interface.
 
     Interfaces are also described as "protocol buffer services" in some contexts,
     such as by the "service" keyword in a .proto file, but they are different
@@ -103,7 +104,8 @@ class Api(google.protobuf.message.Message):
 
     @property
     def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
-        """Source context for the protocol buffer service represented by this
+        """
+        Source context for the protocol buffer service represented by this
         message.
         """
 
@@ -173,7 +175,8 @@ global___Method = Method
 
 @typing.final
 class Mixin(google.protobuf.message.Message):
-    """Declares an API Interface to be included in this interface. The including
+    """
+    Declares an API Interface to be included in this interface. The including
     interface must redeclare all the methods from the included interface, but
     documentation and options are inherited as follows:
 

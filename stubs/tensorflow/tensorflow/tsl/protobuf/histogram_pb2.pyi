@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class HistogramProto(google.protobuf.message.Message):
-    """Serialization format for histogram module in
+    """
+    Serialization format for histogram module in
     tsl/lib/histogram/histogram.h
     """
 
@@ -35,7 +36,8 @@ class HistogramProto(google.protobuf.message.Message):
     sum_squares: builtins.float
     @property
     def bucket_limit(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
-        """Parallel arrays encoding the bucket boundaries and the bucket values.
+        """
+        Parallel arrays encoding the bucket boundaries and the bucket values.
         bucket(i) is the count for the bucket i.  The range for
         a bucket is:
           i == 0:  -DBL_MAX .. bucket_limit(0)

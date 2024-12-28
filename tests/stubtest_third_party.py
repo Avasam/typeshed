@@ -283,7 +283,8 @@ def gdb_version_check() -> bool:
 
 
 def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[str]) -> bool:
-    """Perform some black magic in order to run stubtest inside uWSGI.
+    """
+    Perform some black magic in order to run stubtest inside uWSGI.
 
     We have to write the exit code from stubtest to a surrogate file
     because uwsgi --pyrun does not exit with the exitcode from the

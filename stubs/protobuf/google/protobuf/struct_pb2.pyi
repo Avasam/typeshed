@@ -60,7 +60,8 @@ class _NullValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enum
     """Null value."""
 
 class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
-    """`NullValue` is a singleton enumeration to represent the null value for the
+    """
+    `NullValue` is a singleton enumeration to represent the null value for the
     `Value` type union.
 
     The JSON representation for `NullValue` is JSON `null`.
@@ -72,7 +73,8 @@ global___NullValue = NullValue
 
 @typing.final
 class Struct(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Struct):
-    """`Struct` represents a structured data value, consisting of fields
+    """
+    `Struct` represents a structured data value, consisting of fields
     which map to dynamically typed values. In some languages, `Struct`
     might be supported by a native representation. For example, in
     scripting languages like JS a struct is represented as an
@@ -118,7 +120,8 @@ global___Struct = Struct
 
 @typing.final
 class Value(google.protobuf.message.Message):
-    """`Value` represents a dynamically typed value which can be either
+    """
+    `Value` represents a dynamically typed value which can be either
     null, a number, a string, a boolean, a recursive struct value, or a
     list of values. A producer of value is expected to set one of these
     variants. Absence of any variant indicates an error.
@@ -168,7 +171,8 @@ global___Value = Value
 
 @typing.final
 class ListValue(google.protobuf.message.Message, google.protobuf.internal.well_known_types.ListValue):
-    """`ListValue` is a wrapper around a repeated field of values.
+    """
+    `ListValue` is a wrapper around a repeated field of values.
 
     The JSON representation for `ListValue` is JSON array.
     """

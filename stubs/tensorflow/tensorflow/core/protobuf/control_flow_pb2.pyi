@@ -15,7 +15,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ValuesDef(google.protobuf.message.Message):
-    """Control flow context related protocol buffers.
+    """
+    Control flow context related protocol buffers.
 
     Protocol buffer representing the values in ControlFlowContext.
     """
@@ -60,7 +61,8 @@ global___ValuesDef = ValuesDef
 
 @typing.final
 class ControlFlowContextDef(google.protobuf.message.Message):
-    """Container for any kind of control flow context. Any other control flow
+    """
+    Container for any kind of control flow context. Any other control flow
     contexts that are added below should also be added here.
     """
 

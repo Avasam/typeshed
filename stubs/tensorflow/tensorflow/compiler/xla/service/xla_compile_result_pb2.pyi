@@ -32,7 +32,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class CompilerPerfStats(google.protobuf.message.Message):
-    """Statistics on how long various parts of compilation took.
+    """
+    Statistics on how long various parts of compilation took.
     Not all durations may be relevant for all producers of this message, in
     which irrelevant fields should simply be skipped.
     """
@@ -109,7 +110,8 @@ class CompilationResult(google.protobuf.message.Message):
 
     @property
     def perf_stats(self) -> global___CompilerPerfStats:
-        """Always set when compilation succeeds. May or may not be set when
+        """
+        Always set when compilation succeeds. May or may not be set when
         compilation fails.
         """
 
@@ -119,7 +121,8 @@ class CompilationResult(google.protobuf.message.Message):
 
     @property
     def counters(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
-        """Collects counters collected during compilation. Not every producer may
+        """
+        Collects counters collected during compilation. Not every producer may
         include counter support at all or any particular counter.
         """
 

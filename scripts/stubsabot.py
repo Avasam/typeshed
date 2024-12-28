@@ -231,7 +231,8 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
-    """If the latest release is py.typed, return the first release that included a py.typed file.
+    """
+    If the latest release is py.typed, return the first release that included a py.typed file.
 
     If the latest release is not py.typed, return None.
     """
@@ -325,7 +326,8 @@ class GitHubDiffInfo(NamedTuple):
 async def get_diff_info(
     session: aiohttp.ClientSession, stub_info: StubMetadata, pypi_version: packaging.version.Version
 ) -> GitHubDiffInfo | None:
-    """Return a tuple giving info about the diff between two releases, if possible.
+    """
+    Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.

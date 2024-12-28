@@ -149,10 +149,10 @@ class _CodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     """
 
 class Code(_Code, metaclass=_CodeEnumTypeWrapper):
-    """The canonical error codes for TensorFlow APIs.
+    """
+    The canonical error codes for TensorFlow APIs.
 
     Warnings:
-
     -   Do not change any numeric assignments.
     -   Changes to this list should only be made if there is a compelling
         need that can't be satisfied in another way.  Such changes

@@ -41,7 +41,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class Empty(google.protobuf.message.Message):
-    """A generic empty message that you can re-use to avoid defining duplicated
+    """
+    A generic empty message that you can re-use to avoid defining duplicated
     empty messages in your APIs. A typical example is to use it as the request
     or the response type of an API method. For instance:
 

@@ -24,7 +24,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class MetaGraphDef(google.protobuf.message.Message):
-    """Protocol buffer containing the following which are necessary to restart
+    """
+    Protocol buffer containing the following which are necessary to restart
     training, run inference. It can be used to serialize/de-serialize memory
     objects necessary for running computation in a graph when crossing the
     process boundary. It can be used for long term storage of graphs,
@@ -41,7 +42,8 @@ class MetaGraphDef(google.protobuf.message.Message):
 
     @typing.final
     class MetaInfoDef(google.protobuf.message.Message):
-        """Meta information regarding the graph to be exported.  To be used by users
+        """
+        Meta information regarding the graph to be exported.  To be used by users
         of this protocol buffer to encode information regarding their meta graph.
         """
 
@@ -91,19 +93,22 @@ class MetaGraphDef(google.protobuf.message.Message):
         """
         @property
         def stripped_op_list(self) -> tensorflow.core.framework.op_def_pb2.OpList:
-            """A copy of the OpDefs used by the producer of this graph_def.
+            """
+            A copy of the OpDefs used by the producer of this graph_def.
             Descriptions and Ops not used in graph_def are stripped out.
             """
 
         @property
         def any_info(self) -> google.protobuf.any_pb2.Any:
-            """A serialized protobuf. Can be the time this meta graph is created, or
+            """
+            A serialized protobuf. Can be the time this meta graph is created, or
             modified, or name of the model.
             """
 
         @property
         def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-            """User supplied tag(s) on the meta_graph and included graph_def.
+            """
+            User supplied tag(s) on the meta_graph and included graph_def.
 
             MetaGraphDefs should be tagged with their capabilities or use-cases.
             Examples: "train", "serve", "gpu", "tpu", etc.
@@ -185,13 +190,15 @@ class MetaGraphDef(google.protobuf.message.Message):
 
     @property
     def collection_def(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___CollectionDef]:
-        """collection_def: Map from collection name to collections.
+        """
+        collection_def: Map from collection name to collections.
         See CollectionDef section for details.
         """
 
     @property
     def signature_def(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___SignatureDef]:
-        """signature_def: Map from user supplied key for a signature to a single
+        """
+        signature_def: Map from user supplied key for a signature to a single
         SignatureDef.
         """
 
@@ -221,7 +228,8 @@ global___MetaGraphDef = MetaGraphDef
 
 @typing.final
 class CollectionDef(google.protobuf.message.Message):
-    """CollectionDef should cover most collections.
+    """
+    CollectionDef should cover most collections.
     To add a user-defined collection, do one of the following:
     1. For simple data types, such as string, int, float:
          tf.add_to_collection("your_collection_name", your_simple_value)
@@ -289,7 +297,8 @@ class CollectionDef(google.protobuf.message.Message):
 
     @typing.final
     class NodeList(google.protobuf.message.Message):
-        """NodeList is used for collecting nodes in graph. For example
+        """
+        NodeList is used for collecting nodes in graph. For example
         collection_def {
           key: "summaries"
           value {
@@ -315,7 +324,8 @@ class CollectionDef(google.protobuf.message.Message):
 
     @typing.final
     class BytesList(google.protobuf.message.Message):
-        """BytesList is used for collecting strings and serialized protobufs. For
+        """
+        BytesList is used for collecting strings and serialized protobufs. For
         example:
         collection_def {
           key: "trainable_variables"
@@ -428,7 +438,8 @@ class TensorInfo(google.protobuf.message.Message):
 
     @typing.final
     class CooSparse(google.protobuf.message.Message):
-        """For sparse tensors, The COO encoding stores a triple of values, indices,
+        """
+        For sparse tensors, The COO encoding stores a triple of values, indices,
         and shape.
         """
 
@@ -491,7 +502,8 @@ class TensorInfo(google.protobuf.message.Message):
     dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
     @property
     def coo_sparse(self) -> global___TensorInfo.CooSparse:
-        """There are many possible encodings of sparse matrices
+        """
+        There are many possible encodings of sparse matrices
         (https://en.wikipedia.org/wiki/Sparse_matrix).  Currently, TensorFlow
         uses only the COO encoding.  This is supported and documented in the
         SparseTensor Python class.
@@ -503,7 +515,8 @@ class TensorInfo(google.protobuf.message.Message):
 
     @property
     def tensor_shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
-        """The static shape should be recorded here, to the extent that it can
+        """
+        The static shape should be recorded here, to the extent that it can
         be known in advance.  In the case of a SparseTensor, this field describes
         the logical shape of the represented tensor (aka dense_shape).
         """
@@ -525,7 +538,8 @@ global___TensorInfo = TensorInfo
 
 @typing.final
 class SignatureDef(google.protobuf.message.Message):
-    """SignatureDef defines the signature of a computation supported by a TensorFlow
+    """
+    SignatureDef defines the signature of a computation supported by a TensorFlow
     graph.
     """
 
@@ -624,7 +638,8 @@ global___SignatureDef = SignatureDef
 
 @typing.final
 class AssetFileDef(google.protobuf.message.Message):
-    """An asset file def for a single file or a set of sharded files with the same
+    """
+    An asset file def for a single file or a set of sharded files with the same
     name.
     """
 

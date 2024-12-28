@@ -14,7 +14,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class CompositeTensorVariantMetadata(google.protobuf.message.Message):
-    """Metadata for CompositeTensorVariant, used when serializing as Variant.
+    """
+    Metadata for CompositeTensorVariant, used when serializing as Variant.
 
     We define a new message here (rather than directly using TypeSpecProto for
     the metadata string) to retain flexibility to change the metadata encoding

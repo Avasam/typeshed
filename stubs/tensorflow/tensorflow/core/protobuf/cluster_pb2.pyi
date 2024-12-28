@@ -29,7 +29,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class JobDef(google.protobuf.message.Message):
-    """This file contains protos to be used when defining a TensorFlow
+    """
+    This file contains protos to be used when defining a TensorFlow
     cluster.
 
     EXAMPLES
@@ -96,7 +97,8 @@ class JobDef(google.protobuf.message.Message):
     """The name of this job."""
     @property
     def tasks(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.str]:
-        """Mapping from task ID to "hostname:port" string.
+        """
+        Mapping from task ID to "hostname:port" string.
 
         If the `name` field contains "worker", and the `tasks` map contains a
         mapping from 7 to "example.org:2222", then the device prefix

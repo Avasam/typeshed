@@ -93,7 +93,8 @@ class TopologyProto(google.protobuf.message.Message):
     """Number of TPU devices per task."""
     @property
     def mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The dimensions of the TPU topology, in cores. Typically, this is a 4D
+        """
+        The dimensions of the TPU topology, in cores. Typically, this is a 4D
         topology [x, y, z, core], where the major dimensions correspond to TPU
         chips, and the minor dimension describes the number of cores on a multicore
         chip.
@@ -101,7 +102,8 @@ class TopologyProto(google.protobuf.message.Message):
 
     @property
     def device_coordinates(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """A flattened rank 3 int32 array with shape
+        """
+        A flattened rank 3 int32 array with shape
         [num_tasks, num_tpu_devices_per_task, len(mesh_shape)].
         `tasks` is the number of tasks in the TPU cluster, `devices` is the number
         of TPU devices per task, and the minor dimension corresponds to a position

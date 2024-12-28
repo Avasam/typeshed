@@ -45,7 +45,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_known_types.FieldMask):
-    """`FieldMask` represents a set of symbolic field paths, for example:
+    """
+    `FieldMask` represents a set of symbolic field paths, for example:
 
         paths: "f.a"
         paths: "f.b.d"

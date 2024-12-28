@@ -298,7 +298,8 @@ class TestResult(NamedTuple):
 def test_third_party_distribution(
     distribution: str, args: TestConfig, venv_dir: Path | None, *, non_types_dependencies: bool
 ) -> TestResult:
-    """Test the stubs of a third-party distribution.
+    """
+    Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.

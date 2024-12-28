@@ -152,13 +152,15 @@ class GraphDebugInfo(google.protobuf.message.Message):
     NAME_TO_TRACE_ID_FIELD_NUMBER: builtins.int
     @property
     def files(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """This stores all the source code file names and can be indexed by the
+        """
+        This stores all the source code file names and can be indexed by the
         `file_index`.
         """
 
     @property
     def frames_by_id(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___GraphDebugInfo.FileLineCol]:
-        """Stack traces and frames are uniqueified during construction. These maps
+        """
+        Stack traces and frames are uniqueified during construction. These maps
         index from the unique id for a frame/trace to the value.
         """
 
@@ -170,7 +172,8 @@ class GraphDebugInfo(google.protobuf.message.Message):
 
     @property
     def name_to_trace_id(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
-        """This maps a node name to a trace id contained in `traces_by_id`.
+        """
+        This maps a node name to a trace id contained in `traces_by_id`.
 
         The map key is a mangling of the containing function and op name with
         syntax:

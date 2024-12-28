@@ -25,7 +25,8 @@ class CostGraphDef(google.protobuf.message.Message):
 
         @typing.final
         class InputInfo(google.protobuf.message.Message):
-            """Inputs of this node. They must be executed before this node can be
+            """
+            Inputs of this node. They must be executed before this node can be
             executed. An input is a particular output of another node, specified
             by the node id and the output index.
             """

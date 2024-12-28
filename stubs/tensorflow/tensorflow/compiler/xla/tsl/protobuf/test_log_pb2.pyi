@@ -78,7 +78,8 @@ global___MetricEntry = MetricEntry
 
 @typing.final
 class BenchmarkEntry(google.protobuf.message.Message):
-    """Each unit test or benchmark in a test or benchmark run provides
+    """
+    Each unit test or benchmark in a test or benchmark run provides
     some set of information.  Here we provide some reasonable keys
     one would expect to see, with optional key/value pairs for things
     we haven't considered.
@@ -132,7 +133,8 @@ class BenchmarkEntry(google.protobuf.message.Message):
 
     @property
     def metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MetricEntry]:
-        """Metric name, value and expected range. This can include accuracy metrics
+        """
+        Metric name, value and expected range. This can include accuracy metrics
         typically used to determine whether the accuracy test has passed
         """
 
@@ -483,7 +485,8 @@ global___RunConfiguration = RunConfiguration
 
 @typing.final
 class TestResults(google.protobuf.message.Message):
-    """The output of one benchmark / test run.  Each run contains a list of
+    """
+    The output of one benchmark / test run.  Each run contains a list of
     tests or benchmarks, stored as BenchmarkEntry messages.
 
     This message should be emitted by the reporter (which runs the

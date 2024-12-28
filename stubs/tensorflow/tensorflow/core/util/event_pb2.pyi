@@ -35,7 +35,8 @@ class _WorkerHealthEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """Worker has been instructed to shutdown after a timeout."""
 
 class WorkerHealth(_WorkerHealth, metaclass=_WorkerHealthEnumTypeWrapper):
-    """Worker heartbeat messages.  Support for these operations is currently
+    """
+    Worker heartbeat messages.  Support for these operations is currently
     internal and expected to change.
 
     Current health status of a worker.
@@ -61,7 +62,8 @@ class _WorkerShutdownModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrap
     SHUTDOWN_AFTER_TIMEOUT: _WorkerShutdownMode.ValueType  # 3
 
 class WorkerShutdownMode(_WorkerShutdownMode, metaclass=_WorkerShutdownModeEnumTypeWrapper):
-    """Indicates the behavior of the worker when an internal error or shutdown
+    """
+    Indicates the behavior of the worker when an internal error or shutdown
     signal is received.
     """
 
@@ -73,7 +75,8 @@ global___WorkerShutdownMode = WorkerShutdownMode
 
 @typing.final
 class Event(google.protobuf.message.Message):
-    """Protocol buffer representing an event that happened during
+    """
+    Protocol buffer representing an event that happened during
     the execution of a Brain model.
     """
 
@@ -109,7 +112,8 @@ class Event(google.protobuf.message.Message):
 
     @property
     def log_message(self) -> global___LogMessage:
-        """The user output a log message. This was theoretically used by the defunct
+        """
+        The user output a log message. This was theoretically used by the defunct
         tensorboard_logging module, which has since been removed; this field is
         now deprecated and should not be used.
         """
@@ -124,7 +128,8 @@ class Event(google.protobuf.message.Message):
 
     @property
     def source_metadata(self) -> global___SourceMetadata:
-        """Information of the source that writes the events, this is only logged in
+        """
+        Information of the source that writes the events, this is only logged in
         the very first event along with the `file_version` field.
         """
 
@@ -170,7 +175,8 @@ global___SourceMetadata = SourceMetadata
 
 @typing.final
 class LogMessage(google.protobuf.message.Message):
-    """Protocol buffer used for logging messages to the events file.
+    """
+    Protocol buffer used for logging messages to the events file.
 
     This was theoretically used by the defunct tensorboard_logging module, which
     has been removed; this message is now deprecated and should not be used.

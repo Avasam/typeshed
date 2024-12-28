@@ -25,7 +25,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class StructuredValue(google.protobuf.message.Message):
-    """`StructuredValue` represents a dynamically typed value representing various
+    """
+    `StructuredValue` represents a dynamically typed value representing various
     data structures that are inspired by Python data structures typically used in
     TensorFlow functions as inputs and outputs.
 
@@ -207,7 +208,8 @@ global___TupleValue = TupleValue
 
 @typing.final
 class DictValue(google.protobuf.message.Message):
-    """Represents a Python dict keyed by `str`.
+    """
+    Represents a Python dict keyed by `str`.
     The comment on Unicode from Value.string_value applies analogously.
     """
 

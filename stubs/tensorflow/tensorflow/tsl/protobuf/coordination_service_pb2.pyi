@@ -75,7 +75,8 @@ global___CoordinatedTask = CoordinatedTask
 
 @typing.final
 class CoordinationServiceError(google.protobuf.message.Message):
-    """Status payload for all coordination service errors.
+    """
+    Status payload for all coordination service errors.
     Note: an empty proto may be set if the error is triggered by the task's own
     agent calls (i.e. not propagated by the service from another remote task).
     """
@@ -90,7 +91,8 @@ class CoordinationServiceError(google.protobuf.message.Message):
     """
     @property
     def source_task(self) -> global___CoordinatedTask:
-        """Denotes which task hit the error. If unset, the error originated from the
+        """
+        Denotes which task hit the error. If unset, the error originated from the
         same task that is processing this error.
         """
 
@@ -155,7 +157,8 @@ global___DeviceInfo = DeviceInfo
 
 @typing.final
 class RegisterTaskRequest(google.protobuf.message.Message):
-    """Request and response messages for registering a task to the cluster leader.
+    """
+    Request and response messages for registering a task to the cluster leader.
     A task is uniquely represented by its `job_name`, `task_id` and
     `incarnation`. Leader responds with its `incarnation` to identify a leader
     process.
@@ -472,7 +475,8 @@ global___GetTaskStateResponse = GetTaskStateResponse
 
 @typing.final
 class KeyValueEntry(google.protobuf.message.Message):
-    """Message for configuration key value.
+    """
+    Message for configuration key value.
     Key is structured like Unix file system, with multiple levels of directory
     names separated by the slash ('/') characters.
     """
@@ -627,7 +631,8 @@ global___GetKeyValueDirResponse = GetKeyValueDirResponse
 
 @typing.final
 class DeleteKeyValueRequest(google.protobuf.message.Message):
-    """Request and response messages for deleting configuration key-value data.
+    """
+    Request and response messages for deleting configuration key-value data.
     When is_directory is true, delete key-values recursively under `key`.
     """
 
@@ -671,7 +676,8 @@ class BarrierRequest(google.protobuf.message.Message):
     barrier_timeout_in_ms: builtins.int
     @property
     def tasks(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedTask]:
-        """Denotes list of tasks that will wait for the barrier. If unspecified, it
+        """
+        Denotes list of tasks that will wait for the barrier. If unspecified, it
         implies that the entire cluster is participating in the barrier.
         """
 

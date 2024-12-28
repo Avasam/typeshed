@@ -58,7 +58,8 @@ def metadata_path(distribution: str) -> Path:
 @final
 @dataclass(frozen=True)
 class StubtestSettings:
-    """The stubtest settings for a single stubs distribution.
+    """
+    The stubtest settings for a single stubs distribution.
 
     Don't construct instances directly; use the `read_stubtest_settings` function.
     """
@@ -130,7 +131,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
 @final
 @dataclass(frozen=True)
 class StubMetadata:
-    """The metadata for a single stubs distribution.
+    """
+    The metadata for a single stubs distribution.
 
     Don't construct instances directly; use the `read_metadata` function.
     """
@@ -189,7 +191,8 @@ class NoSuchStubError(ValueError):
 
 @cache
 def read_metadata(distribution: str) -> StubMetadata:
-    """Return an object describing the metadata of a stub as given in the METADATA.toml file.
+    """
+    Return an object describing the metadata of a stub as given in the METADATA.toml file.
 
     This function does some basic validation,
     but does no parsing, transforming or normalization of the metadata.
@@ -302,7 +305,8 @@ def read_metadata(distribution: str) -> StubMetadata:
 
 
 def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
-    """Update a distribution's METADATA.toml.
+    """
+    Update a distribution's METADATA.toml.
 
     Return the updated TOML dictionary for use without having to open the file separately.
     """
@@ -335,7 +339,8 @@ def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
 
 @cache
 def read_dependencies(distribution: str) -> PackageDependencies:
-    """Read the dependencies listed in a METADATA.toml file for a stubs package.
+    """
+    Read the dependencies listed in a METADATA.toml file for a stubs package.
 
     Once the dependencies have been read,
     determine which dependencies are typeshed-internal dependencies,
@@ -362,7 +367,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
 
 @cache
 def get_recursive_requirements(package_name: str) -> PackageDependencies:
-    """Recursively gather dependencies for a single stubs package.
+    """
+    Recursively gather dependencies for a single stubs package.
 
     For example, if the stubs for `caldav`
     declare a dependency on typeshed's stubs for `requests`,

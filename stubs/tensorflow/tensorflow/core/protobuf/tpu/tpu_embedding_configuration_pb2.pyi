@@ -37,7 +37,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         BACKWARD_PASS_ONLY: TPUEmbeddingConfiguration._Mode.ValueType  # 3
 
     class Mode(_Mode, metaclass=_ModeEnumTypeWrapper):
-        """Mode. Should the embedding layer program be run for inference (just forward
+        """
+        Mode. Should the embedding layer program be run for inference (just forward
         pass), training (both forward and backward pass) or just the backward_pass.
         """
 
@@ -56,7 +57,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         MOD: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 1
 
     class ShardingStrategy(_ShardingStrategy, metaclass=_ShardingStrategyEnumTypeWrapper):
-        """Sharding strategy of the embedding tables among the hosts.
+        """
+        Sharding strategy of the embedding tables among the hosts.
         If the sharding_strategy is "mod", each id is assigned to host
         "id % num_hosts". For instance, 13 ids are split across 5 hosts as:
         [[0, 5, 10], [1, 6, 11], [2, 7, 12], [3, 8], [4, 9]].
@@ -94,7 +96,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         """Number of features mapped to this table."""
         @property
         def optimization_parameters(self) -> tensorflow.core.protobuf.tpu.optimization_parameters_pb2.OptimizationParameters:
-            """Details of the learning algorithm used to update the embedding
+            """
+            Details of the learning algorithm used to update the embedding
             parameters.
             """
 
@@ -125,7 +128,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         """Index of the corresponding table in the TableDescriptor list."""
         @property
         def input_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-            """Static shape of the inputs (excluding the reduction axis). Note that
+            """
+            Static shape of the inputs (excluding the reduction axis). Note that
             the shape of the actual inputs provided using the infeed op must be
             strictly smaller than input_shape. The outputs received at the TensorCore
             will have rank = input_shape.size() + 1. The innermost axis corresponds
@@ -145,7 +149,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
 
     @typing.final
     class SpmdSharding(google.protobuf.message.Message):
-        """SPMD (Single Program Multiple Data) sharding configuration for
+        """
+        SPMD (Single Program Multiple Data) sharding configuration for
         TPUEmbedding. When model parallelism is used on the TensorCore, the number
         of cores per replica must be passed to TPUEmbedding so that the right
         shapes can be computed in the TF/XLA bridge.
@@ -235,7 +240,8 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     def table_descriptor(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TPUEmbeddingConfiguration.TableDescriptor]: ...
     @property
     def feature_descriptor(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TPUEmbeddingConfiguration.FeatureDescriptor]:
-        """If the feature_descriptor field is populated, the model should NOT populate
+        """
+        If the feature_descriptor field is populated, the model should NOT populate
         TableDescriptor.num_features and batch_size_per_tensor_core. These two
         fields will be auto-populated by the TPUEmbedding rewrite passes.
         """
@@ -263,7 +269,8 @@ global___TPUEmbeddingConfiguration = TPUEmbeddingConfiguration
 
 @typing.final
 class TPUEmbeddingError(google.protobuf.message.Message):
-    """A placeholder message that is used to define a unique Status payload
+    """
+    A placeholder message that is used to define a unique Status payload
     URL for TPU embedding errors.
     """
 

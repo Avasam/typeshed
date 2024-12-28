@@ -17,7 +17,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ResourceHandleProto(google.protobuf.message.Message):
-    """Protocol buffer representing a handle to a tensorflow resource. Handles are
+    """
+    Protocol buffer representing a handle to a tensorflow resource. Handles are
     not valid across executions, but can be serialized back and forth from within
     a single run.
     """

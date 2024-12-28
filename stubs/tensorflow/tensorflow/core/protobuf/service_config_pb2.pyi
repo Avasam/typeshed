@@ -16,7 +16,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class DispatcherConfig(google.protobuf.message.Message):
-    """Configuration for a tf.data service DispatchServer.
+    """
+    Configuration for a tf.data service DispatchServer.
     Next id: 13
     """
 
@@ -88,7 +89,8 @@ class DispatcherConfig(google.protobuf.message.Message):
     """
     @property
     def worker_addresses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """(Optional.) If the job uses auto-sharding, it needs to specify a fixed list
+        """
+        (Optional.) If the job uses auto-sharding, it needs to specify a fixed list
         of worker addresses that will register with the dispatcher. The worker
         addresses should be in the format "host" or "host:port", where "port" is an
         integer, named port, or %port% to match any port.
@@ -116,7 +118,8 @@ global___DispatcherConfig = DispatcherConfig
 
 @typing.final
 class WorkerConfig(google.protobuf.message.Message):
-    """Configuration for a tf.data service WorkerServer.
+    """
+    Configuration for a tf.data service WorkerServer.
     Next id: 14
     """
 
@@ -189,7 +192,8 @@ class WorkerConfig(google.protobuf.message.Message):
     """
     @property
     def worker_tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Tags attached to the worker. This allows reading from selected workers.
+        """
+        Tags attached to the worker. This allows reading from selected workers.
         For example, by applying a "COLOCATED" tag, tf.data service is able to read
         from the local tf.data worker if one exists, then from off-TF-host workers,
         to avoid cross-TF-host reads.

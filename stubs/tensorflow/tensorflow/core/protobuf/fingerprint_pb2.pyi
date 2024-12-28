@@ -14,7 +14,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class FingerprintDef(google.protobuf.message.Message):
-    """Protocol buffer representing a SavedModel Fingerprint.
+    """
+    Protocol buffer representing a SavedModel Fingerprint.
 
     If there are multiple MetaGraphDefs in the SavedModel, the FingerprintDef
     corresponds to the first one.
@@ -40,7 +41,8 @@ class FingerprintDef(google.protobuf.message.Message):
     """Hash of the checkpoint."""
     @property
     def version(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
-        """Version specification of the fingerprint.
+        """
+        Version specification of the fingerprint.
         TODO(b/290068219): add USM version when GA
         """
 

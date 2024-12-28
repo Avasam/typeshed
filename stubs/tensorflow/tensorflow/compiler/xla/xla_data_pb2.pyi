@@ -140,7 +140,8 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     """
 
 class PrimitiveType(_PrimitiveType, metaclass=_PrimitiveTypeEnumTypeWrapper):
-    """Primitive types are the individual values that can be held in rectangular
+    """
+    Primitive types are the individual values that can be held in rectangular
     multidimensional arrays. A description of the rectangular multidimensional
     array dimensions / primitive type is given by Shape, below.
 
@@ -268,7 +269,8 @@ class _DimLevelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """
 
 class DimLevelType(_DimLevelType, metaclass=_DimLevelTypeEnumTypeWrapper):
-    """A DimLevelType indicates the encoding method for a dimension in an array.
+    """
+    A DimLevelType indicates the encoding method for a dimension in an array.
     The semantics of this field are identical to those of the MLIR SparseTensor
     dialect.
     This should be kept in sync with the SparseTensor DimLevelType enum:
@@ -463,7 +465,8 @@ global___RandomAlgorithm = RandomAlgorithm
 
 @typing.final
 class PaddingConfig(google.protobuf.message.Message):
-    """Describes the padding configuration for Pad operation. The padding amount on
+    """
+    Describes the padding configuration for Pad operation. The padding amount on
     both edges as well as between the elements are specified for each dimension.
     """
 
@@ -511,7 +514,8 @@ global___PaddingConfig = PaddingConfig
 
 @typing.final
 class TileProto(google.protobuf.message.Message):
-    """Describes a tile used in tiling-based layout. Refer to
+    """
+    Describes a tile used in tiling-based layout. Refer to
     g3doc/third_party/xla/docs/tiled_layout.md for details about tiling-based
     layout.
     """
@@ -521,7 +525,8 @@ class TileProto(google.protobuf.message.Message):
     DIMENSIONS_FIELD_NUMBER: builtins.int
     @property
     def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Number of elements in each dimension of the tile. It's ordered from the
+        """
+        Number of elements in each dimension of the tile. It's ordered from the
         most major dimension of the tile to the most minor dimension of the tile.
         The dimensions correspond to a suffix of the dimensions of the shape being
         tiled.
@@ -548,7 +553,8 @@ class SplitConfigProto(google.protobuf.message.Message):
     """The dimension that is split."""
     @property
     def split_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The indices where each split point occurs. For example, if the dimension
+        """
+        The indices where each split point occurs. For example, if the dimension
         size is 1024, a split_indices value of {512} indicates a two-way split of
         data through the middle.
         """
@@ -565,7 +571,8 @@ global___SplitConfigProto = SplitConfigProto
 
 @typing.final
 class LayoutProto(google.protobuf.message.Message):
-    """A layout describes how the array is placed in (1D) memory space.  This
+    """
+    A layout describes how the array is placed in (1D) memory space.  This
     includes the minor-to-major ordering of dimensions within a shape.
 
     Clients must specify the layouts of input Literals to the
@@ -625,14 +632,16 @@ class LayoutProto(google.protobuf.message.Message):
     """
     @property
     def dim_level_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DimLevelType.ValueType]:
-        """The dimension level type list for this array, specifying the way in which
+        """
+        The dimension level type list for this array, specifying the way in which
         each array dimension is represented in memory. If this list is empty, the
         array is assumed to be dense.
         """
 
     @property
     def dim_unique(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """Whether each dimension is unique or ordered.  Each of the following lists
+        """
+        Whether each dimension is unique or ordered.  Each of the following lists
         must be empty, or have one entry for each entry of dim_level_types.  If
         either list is empty, all dimensions are assumed to be unique and ordered,
         respectively.  Entries in this list may not be false for some DimLevelType
@@ -643,13 +652,15 @@ class LayoutProto(google.protobuf.message.Message):
     def dim_ordered(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def minor_to_major(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Sequence of dimension numbers, from minor (fastest varying index) to major
+        """
+        Sequence of dimension numbers, from minor (fastest varying index) to major
         (slowest varying index). This field is required.
         """
 
     @property
     def tiles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TileProto]:
-        """A sequence of tiles, starting from the tile that's applied first to the
+        """
+        A sequence of tiles, starting from the tile that's applied first to the
         Shape.
 
         TODO(b/119839262): implement tiling in each backend or add Unimplemented
@@ -658,7 +669,8 @@ class LayoutProto(google.protobuf.message.Message):
 
     @property
     def physical_shape(self) -> global___ShapeProto:
-        """The physical, on-device shape used to represent the shape this layout
+        """
+        The physical, on-device shape used to represent the shape this layout
         belongs to. Only used for sparse arrays.
         The layout(s) contained within the physical shape should not also contain
         a physical shape.
@@ -666,7 +678,8 @@ class LayoutProto(google.protobuf.message.Message):
 
     @property
     def split_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SplitConfigProto]:
-        """The split configurations which describe if/how the data is split between
+        """
+        The split configurations which describe if/how the data is split between
         different memories.
         """
 
@@ -694,7 +707,8 @@ global___LayoutProto = LayoutProto
 
 @typing.final
 class ShapeProto(google.protobuf.message.Message):
-    """A shape describes the number of dimensions in the array, the size of each
+    """
+    A shape describes the number of dimensions in the array, the size of each
     dimension, and the primitive component type.
 
     Tuples are a special case in that they have rank zero and have tuple_shapes
@@ -716,7 +730,8 @@ class ShapeProto(google.protobuf.message.Message):
     """The element type for this shape."""
     @property
     def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The size (number of elements) for each dimension, or an upper bound on the
+        """
+        The size (number of elements) for each dimension, or an upper bound on the
         size if the dimension is dynamic.  In XLA, dimensions are numbered from 0
         to N-1 for an N-dimensional array. The first element of 'dimensions' is the
         size of dimension 0, the second element is the size of dimension 1, and so
@@ -736,7 +751,8 @@ class ShapeProto(google.protobuf.message.Message):
 
     @property
     def is_dynamic_dimension(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """For arrays, this indicates whether or not each dimension is
+        """
+        For arrays, this indicates whether or not each dimension is
         dynamically-sized. The number of elements in this repeated field should be
         zero (indicating that no dimensions are dynamic) or equal to the number of
         elements in the 'dimensions' field.
@@ -758,7 +774,8 @@ global___ShapeProto = ShapeProto
 
 @typing.final
 class ProgramShapeProto(google.protobuf.message.Message):
-    """Shape of the parameters and output of a computation (like a traditional
+    """
+    Shape of the parameters and output of a computation (like a traditional
     function signature).
     """
 
@@ -809,7 +826,8 @@ global___ComputationStats = ComputationStats
 
 @typing.final
 class OpMetadata(google.protobuf.message.Message):
-    """Symbolization metadata for HLO Instructions.
+    """
+    Symbolization metadata for HLO Instructions.
 
     This metadata is used for debugging XLA code generation, as well as
     performance profiling of XLA-generated executables.
@@ -995,7 +1013,8 @@ global___ExecutionProfile = ExecutionProfile
 
 @typing.final
 class ExecutionHandle(google.protobuf.message.Message):
-    """Handle given to a user that represents an execution that the user launched
+    """
+    Handle given to a user that represents an execution that the user launched
     asynchronously on the device.
     """
 
@@ -1014,7 +1033,8 @@ global___ExecutionHandle = ExecutionHandle
 
 @typing.final
 class GlobalDataHandle(google.protobuf.message.Message):
-    """Handle given to a user that represents a globally accessible allocation.
+    """
+    Handle given to a user that represents a globally accessible allocation.
     Contrast this against a ComputationDataHandle, which is not globally
     accessible, since it only exists within a specific computation.
     """
@@ -1034,7 +1054,8 @@ global___GlobalDataHandle = GlobalDataHandle
 
 @typing.final
 class DeviceHandle(google.protobuf.message.Message):
-    """Handle given to a user that represents a replicated virtual device. Each
+    """
+    Handle given to a user that represents a replicated virtual device. Each
     replicated device represents N physical devices for execution where N is the
     number of replicas.
     """
@@ -1060,7 +1081,8 @@ global___DeviceHandle = DeviceHandle
 
 @typing.final
 class ChannelHandle(google.protobuf.message.Message):
-    """Handle given to a user to represent a channel between two computations
+    """
+    Handle given to a user to represent a channel between two computations
     via a Send and Recv instruction pair. Channels are unbuffered, so Send
     Send instructions will be blocked until the data is transferred.
     """
@@ -1116,7 +1138,8 @@ global___ChannelHandle = ChannelHandle
 
 @typing.final
 class DeviceAssignmentProto(google.protobuf.message.Message):
-    """DeviceAssignmentProto is a serialized form of DeviceAssignment class, which
+    """
+    DeviceAssignmentProto is a serialized form of DeviceAssignment class, which
     represents the device ids assigned to a set of replicated computations.
     See xla::DeviceAssignment class comment for more details.
     """
@@ -1125,7 +1148,8 @@ class DeviceAssignmentProto(google.protobuf.message.Message):
 
     @typing.final
     class ComputationDevice(google.protobuf.message.Message):
-        """Each logical computation runs on replica_count physical devices.
+        """
+        Each logical computation runs on replica_count physical devices.
         ComputationDevice represents the device ids assinged to the replicas.
         """
 
@@ -1161,7 +1185,8 @@ global___DeviceAssignmentProto = DeviceAssignmentProto
 
 @typing.final
 class LiteralProto(google.protobuf.message.Message):
-    """Literals are used when the server and client need to exchange materialized
+    """
+    Literals are used when the server and client need to exchange materialized
     data / results. Literals are also used to describe constants used in
     computations.
 
@@ -1348,7 +1373,8 @@ global___WindowDimension = WindowDimension
 
 @typing.final
 class Window(google.protobuf.message.Message):
-    """Describes the windowing in an operation such as convolution.
+    """
+    Describes the windowing in an operation such as convolution.
 
     The window is moved across a base area and for each position of the
     window a computation is performed. The field below describes the
@@ -1371,7 +1397,8 @@ global___Window = Window
 
 @typing.final
 class GatherDimensionNumbers(google.protobuf.message.Message):
-    """Describes the dimension numbers for a gather operation.
+    """
+    Describes the dimension numbers for a gather operation.
 
     See https://www.tensorflow.org/performance/xla/operation_semantics#gather for
     more details.
@@ -1391,7 +1418,8 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
     """
     @property
     def offset_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """"Window indices" is a term for a set of indices that index into the
+        """
+        "Window indices" is a term for a set of indices that index into the
         interior of a dynamic-slice from the input tensor, the starting indices for
         which were computed from output_gather_dims (see the operation semantic for
         how this is defined) and the start_indices tensor.
@@ -1410,7 +1438,8 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
     def collapsed_slice_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
     def start_index_map(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """This is interpreted as a map from i to start_index_map[i]. It
+        """
+        This is interpreted as a map from i to start_index_map[i]. It
         transforms the gather index looked up from the start_indices tensor into
         the starting index in the input space.
         """
@@ -1421,7 +1450,8 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
 
     @property
     def start_indices_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """This is the batch dimensions in the index, and it should be the same size
+        """
+        This is the batch dimensions in the index, and it should be the same size
         as operand_batching_dims.
         """
 
@@ -1441,7 +1471,8 @@ global___GatherDimensionNumbers = GatherDimensionNumbers
 
 @typing.final
 class ScatterDimensionNumbers(google.protobuf.message.Message):
-    """Describes the dimension numbers for a scatter operation.
+    """
+    Describes the dimension numbers for a scatter operation.
 
     All the fields are similar to the corresponding fields in
     GatherDimensionNumbers. Differences are noted below.
@@ -1519,20 +1550,23 @@ class ConvolutionDimensionNumbers(google.protobuf.message.Message):
     """The number of the dimension that represents features in the output."""
     @property
     def input_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The dimension numbers for the spatial dimensions that the window
+        """
+        The dimension numbers for the spatial dimensions that the window
         moves through in the input.
         """
 
     @property
     def kernel_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The dimension numbers for the spatial dimensions that the window
+        """
+        The dimension numbers for the spatial dimensions that the window
         moves through in the kernel (rhs). window.strides(0) is the
         stride in the kernel_spatial_dimensions(0) dimension.
         """
 
     @property
     def output_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The dimension numbers for the spatial dimensions that the window
+        """
+        The dimension numbers for the spatial dimensions that the window
         moves through in the output.
         """
 
@@ -1591,7 +1625,8 @@ global___DotDimensionNumbers = DotDimensionNumbers
 
 @typing.final
 class SparsityDescriptor(google.protobuf.message.Message):
-    """Contains sparsity metadata for a sparse dot operation.
+    """
+    Contains sparsity metadata for a sparse dot operation.
     The only supported type atm is structured 2:4 sparsity, which is natively
     supported on NVidia GPUs.
     Restrictions:
@@ -1716,7 +1751,8 @@ global___SortOptions = SortOptions
 
 @typing.final
 class FrontendAttributes(google.protobuf.message.Message):
-    """Generic map of attributes used to pass hints / configuration options from
+    """
+    Generic map of attributes used to pass hints / configuration options from
     the Python frontend to the XLA backend.
     """
 
@@ -1776,7 +1812,8 @@ global___Statistic = Statistic
 
 @typing.final
 class StatisticsViz(google.protobuf.message.Message):
-    """Represents the information needed to visualize propagation statistics when
+    """
+    Represents the information needed to visualize propagation statistics when
     rendering an HLO graph. This includes an array of statistics as well as the
     index of the statistic to render.
     """
@@ -1867,7 +1904,8 @@ class OpSharding(google.protobuf.message.Message):
         """
 
     class ShardGroupType(_ShardGroupType, metaclass=_ShardGroupTypeEnumTypeWrapper):
-        """Used to decide whether this op is to be sharded like some other ops, or to
+        """
+        Used to decide whether this op is to be sharded like some other ops, or to
         which other ops will be sharded like.
         """
 
@@ -1912,21 +1950,24 @@ class OpSharding(google.protobuf.message.Message):
 
     @property
     def tile_assignment_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The shape of the tile assignment tensor - this must be the same rank as
+        """
+        The shape of the tile assignment tensor - this must be the same rank as
         tile_shape and the product of its dimensions must equal
         tile_assignment_devices.size().
         """
 
     @property
     def tile_assignment_devices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Flattened list of device IDs. The order of flattening is the same as used
+        """
+        Flattened list of device IDs. The order of flattening is the same as used
         by IndexUtil::MultiToLinearIndex(tile_assignment_shape).
         Only one of tile_assignment_devices and iota_dimensions shall be non-empty.
         """
 
     @property
     def tuple_shardings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpSharding]:
-        """If type == TUPLE, the sub-shardings, one per leaf node in the tuple shape,
+        """
+        If type == TUPLE, the sub-shardings, one per leaf node in the tuple shape,
         in pre-order. The tuple shape could be nested; here we store just a
         flattened list of all leaves in the tuple shape. Note that the tuple shape
         is not stored here; shardings do not store the shapes to which they are
@@ -1936,7 +1977,8 @@ class OpSharding(google.protobuf.message.Message):
 
     @property
     def metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpMetadata]:
-        """This field is used to track the source of this sharding, usually derived
+        """
+        This field is used to track the source of this sharding, usually derived
         from instructions. Multple metadata may be populated if sharding is
         combined with other shardings.  Metadata are to not be populated when
         type == TUPLE and instead metadata should be set on individual tuple
@@ -1945,7 +1987,8 @@ class OpSharding(google.protobuf.message.Message):
 
     @property
     def last_tile_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___OpSharding.Type.ValueType]:
-        """This field is used to represented the sharding type of each subgroup.
+        """
+        This field is used to represented the sharding type of each subgroup.
         For example, sharding={devices=[2,2,2,2]0,1,2,...,15 last_tile_dims={
         replicate, manual, unreduced}} means that each of the last 3 dimensions
         in [2,2,2,2] represents a subgrouping in replicate, manual,
@@ -1954,14 +1997,16 @@ class OpSharding(google.protobuf.message.Message):
 
     @property
     def iota_reshape_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Dimensions used to reshape the 1D iota array of device IDs.
+        """
+        Dimensions used to reshape the 1D iota array of device IDs.
         Only one of tile_assignment_devices and iota_reshape_dims shall be
         non-empty.
         """
 
     @property
     def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Dimension permutations to transposed the iota array reshaped to
+        """
+        Dimension permutations to transposed the iota array reshaped to
         iota_reshape_dims. This must have the same size as iota_reshape_dims.
         """
 
@@ -1989,7 +2034,8 @@ global___OpSharding = OpSharding
 
 @typing.final
 class ReplicaGroup(google.protobuf.message.Message):
-    """Describes the replica groups in a cross replica op (e.g., all-reduce and
+    """
+    Describes the replica groups in a cross replica op (e.g., all-reduce and
     all-to-all).
     """
 
@@ -1998,7 +2044,8 @@ class ReplicaGroup(google.protobuf.message.Message):
     REPLICA_IDS_FIELD_NUMBER: builtins.int
     @property
     def replica_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The ids of the replicas that belongs to the same group. The ordering of the
+        """
+        The ids of the replicas that belongs to the same group. The ordering of the
         ids matters in some ops (e.g., all-to-all).
         """
 
@@ -2013,7 +2060,8 @@ global___ReplicaGroup = ReplicaGroup
 
 @typing.final
 class IotaReplicaGroupListProto(google.protobuf.message.Message):
-    """Represents a list of replica groups (a list of list of devices) with
+    """
+    Represents a list of replica groups (a list of list of devices) with
     reshaping and transposing an iota array (iota tile assignment). Can be used
     to represent certain common patterns of device lists in a compact, scalable
     format.
@@ -2035,7 +2083,8 @@ class IotaReplicaGroupListProto(google.protobuf.message.Message):
 
     @property
     def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The dimension permutations to transposed the iota array reshaped to
+        """
+        The dimension permutations to transposed the iota array reshaped to
         iota_reshape_dims. This must have the same size as iota_reshape_dims.
         """
 
@@ -2053,7 +2102,8 @@ global___IotaReplicaGroupListProto = IotaReplicaGroupListProto
 
 @typing.final
 class CollectiveDeviceListProto(google.protobuf.message.Message):
-    """Represents a series of devices participating in a collective operation (e.g.,
+    """
+    Represents a series of devices participating in a collective operation (e.g.,
     all-reduce and all-to-all). While this directly translates to a list of
     replica groups, it may be used to represent these lists in a compact form.
     """
@@ -2064,13 +2114,15 @@ class CollectiveDeviceListProto(google.protobuf.message.Message):
     IOTA_REPLICA_GROUP_LIST_FIELD_NUMBER: builtins.int
     @property
     def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReplicaGroup]:
-        """ReplicaGroupV1: List of replica groups. Legacy way of representing device
+        """
+        ReplicaGroupV1: List of replica groups. Legacy way of representing device
         lists.
         """
 
     @property
     def iota_replica_group_list(self) -> global___IotaReplicaGroupListProto:
-        """ReplicaGroupV2: Represents a list of replica groups with reshaping and
+        """
+        ReplicaGroupV2: Represents a list of replica groups with reshaping and
         transposing an iota array.
         """
 
@@ -2107,7 +2159,8 @@ global___SourceTarget = SourceTarget
 
 @typing.final
 class PrecisionConfig(google.protobuf.message.Message):
-    """Used to indicate the precision configuration. It has backend specific
+    """
+    Used to indicate the precision configuration. It has backend specific
     meaning.
     """
 
@@ -2171,7 +2224,8 @@ class PrecisionConfig(google.protobuf.message.Message):
         ALG_DOT_F64_F64_F64: PrecisionConfig._Algorithm.ValueType  # 12
 
     class Algorithm(_Algorithm, metaclass=_AlgorithmEnumTypeWrapper):
-        """The algorithm used to evaluate the instruction.
+        """
+        The algorithm used to evaluate the instruction.
 
         The naming convention for the dot instruction is
         ALG_DOT_{A_TYPE}_{B_TYPE}_{ACCUM_TYPE}[_X{NUM_OPS}] where A_TYPE, B_TYPE
@@ -2244,7 +2298,8 @@ global___PrecisionConfig = PrecisionConfig
 
 @typing.final
 class ParameterReplication(google.protobuf.message.Message):
-    """Describes whether all data-parallelism replicas will receive the same
+    """
+    Describes whether all data-parallelism replicas will receive the same
     parameter data at each buffer.
     """
 
@@ -2253,7 +2308,8 @@ class ParameterReplication(google.protobuf.message.Message):
     REPLICATED_AT_LEAF_BUFFERS_FIELD_NUMBER: builtins.int
     @property
     def replicated_at_leaf_buffers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """A list of boolean values for the flattened leaf buffers. Each value
+        """
+        A list of boolean values for the flattened leaf buffers. Each value
         indicates whether the corresponding leaf buffer is replicated.
 
         If this field is empty, it means no buffer is replicated. Otherwise, the
@@ -2272,7 +2328,8 @@ global___ParameterReplication = ParameterReplication
 
 @typing.final
 class WhileLoopBackendConfig(google.protobuf.message.Message):
-    """A backend-config for kWhile loops that stores the loop's trip count, if it is
+    """
+    A backend-config for kWhile loops that stores the loop's trip count, if it is
     known.
 
     This is useful for backends that can implement a `for i in 0..N` loop more
@@ -2300,7 +2357,8 @@ class WhileLoopBackendConfig(google.protobuf.message.Message):
     KNOWN_TRIP_COUNT_FIELD_NUMBER: builtins.int
     @property
     def known_trip_count(self) -> global___WhileLoopBackendConfig.KnownTripCount:
-        """This indirection lets us distinguish between known-trip-count == 0 and
+        """
+        This indirection lets us distinguish between known-trip-count == 0 and
         unknown-trip-count.
         """
 
@@ -2316,7 +2374,8 @@ global___WhileLoopBackendConfig = WhileLoopBackendConfig
 
 @typing.final
 class OutputOperandAliasing(google.protobuf.message.Message):
-    """Specifies a pair of output/operand buffers that alias each other for
+    """
+    Specifies a pair of output/operand buffers that alias each other for
     kCustomCall and kFusion
     """
 

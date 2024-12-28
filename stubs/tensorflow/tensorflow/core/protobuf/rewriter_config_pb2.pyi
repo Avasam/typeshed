@@ -60,7 +60,8 @@ global___ScopedAllocatorOptions = ScopedAllocatorOptions
 
 @typing.final
 class RewriterConfig(google.protobuf.message.Message):
-    """Graph rewriting is experimental and subject to change, not covered by any
+    """
+    Graph rewriting is experimental and subject to change, not covered by any
     API stability guarantees.
     """
 
@@ -91,7 +92,8 @@ class RewriterConfig(google.protobuf.message.Message):
         """
 
     class Toggle(_Toggle, metaclass=_ToggleEnumTypeWrapper):
-        """Configuration options for the meta-optimizer. Unless otherwise noted, these
+        """
+        Configuration options for the meta-optimizer. Unless otherwise noted, these
         configuration options do not apply to explicitly triggered optimization
         passes in the optimizers field.
         """
@@ -142,7 +144,8 @@ class RewriterConfig(google.protobuf.message.Message):
         TWO: RewriterConfig._NumIterationsType.ValueType  # 2
 
     class NumIterationsType(_NumIterationsType, metaclass=_NumIterationsTypeEnumTypeWrapper):
-        """Enum controlling the number of times to run optimizers. The default is to
+        """
+        Enum controlling the number of times to run optimizers. The default is to
         run them twice.
         """
 
@@ -415,7 +418,8 @@ class RewriterConfig(google.protobuf.message.Message):
     """
     @property
     def auto_parallel(self) -> global___AutoParallelOptions:
-        """Configures AutoParallel optimization passes either through the
+        """
+        Configures AutoParallel optimization passes either through the
         meta-optimizer or when manually specified through the optimizers field.
         """
 
@@ -423,7 +427,8 @@ class RewriterConfig(google.protobuf.message.Message):
     def scoped_allocator_opts(self) -> global___ScopedAllocatorOptions: ...
     @property
     def optimizers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """If non-empty, will use this as an alternative way to specify a list of
+        """
+        If non-empty, will use this as an alternative way to specify a list of
         optimizations to turn on and the order of the optimizations (replacing the
         meta-optimizer).
 
@@ -447,7 +452,8 @@ class RewriterConfig(google.protobuf.message.Message):
 
     @property
     def post_optimization_verifier_config(self) -> tensorflow.core.protobuf.verifier_config_pb2.VerifierConfig:
-        """VerifierConfig specifying the verifiers to be run at the end, after all
+        """
+        VerifierConfig specifying the verifiers to be run at the end, after all
         optimizers have run.
         """
 

@@ -54,7 +54,8 @@ XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 
 
 def move_tree(source: Path, destination: Path) -> None:
-    """Move directory and merge if destination already exists.
+    """
+    Move directory and merge if destination already exists.
 
     Can't use shutil.move because it can't merge existing directories.
     """

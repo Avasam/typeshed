@@ -375,7 +375,8 @@ global___EnumValue = EnumValue
 
 @typing.final
 class Option(google.protobuf.message.Message):
-    """A protocol buffer option, which can be attached to a message, field,
+    """
+    A protocol buffer option, which can be attached to a message, field,
     enumeration, etc.
     """
 
@@ -391,7 +392,8 @@ class Option(google.protobuf.message.Message):
     """
     @property
     def value(self) -> google.protobuf.any_pb2.Any:
-        """The option's value packed in an Any message. If the value is a primitive,
+        """
+        The option's value packed in an Any message. If the value is a primitive,
         the corresponding wrapper type defined in google/protobuf/wrappers.proto
         should be used. If the value is an enum, it should be stored as an int32
         value using the google.protobuf.Int32Value type.

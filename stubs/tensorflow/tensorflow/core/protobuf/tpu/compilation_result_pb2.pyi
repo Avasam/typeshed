@@ -24,7 +24,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class CompilationResultProto(google.protobuf.message.Message):
-    """Describes the result of a TPU compilation. This is also used as TPU
+    """
+    Describes the result of a TPU compilation. This is also used as TPU
     compilation result status payload.
     URI: "type.googleapis.com/tensorflow.tpu.CompilationResultProto"
     """

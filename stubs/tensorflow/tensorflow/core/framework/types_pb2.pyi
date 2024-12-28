@@ -113,7 +113,8 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     DT_UINT4_REF: _DataType.ValueType  # 130
 
 class DataType(_DataType, metaclass=_DataTypeEnumTypeWrapper):
-    """(== suppress_warning documentation-presence ==)
+    """
+    (== suppress_warning documentation-presence ==)
     LINT.IfChange
     """
 

@@ -105,7 +105,8 @@ global___Edition = Edition
 
 @typing.final
 class FileDescriptorSet(google.protobuf.message.Message):
-    """The protocol compiler can output a FileDescriptorSet containing the .proto
+    """
+    The protocol compiler can output a FileDescriptorSet containing the .proto
     files it parses.
     """
 
@@ -164,7 +165,8 @@ class FileDescriptorProto(google.protobuf.message.Message):
 
     @property
     def weak_dependency(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Indexes of the weak imported files in the dependency list.
+        """
+        Indexes of the weak imported files in the dependency list.
         For Google-internal migration only. Do not use.
         """
 
@@ -182,7 +184,8 @@ class FileDescriptorProto(google.protobuf.message.Message):
     def options(self) -> global___FileOptions: ...
     @property
     def source_code_info(self) -> global___SourceCodeInfo:
-        """This field contains optional information about the original source code.
+        """
+        This field contains optional information about the original source code.
         You may safely remove this entire field without harming runtime
         functionality of the descriptors -- the information is needed only by
         development tools.
@@ -241,7 +244,8 @@ class DescriptorProto(google.protobuf.message.Message):
 
     @typing.final
     class ReservedRange(google.protobuf.message.Message):
-        """Range of reserved tag numbers. Reserved tag numbers may not be used by
+        """
+        Range of reserved tag numbers. Reserved tag numbers may not be used by
         fields or extension ranges in the same message. Reserved ranges may
         not overlap.
         """
@@ -292,7 +296,8 @@ class DescriptorProto(google.protobuf.message.Message):
     def reserved_range(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DescriptorProto.ReservedRange]: ...
     @property
     def reserved_name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Reserved field names, which may not be used by fields in the same message.
+        """
+        Reserved field names, which may not be used by fields in the same message.
         A given name may only be reserved once.
         """
 
@@ -392,7 +397,8 @@ class ExtensionRangeOptions(google.protobuf.message.Message):
 
     @property
     def declaration(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExtensionRangeOptions.Declaration]:
-        """For external users: DO NOT USE. We are in the process of open sourcing
+        """
+        For external users: DO NOT USE. We are in the process of open sourcing
         extension declaration and executing internal cleanups before it can be
         used externally.
         """
@@ -648,7 +654,8 @@ class EnumDescriptorProto(google.protobuf.message.Message):
 
     @typing.final
     class EnumReservedRange(google.protobuf.message.Message):
-        """Range of reserved numeric values. Reserved values may not be used by
+        """
+        Range of reserved numeric values. Reserved values may not be used by
         entries in the same enum. Reserved ranges may not overlap.
 
         Note that this is distinct from DescriptorProto.ReservedRange in that it
@@ -685,14 +692,16 @@ class EnumDescriptorProto(google.protobuf.message.Message):
     def options(self) -> global___EnumOptions: ...
     @property
     def reserved_range(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EnumDescriptorProto.EnumReservedRange]:
-        """Range of reserved numeric values. Reserved numeric values may not be used
+        """
+        Range of reserved numeric values. Reserved numeric values may not be used
         by enum values in the same enum declaration. Reserved ranges may not
         overlap.
         """
 
     @property
     def reserved_name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Reserved enum value names, which may not be reused. A given name may only
+        """
+        Reserved enum value names, which may not be reused. A given name may only
         be reserved once.
         """
 
@@ -802,7 +811,8 @@ global___MethodDescriptorProto = MethodDescriptorProto
 
 @typing.final
 class FileOptions(google.protobuf.message.Message):
-    """Each of the definitions above may have "options" attached.  These are
+    """
+    Each of the definitions above may have "options" attached.  These are
     just annotations which may cause code to be generated slightly differently
     or may contain hints for code that manipulates protocol messages.
 
@@ -986,7 +996,8 @@ class FileOptions(google.protobuf.message.Message):
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
-        """The parser stores options it doesn't recognize here.
+        """
+        The parser stores options it doesn't recognize here.
         See the documentation for the "Options" section above.
         """
 
@@ -1212,7 +1223,8 @@ class FieldOptions(google.protobuf.message.Message):
         TARGET_TYPE_METHOD: FieldOptions._OptionTargetType.ValueType  # 9
 
     class OptionTargetType(_OptionTargetType, metaclass=_OptionTargetTypeEnumTypeWrapper):
-        """This indicates the types of entities that the field may apply to when used
+        """
+        This indicates the types of entities that the field may apply to when used
         as an option. If it is unset, then the field may be freely used as an
         option on any kind of entity.
         """
@@ -1584,7 +1596,8 @@ class MethodOptions(google.protobuf.message.Message):
         """idempotent, but may have side effects"""
 
     class IdempotencyLevel(_IdempotencyLevel, metaclass=_IdempotencyLevelEnumTypeWrapper):
-        """Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
+        """
+        Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
         or neither? HTTP based RPC implementation may choose GET verb for safe
         methods, and PUT verb for idempotent methods instead of the default POST.
         """
@@ -1634,7 +1647,8 @@ global___MethodOptions = MethodOptions
 
 @typing.final
 class UninterpretedOption(google.protobuf.message.Message):
-    """A message representing a option the parser does not recognize. This only
+    """
+    A message representing a option the parser does not recognize. This only
     appears in options protos created by the compiler::Parser class.
     DescriptorPool resolves these when building Descriptor objects. Therefore,
     options protos in descriptor objects (e.g. returned by Descriptor::options(),
@@ -1646,7 +1660,8 @@ class UninterpretedOption(google.protobuf.message.Message):
 
     @typing.final
     class NamePart(google.protobuf.message.Message):
-        """The name of the uninterpreted option.  Each string represents a segment in
+        """
+        The name of the uninterpreted option.  Each string represents a segment in
         a dot-separated name.  is_extension is true iff a segment represents an
         extension (denoted with parentheses in options specs in .proto files).
         E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
@@ -1704,7 +1719,8 @@ global___UninterpretedOption = UninterpretedOption
 
 @typing.final
 class FeatureSet(google.protobuf.message.Message):
-    """===================================================================
+    """
+    ===================================================================
     Features
 
     TODO Enums in C++ gencode (and potentially other languages) are
@@ -1838,7 +1854,8 @@ global___FeatureSet = FeatureSet
 
 @typing.final
 class FeatureSetDefaults(google.protobuf.message.Message):
-    """A compiled specification for the defaults of a set of features.  These
+    """
+    A compiled specification for the defaults of a set of features.  These
     messages are generated from FeatureSet extensions and can be used to seed
     feature resolution. The resolution with this object becomes a simple search
     for the closest matching edition, followed by proto merges.
@@ -1848,7 +1865,8 @@ class FeatureSetDefaults(google.protobuf.message.Message):
 
     @typing.final
     class FeatureSetEditionDefault(google.protobuf.message.Message):
-        """A map from every known edition with a unique set of defaults to its
+        """
+        A map from every known edition with a unique set of defaults to its
         defaults. Not all editions may be contained here.  For a given edition,
         the defaults at the closest matching edition ordered at or before it should
         be used.  This field must be in strict ascending order by edition.
@@ -1905,7 +1923,8 @@ global___FeatureSetDefaults = FeatureSetDefaults
 
 @typing.final
 class SourceCodeInfo(google.protobuf.message.Message):
-    """===================================================================
+    """
+    ===================================================================
     Optional source code info
 
     Encapsulates information about the original source file from which a
@@ -1975,7 +1994,8 @@ class SourceCodeInfo(google.protobuf.message.Message):
         trailing_comments: builtins.str
         @property
         def path(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-            """Identifies which part of the FileDescriptorProto was defined at this
+            """
+            Identifies which part of the FileDescriptorProto was defined at this
             location.
 
             Each element is a field number or an index.  They form a path from
@@ -2002,7 +2022,8 @@ class SourceCodeInfo(google.protobuf.message.Message):
 
         @property
         def span(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-            """Always has exactly three or four elements: start line, start column,
+            """
+            Always has exactly three or four elements: start line, start column,
             end line (optional, otherwise assumed same as start line), end column.
             These are packed into a single field for efficiency.  Note that line
             and column numbers are zero-based -- typically you will want to add
@@ -2026,7 +2047,8 @@ class SourceCodeInfo(google.protobuf.message.Message):
     LOCATION_FIELD_NUMBER: builtins.int
     @property
     def location(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SourceCodeInfo.Location]:
-        """A Location identifies a piece of source code in a .proto file which
+        """
+        A Location identifies a piece of source code in a .proto file which
         corresponds to a particular definition.  This information is intended
         to be useful to IDEs, code indexers, documentation generators, and similar
         tools.
@@ -2082,7 +2104,8 @@ global___SourceCodeInfo = SourceCodeInfo
 
 @typing.final
 class GeneratedCodeInfo(google.protobuf.message.Message):
-    """Describes the relationship between generated code and its original source
+    """
+    Describes the relationship between generated code and its original source
     file. A GeneratedCodeInfo message is associated with only one generated
     source file, but may contain references to different source .proto files.
     """
@@ -2107,7 +2130,8 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
             """An alias to the element is returned."""
 
         class Semantic(_Semantic, metaclass=_SemanticEnumTypeWrapper):
-            """Represents the identified object's effect on the element in the original
+            """
+            Represents the identified object's effect on the element in the original
             .proto file.
             """
 
@@ -2137,7 +2161,8 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
         semantic: global___GeneratedCodeInfo.Annotation.Semantic.ValueType
         @property
         def path(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-            """Identifies the element in the original source .proto file. This field
+            """
+            Identifies the element in the original source .proto file. This field
             is formatted the same as SourceCodeInfo.Location.path.
             """
 
@@ -2156,7 +2181,8 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
     ANNOTATION_FIELD_NUMBER: builtins.int
     @property
     def annotation(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GeneratedCodeInfo.Annotation]:
-        """An Annotation connects some span of text in generated code to an element
+        """
+        An Annotation connects some span of text in generated code to an element
         of its generating .proto file.
         """
 

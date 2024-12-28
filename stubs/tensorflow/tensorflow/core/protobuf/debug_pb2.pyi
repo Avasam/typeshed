@@ -42,14 +42,16 @@ class DebugTensorWatch(google.protobuf.message.Message):
     """
     @property
     def debug_ops(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Name(s) of the debugging op(s).
+        """
+        Name(s) of the debugging op(s).
         One or more than one probes on a tensor.
         e.g., {"DebugIdentity", "DebugNanCount"}
         """
 
     @property
     def debug_urls(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """URL(s) for debug targets(s).
+        """
+        URL(s) for debug targets(s).
 
         Supported URL formats are:
           - file:///foo/tfdbg_dump: Writes out Event content to file

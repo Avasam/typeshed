@@ -22,7 +22,8 @@ class TensorSliceProto(google.protobuf.message.Message):
 
     @typing.final
     class Extent(google.protobuf.message.Message):
-        """Extent of the slice in one dimension.
+        """
+        Extent of the slice in one dimension.
         Either both or no attributes must be set.  When no attribute is set
         means: All data in that dimension.
         """
@@ -47,7 +48,8 @@ class TensorSliceProto(google.protobuf.message.Message):
     EXTENT_FIELD_NUMBER: builtins.int
     @property
     def extent(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorSliceProto.Extent]:
-        """Extent of the slice in all tensor dimensions.
+        """
+        Extent of the slice in all tensor dimensions.
 
         Must have one entry for each of the dimension of the tensor that this
         slice belongs to.  The order of sizes is the same as the order of

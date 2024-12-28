@@ -324,7 +324,8 @@ global___ThreadingOptions = ThreadingOptions
 
 @typing.final
 class Options(google.protobuf.message.Message):
-    """Message stored with Dataset objects to control how datasets are processed and
+    """
+    Message stored with Dataset objects to control how datasets are processed and
     optimized.
 
     next: 13

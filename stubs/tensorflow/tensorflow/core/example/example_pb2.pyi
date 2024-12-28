@@ -16,7 +16,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class Example(google.protobuf.message.Message):
-    """An Example is a mostly-normalized data format for storing data for
+    """
+    An Example is a mostly-normalized data format for storing data for
     training and inference.  It contains a key-value store (features); where
     each key (string) maps to a Feature message (which is oneof packed BytesList,
     FloatList, or Int64List).  This flexible and compact format allows the
@@ -107,7 +108,8 @@ global___Example = Example
 
 @typing.final
 class SequenceExample(google.protobuf.message.Message):
-    """A SequenceExample is an Example representing one or more sequences, and
+    """
+    A SequenceExample is an Example representing one or more sequences, and
     some context.  The context contains features which apply to the entire
     example. The feature_lists contain a key, value map where each key is
     associated with a repeated set of Features (a FeatureList).

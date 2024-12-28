@@ -47,7 +47,8 @@ global___ClippingLimits = ClippingLimits
 
 @typing.final
 class SimulatedQuantization(google.protobuf.message.Message):
-    """Configuration for simulated quantization; simulated quantization is used to
+    """
+    Configuration for simulated quantization; simulated quantization is used to
     reduce training/serving skew when the serving variables are quantized. The
     same quantization operations are executed during training to minimize
     differences with serving.
@@ -89,7 +90,8 @@ global___SimulatedQuantization = SimulatedQuantization
 
 @typing.final
 class DynamicLearningRate(google.protobuf.message.Message):
-    """Dynamic learning rate specification in the TPUEmbeddingConfiguration. The
+    """
+    Dynamic learning rate specification in the TPUEmbeddingConfiguration. The
     actual learning rates are provided as a scalar input list to the
     SendTPUEmbeddingGradients Op indexed by their tag specified through the
     following proto.
@@ -160,7 +162,8 @@ global___LearningRate = LearningRate
 
 @typing.final
 class AdagradParameters(google.protobuf.message.Message):
-    """Each optimizer's parameter proto has a link to its documentation and CPU
+    """
+    Each optimizer's parameter proto has a link to its documentation and CPU
     implementation (if available) for user reference.
 
     https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adagrad
@@ -177,7 +180,8 @@ global___AdagradParameters = AdagradParameters
 
 @typing.final
 class AdagradMomentumParameters(google.protobuf.message.Message):
-    """This optimizer combines the Adagrad and Momentum update rules.
+    """
+    This optimizer combines the Adagrad and Momentum update rules.
     accum(new) = beta2 == 1.0 ?
                  accum(old) + grad^2 :
                  beta2 * accum(old) + (1 - beta2) * grad^2
@@ -255,7 +259,8 @@ global___BoundedAdagradParameters = BoundedAdagradParameters
 
 @typing.final
 class StochasticGradientDescentParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L629
     """
 
@@ -269,7 +274,8 @@ global___StochasticGradientDescentParameters = StochasticGradientDescentParamete
 
 @typing.final
 class FtrlParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Ftrl
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Ftrl
     https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41159.pdf
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L2646
 
@@ -323,7 +329,8 @@ global___FtrlParameters = FtrlParameters
 
 @typing.final
 class AdamParameters(google.protobuf.message.Message):
-    """The Adam optimizer does not implement hyper-parameter update due to hardware
+    """
+    The Adam optimizer does not implement hyper-parameter update due to hardware
     limitations; use the dynamic learning rate feature instead, setting the
     learning rate to: user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
@@ -372,7 +379,8 @@ global___AdamParameters = AdamParameters
 
 @typing.final
 class MomentumParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L3068
     """
 
@@ -394,7 +402,8 @@ global___MomentumParameters = MomentumParameters
 
 @typing.final
 class LionParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Lion
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Lion
     momenta(new) = beta2 * momenta(old) + (1 - beta2) * grad
     momenta_t = beta1 * momenta(old) + (1 - beta1) * grad
     var(new) = var(old) - lr * sign(momenta_t)
@@ -422,7 +431,8 @@ global___LionParameters = LionParameters
 
 @typing.final
 class RmsPropParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L4229
     """
 
@@ -447,7 +457,8 @@ global___RmsPropParameters = RmsPropParameters
 
 @typing.final
 class CenteredRmsPropParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L4358
     """
 
@@ -522,7 +533,8 @@ global___MdlAdagradLightParameters = MdlAdagradLightParameters
 
 @typing.final
 class AdadeltaParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adadelta
+    """
+    https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adadelta
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L933
     """
 
@@ -544,7 +556,8 @@ global___AdadeltaParameters = AdadeltaParameters
 
 @typing.final
 class ProximalAdagradParameters(google.protobuf.message.Message):
-    """https://www.tensorflow.org/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer
+    """
+    https://www.tensorflow.org/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L1961
     """
 
@@ -566,7 +579,8 @@ global___ProximalAdagradParameters = ProximalAdagradParameters
 
 @typing.final
 class OnlineYogiParameters(google.protobuf.message.Message):
-    """The online Yogi optimizer does not implement hyper-parameter update; use the
+    """
+    The online Yogi optimizer does not implement hyper-parameter update; use the
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
@@ -601,7 +615,8 @@ global___OnlineYogiParameters = OnlineYogiParameters
 
 @typing.final
 class ProximalYogiParameters(google.protobuf.message.Message):
-    """The online Yogi optimizer does not implement hyper-parameter update; use the
+    """
+    The online Yogi optimizer does not implement hyper-parameter update; use the
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
@@ -644,7 +659,8 @@ global___ProximalYogiParameters = ProximalYogiParameters
 
 @typing.final
 class FrequencyEstimatorParameters(google.protobuf.message.Message):
-    """Estimator for the frequency of updates to a lookup table. It maintains an
+    """
+    Estimator for the frequency of updates to a lookup table. It maintains an
     array (tf.Variable) D, where each element records the average number of
     global steps between two consecutive batches that hit the corresponding
     bucket. Once an item with bucket id i is sampled, D[i] is updated by:
@@ -702,7 +718,8 @@ global___FrequencyEstimatorParameters = FrequencyEstimatorParameters
 
 @typing.final
 class UserDefinedProgramParameters(google.protobuf.message.Message):
-    """A user-defined optimizer.
+    """
+    A user-defined optimizer.
     The contained HLO program must take the following arguments in the following
     order:
     1.  gradients
@@ -740,7 +757,8 @@ global___UserDefinedProgramParameters = UserDefinedProgramParameters
 
 @typing.final
 class AssignParameters(google.protobuf.message.Message):
-    """Optimizer that just sets the variable to the value of the gradient. To be
+    """
+    Optimizer that just sets the variable to the value of the gradient. To be
     correct, this requires either gradient accumulation (to sum the values of a
     computed expression across the samples) or to deduplicate IDs within a single
     host (to assign the value from an arbitrary sample).
@@ -756,7 +774,8 @@ global___AssignParameters = AssignParameters
 
 @typing.final
 class GradientAccumulationStatus(google.protobuf.message.Message):
-    """Status of using gradient accumulation (doing two passes over the input
+    """
+    Status of using gradient accumulation (doing two passes over the input
     gradients: one to accumulate them into a temporary array and another to apply
     them using the actual optimization algorithm). The extra message is to wrap
     the enum for scoping.
@@ -789,7 +808,8 @@ global___GradientAccumulationStatus = GradientAccumulationStatus
 
 @typing.final
 class LowDimensionalPackingStatus(google.protobuf.message.Message):
-    """Whether to optimize the packing of low-dimensional embedding tables in HBM
+    """
+    Whether to optimize the packing of low-dimensional embedding tables in HBM
     (high bandwidth memory). TPUs access HBM at 32-byte (8-float) granularity.
     For functional correctness, the TPU software internally pads the embedding
     dimension to a multiple of 8. This can sometimes lead to significant memory
@@ -842,7 +862,8 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
         DISABLED: LowDimensionalPackingStatus._Status.ValueType  # 2
 
     class Status(_Status, metaclass=_StatusEnumTypeWrapper):
-        """if UNSPECIFIED (default), the low dimension packing status is DISABLED.
+        """
+        if UNSPECIFIED (default), the low dimension packing status is DISABLED.
         This can change in future.
 
         if ENABLED, the low dimension packing is enabled only if the following
@@ -866,7 +887,8 @@ global___LowDimensionalPackingStatus = LowDimensionalPackingStatus
 
 @typing.final
 class HotIdReplicationConfiguration(google.protobuf.message.Message):
-    """Configuration proto for hot ID optimization. This is an experimental feature
+    """
+    Configuration proto for hot ID optimization. This is an experimental feature
     that is currently disabled (by default).
     """
 
@@ -884,7 +906,8 @@ class HotIdReplicationConfiguration(google.protobuf.message.Message):
         MIGRATION_ONLY: HotIdReplicationConfiguration._Status.ValueType  # 3
 
     class Status(_Status, metaclass=_StatusEnumTypeWrapper):
-        """Whether to enable or disable hot ID optimization.
+        """
+        Whether to enable or disable hot ID optimization.
         If set to UNSPECIFIED (default), hot ID optimization is DISABLED.
         If set to ENABLED, hot ID replication is turned ON.
         If set to MIGRATION_ONLY, hot ID migration is turned ON.
@@ -965,19 +988,22 @@ class OptimizationParameters(google.protobuf.message.Message):
 
     @property
     def clipping_limits(self) -> global___ClippingLimits:
-        """Limits to which to clip the weight values after the backward pass; not
+        """
+        Limits to which to clip the weight values after the backward pass; not
         present means no limits are applied.
         """
 
     @property
     def gradient_clipping_limits(self) -> global___ClippingLimits:
-        """Limits to which to clip the backward pass gradient before using it for
+        """
+        Limits to which to clip the backward pass gradient before using it for
         updates; not present means no limits are applied.
         """
 
     @property
     def simulated_quantization(self) -> global___SimulatedQuantization:
-        """Configuration for simulated quantization which is used to reduce
+        """
+        Configuration for simulated quantization which is used to reduce
         training/serving skew when the serving variables are quantized. The same
         quantization operations are executed during training to minimize
         differences with serving.
@@ -985,7 +1011,8 @@ class OptimizationParameters(google.protobuf.message.Message):
 
     @property
     def hot_id_replication_configuration(self) -> global___HotIdReplicationConfiguration:
-        """Configuration proto for hot ID replication. This is an experimental
+        """
+        Configuration proto for hot ID replication. This is an experimental
         feature that is currently disabled (by default).
         """
 
@@ -1064,7 +1091,8 @@ global___OptimizationParameters = OptimizationParameters
 
 @typing.final
 class StateVariableSpecification(google.protobuf.message.Message):
-    """Specification of an optimization algorithm's state variables (both the main
+    """
+    Specification of an optimization algorithm's state variables (both the main
     value vector and any extra accumulators, etc.). This proto is only used
     internally by the TPU software and is not exposed directly to the TF model.
     """
@@ -1073,7 +1101,8 @@ class StateVariableSpecification(google.protobuf.message.Message):
 
     @typing.final
     class UserDefined(google.protobuf.message.Message):
-        """A normal state variable that should be saved and restored in checkpoints
+        """
+        A normal state variable that should be saved and restored in checkpoints
         and used as an input or output to non-debug TensorFlow ops.
         """
 
@@ -1085,7 +1114,8 @@ class StateVariableSpecification(google.protobuf.message.Message):
 
     @typing.final
     class FillWithConstant(google.protobuf.message.Message):
-        """A state variable that should be filled with a constant and normally hidden
+        """
+        A state variable that should be filled with a constant and normally hidden
         from users (used for intermediate gradients being accumulated, for
         example).
         """

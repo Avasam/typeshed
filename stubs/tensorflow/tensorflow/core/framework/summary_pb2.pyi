@@ -92,7 +92,8 @@ global___SummaryDescription = SummaryDescription
 
 @typing.final
 class SummaryMetadata(google.protobuf.message.Message):
-    """A SummaryMetadata encapsulates information on which plugins are able to make
+    """
+    A SummaryMetadata encapsulates information on which plugins are able to make
     use of a certain summary value.
     """
 
@@ -151,7 +152,8 @@ global___SummaryMetadata = SummaryMetadata
 
 @typing.final
 class Summary(google.protobuf.message.Message):
-    """A Summary is a set of named values to be displayed by the
+    """
+    A Summary is a set of named values to be displayed by the
     visualizer.
 
     Summaries are produced regularly during training, as controlled by
@@ -250,7 +252,8 @@ class Summary(google.protobuf.message.Message):
         obsolete_old_style_histogram: builtins.bytes
         @property
         def metadata(self) -> global___SummaryMetadata:
-            """Contains metadata on the summary value such as which plugins may use it.
+            """
+            Contains metadata on the summary value such as which plugins may use it.
             Take note that many summary values may lack a metadata field. This is
             because the FileWriter only keeps a metadata object on the first summary
             value with a certain tag for each tag. TensorBoard then remembers which

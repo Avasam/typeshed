@@ -28,7 +28,8 @@ class KernelDef(google.protobuf.message.Message):
         """Name of an attr from the Op."""
         @property
         def allowed_values(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
-            """A list of values that this kernel supports for this attr.
+            """
+            A list of values that this kernel supports for this attr.
             Like OpDef.AttrDef.allowed_values, except for kernels instead of Ops.
             """
 
@@ -65,7 +66,8 @@ class KernelDef(google.protobuf.message.Message):
     def constraint(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___KernelDef.AttrConstraint]: ...
     @property
     def host_memory_arg(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Names of the Op's input_/output_args that reside in host memory
+        """
+        Names of the Op's input_/output_args that reside in host memory
         instead of device memory.
         """
 

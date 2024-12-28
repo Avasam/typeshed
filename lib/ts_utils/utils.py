@@ -63,7 +63,8 @@ def print_success_msg() -> None:
 
 
 def print_divider() -> None:
-    """Print a row of * symbols across the screen.
+    """
+    Print a row of * symbols across the screen.
 
     This can be useful to divide terminal output into separate sections.
     """

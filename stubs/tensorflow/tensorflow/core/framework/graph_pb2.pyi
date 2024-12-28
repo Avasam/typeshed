@@ -37,14 +37,16 @@ class GraphDef(google.protobuf.message.Message):
     def node(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]: ...
     @property
     def versions(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
-        """Compatibility versions of the graph.  See core/public/version.h for version
+        """
+        Compatibility versions of the graph.  See core/public/version.h for version
         history.  The GraphDef version is distinct from the TensorFlow version, and
         each release of TensorFlow will support a range of GraphDef versions.
         """
 
     @property
     def library(self) -> tensorflow.core.framework.function_pb2.FunctionDefLibrary:
-        """"library" provides user-defined functions.
+        """
+        "library" provides user-defined functions.
 
         Naming:
           * library.function.name are in a flat namespace.

@@ -109,7 +109,8 @@ class DeviceAttributes(google.protobuf.message.Message):
     """
     @property
     def locality(self) -> global___DeviceLocality:
-        """Platform-specific data about device that may be useful
+        """
+        Platform-specific data about device that may be useful
         for supporting efficient data transfers.
         """
 

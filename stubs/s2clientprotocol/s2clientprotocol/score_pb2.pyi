@@ -172,7 +172,8 @@ class ScoreDetails(google.protobuf.message.Message):
     """Recent effective APM."""
     @property
     def food_used(self) -> global___CategoryScoreDetails:
-        """The following entries contains floating point values for the following catgories:
+        """
+        The following entries contains floating point values for the following catgories:
           none - There is no category defined in game data.
           army - This category includes all military units but not workers.
           economy - This category contains town halls, supply structures, vespene buildings and workers.

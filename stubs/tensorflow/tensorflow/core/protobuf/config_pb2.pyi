@@ -38,7 +38,8 @@ class GPUOptions(google.protobuf.message.Message):
 
         @typing.final
         class VirtualDevices(google.protobuf.message.Message):
-            """Configuration for breaking down a visible GPU into multiple "virtual"
+            """
+            Configuration for breaking down a visible GPU into multiple "virtual"
             devices.
             """
 
@@ -49,7 +50,8 @@ class GPUOptions(google.protobuf.message.Message):
             DEVICE_ORDINAL_FIELD_NUMBER: builtins.int
             @property
             def memory_limit_mb(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
-                """Per "virtual" device memory limit, in MB. The number of elements in
+                """
+                Per "virtual" device memory limit, in MB. The number of elements in
                 the list is the number of virtual devices to create on the
                 corresponding visible GPU (see "virtual_devices" below).
                 If empty and `num_virtual_devices_per_gpu` is not set, it will create
@@ -61,7 +63,8 @@ class GPUOptions(google.protobuf.message.Message):
 
             @property
             def priority(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-                """Priority values to use with the virtual devices. Use the cuda function
+                """
+                Priority values to use with the virtual devices. Use the cuda function
                 cudaDeviceGetStreamPriorityRange to query for valid range of values for
                 priority.
 
@@ -75,7 +78,8 @@ class GPUOptions(google.protobuf.message.Message):
 
             @property
             def device_ordinal(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-                """Virtual Device ordinal number determines the device ID of the device.
+                """
+                Virtual Device ordinal number determines the device ID of the device.
                 A Virtual device with a lower ordinal number always receives the a
                 smaller device id. The phyiscal device id and location in the
                 virtual device list is used to break ties.
@@ -92,7 +96,8 @@ class GPUOptions(google.protobuf.message.Message):
 
         @typing.final
         class StreamMergeOptions(google.protobuf.message.Message):
-            """Whether to merge data transfer streams into the compute stream in the
+            """
+            Whether to merge data transfer streams into the compute stream in the
             same stream group. Stream merging helps reduce the overhead caused by
             stream synchronization, especially when data transfers are frequent. For
             example, setting "merge_host_to_device_stream = true" will make the
@@ -256,7 +261,8 @@ class GPUOptions(google.protobuf.message.Message):
         """
         @property
         def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
-            """The multi virtual device settings. If empty (not set), it will create
+            """
+            The multi virtual device settings. If empty (not set), it will create
             single virtual device on each visible GPU, according to the settings
             in "visible_device_list" above. Otherwise, the number of elements in the
             list must be the same as the number of visible GPUs (after
@@ -414,7 +420,8 @@ class GPUOptions(google.protobuf.message.Message):
     """
     @property
     def experimental(self) -> global___GPUOptions.Experimental:
-        """Everything inside experimental is subject to change and is not subject
+        """
+        Everything inside experimental is subject to change and is not subject
         to API stability guarantees in
         https://www.tensorflow.org/guide/version_compat.
         """
@@ -604,7 +611,8 @@ class GraphOptions(google.protobuf.message.Message):
 
     @property
     def rewrite_options(self) -> tensorflow.core.protobuf.rewriter_config_pb2.RewriterConfig:
-        """Options that control the type and amount of graph rewriting.
+        """
+        Options that control the type and amount of graph rewriting.
         Not currently configurable via the public Python API (i.e. there is no API
         stability guarantee if you import RewriterConfig explicitly).
         """
@@ -668,7 +676,8 @@ global___ThreadPoolOptionProto = ThreadPoolOptionProto
 
 @typing.final
 class SessionMetadata(google.protobuf.message.Message):
-    """Metadata about the session.
+    """
+    Metadata about the session.
 
     This can be used by the runtime and the Ops for debugging, monitoring, etc.
 
@@ -697,7 +706,8 @@ global___SessionMetadata = SessionMetadata
 
 @typing.final
 class ConfigProto(google.protobuf.message.Message):
-    """Session configuration parameters.
+    """
+    Session configuration parameters.
     The system picks appropriate values for fields that are not set.
     """
 
@@ -721,7 +731,8 @@ class ConfigProto(google.protobuf.message.Message):
 
     @typing.final
     class Experimental(google.protobuf.message.Message):
-        """Everything inside Experimental is subject to change and is not subject
+        """
+        Everything inside Experimental is subject to change and is not subject
         to API stability guarantees in
         https://www.tensorflow.org/guide/version_compat.
         """
@@ -933,7 +944,8 @@ class ConfigProto(google.protobuf.message.Message):
         """
         @property
         def session_metadata(self) -> global___SessionMetadata:
-            """Metadata about the session.
+            """
+            Metadata about the session.
 
             If set, this can be used by the runtime and the Ops for debugging,
             monitoring, etc.
@@ -1071,7 +1083,8 @@ class ConfigProto(google.protobuf.message.Message):
     """
     @property
     def device_count(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
-        """Map from device type name (e.g., "CPU" or "GPU" ) to maximum
+        """
+        Map from device type name (e.g., "CPU" or "GPU" ) to maximum
         number of devices of that type to use.  If a particular device
         type is not found in the map, the system picks an appropriate
         number.
@@ -1079,7 +1092,8 @@ class ConfigProto(google.protobuf.message.Message):
 
     @property
     def session_inter_op_thread_pool(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadPoolOptionProto]:
-        """This option is experimental - it may be replaced with a different mechanism
+        """
+        This option is experimental - it may be replaced with a different mechanism
         in the future.
 
         Configures session thread pools. If this is configured, then RunOptions for
@@ -1102,7 +1116,8 @@ class ConfigProto(google.protobuf.message.Message):
 
     @property
     def device_filters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """When any filters are present sessions will ignore all devices which do not
+        """
+        When any filters are present sessions will ignore all devices which do not
         match the filters. Each filter can be partially specified, e.g. "/job:ps"
         "/job:worker/replica:3", etc.
         """
@@ -1174,7 +1189,8 @@ class RunOptions(google.protobuf.message.Message):
         FULL_TRACE: RunOptions._TraceLevel.ValueType  # 3
 
     class TraceLevel(_TraceLevel, metaclass=_TraceLevelEnumTypeWrapper):
-        """TODO(pbar) Turn this into a TraceOptions proto which allows
+        """
+        TODO(pbar) Turn this into a TraceOptions proto which allows
         tracing to be controlled in a more orthogonal manner?
         """
 
@@ -1185,7 +1201,8 @@ class RunOptions(google.protobuf.message.Message):
 
     @typing.final
     class Experimental(google.protobuf.message.Message):
-        """Everything inside Experimental is subject to change and is not subject
+        """
+        Everything inside Experimental is subject to change and is not subject
         to API stability guarantees in
         https://www.tensorflow.org/guide/version_compat.
         """
@@ -1326,7 +1343,8 @@ class RunMetadata(google.protobuf.message.Message):
     SESSION_METADATA_FIELD_NUMBER: builtins.int
     @property
     def step_stats(self) -> tensorflow.core.framework.step_stats_pb2.StepStats:
-        """Statistics traced for this step. Populated if tracing is turned on via the
+        """
+        Statistics traced for this step. Populated if tracing is turned on via the
         "RunOptions" proto.
         EXPERIMENTAL: The format and set of events may change in future versions.
         """
@@ -1341,7 +1359,8 @@ class RunMetadata(google.protobuf.message.Message):
 
     @property
     def function_graphs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RunMetadata.FunctionGraphs]:
-        """This is only populated for graphs that are run as functions in TensorFlow
+        """
+        This is only populated for graphs that are run as functions in TensorFlow
         V2. There will be an entry below for each function that is traced.
         The main use cases of the post_optimization_graph and the partition_graphs
         is to give the caller insight into the graphs that were actually run by the
@@ -1399,7 +1418,8 @@ global___TensorConnection = TensorConnection
 
 @typing.final
 class CallableOptions(google.protobuf.message.Message):
-    """Defines a subgraph in another `GraphDef` as a set of feed points and nodes
+    """
+    Defines a subgraph in another `GraphDef` as a set of feed points and nodes
     to be fetched or executed.
 
     Compare with the arguments to `Session::Run()`.
@@ -1465,14 +1485,16 @@ class CallableOptions(google.protobuf.message.Message):
 
     @property
     def fetch(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Fetches. A list of tensor names. The caller of the callable expects a
+        """
+        Fetches. A list of tensor names. The caller of the callable expects a
         tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
         order of specified fetches does not change the execution order.
         """
 
     @property
     def target(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Target Nodes. A list of node names. The named nodes will be run by the
+        """
+        Target Nodes. A list of node names. The named nodes will be run by the
         callable but their outputs will not be returned.
         """
 
@@ -1482,14 +1504,16 @@ class CallableOptions(google.protobuf.message.Message):
 
     @property
     def tensor_connection(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorConnection]:
-        """Tensors to be connected in the callable. Each TensorConnection denotes
+        """
+        Tensors to be connected in the callable. Each TensorConnection denotes
         a pair of tensors in the graph, between which an edge will be created
         in the callable.
         """
 
     @property
     def feed_devices(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """The Tensor objects fed in the callable and fetched from the callable
+        """
+        The Tensor objects fed in the callable and fetched from the callable
         are expected to be backed by host (CPU) memory by default.
 
         The options below allow changing that - feeding tensors backed by
