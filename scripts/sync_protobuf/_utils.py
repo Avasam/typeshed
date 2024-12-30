@@ -18,9 +18,11 @@ MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
 def download_file(url: str, destination: StrPath) -> None:
+    if not url.startswith(("http:", "https:")):
+        raise ValueError("URL must start with 'http:' or 'https:'")
     print(f"Downloading '{url}' to '{destination}'")
     resp: HTTPResponse
-    with urlopen(url) as resp, open(destination, "wb") as file:
+    with urlopen(url) as resp, open(destination, "wb") as file:  # noqa: S310 # Validated
         file.write(resp.read())
 
 
