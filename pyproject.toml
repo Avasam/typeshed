@@ -124,7 +124,6 @@ ignore = [
     "RUF023",
     # https://github.com/astral-sh/ruff/issues/15206
     "S105", # Possible hardcoded password assigned to: "{}"
-    "S106", # Possible hardcoded password assigned to argument: "{}"
     "S107", # Possible hardcoded password assigned to function default: "{}"
     # https://github.com/astral-sh/ruff/issues/15207
     "S4", # Insecure and vulnerable libraries
