@@ -44,10 +44,8 @@ select = [
     "ARG", # flake8-unused-arguments
     "ASYNC", # flake8-async
     "B", # flake8-bugbear
-    "B", # flake8-bugbear
     "BLE", # flake8-blind-except
     "C4", # flake8-comprehensions
-    "D", # pydocstyle
     "D", # pydocstyle
     "DOC", # pydoclint
     "DTZ", # flake8-datetimez
@@ -60,16 +58,13 @@ select = [
     "ISC", # flake8-implicit-str-concat
     "LOG", # flake8-logging
     "N", # pep8-naming
-    "N", # pep8-naming
     "NPY", # NumPy-specific rules
     "PERF", # Perflint
-    "PGH", # pygrep-hooks
     "PGH", # pygrep-hooks
     "PIE", # flake8-pie
     "PL", # Pylint
     "RET", # flake8-return
     "RSE", # flake8-raise
-    "RUF", # Ruff-specific and unused-noqa
     "RUF", # Ruff-specific and unused-noqa
     "S", # flake8-bandit
     "SIM", # flake8-simplify
