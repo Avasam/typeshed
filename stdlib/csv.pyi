@@ -22,7 +22,7 @@ if sys.version_info >= (3, 12):
 if sys.version_info >= (3, 10):
     from _csv import Reader, Writer
 else:
-    from _csv import _reader as Reader, _writer as Writer  # noqa: N812
+    from _csv import _reader as Reader, _writer as Writer
 
 from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Mapping, Sequence

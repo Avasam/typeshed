@@ -1,4 +1,6 @@
-"""Generates the protobuf stubs for the given protobuf version using mypy-protobuf.
+#!/usr/bin/env python3
+"""
+Generates the protobuf stubs for the given protobuf version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.
 """
 

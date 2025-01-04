@@ -5,7 +5,7 @@ from typing import Any, ClassVar, TypedDict, overload
 from typing_extensions import TypeAlias
 
 from gevent.baseserver import BaseServer, _Spawner
-from gevent.socket import socket as _GeventSocket  # noqa: N812
+from gevent.socket import socket as _GeventSocket
 from gevent.ssl import SSLContext, wrap_socket as ssl_wrap_socket
 
 # For simplicity we treat _Address as Any, we could be more strict and use the definition

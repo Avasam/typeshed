@@ -1,4 +1,4 @@
-from _thread import LockType, allocate_lock as Lock  # noqa: N812 # Shouldn't apply to re-exports
+from _thread import LockType, allocate_lock as Lock  # Shouldn't apply to re-exports
 from typing import Generic, NewType, TypeVar
 
 __all__ = ["Lock", "Queue", "EmptyTimeout"]

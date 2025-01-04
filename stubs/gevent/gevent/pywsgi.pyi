@@ -10,7 +10,7 @@ from typing_extensions import Self
 
 from gevent.baseserver import _Spawner
 from gevent.server import StreamServer
-from gevent.socket import socket as _GeventSocket  # noqa: N812
+from gevent.socket import socket as _GeventSocket
 from gevent.ssl import SSLContext
 
 __all__ = ["WSGIServer", "WSGIHandler", "LoggingLogAdapter", "Environ", "SecureEnviron", "WSGISecureEnviron"]

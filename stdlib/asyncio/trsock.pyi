@@ -1,7 +1,7 @@
 import socket
 import sys
 from _typeshed import ReadableBuffer
-from builtins import type as Type  # noqa: N812 # alias to avoid name clashes with property named "type"
+from builtins import type as Type  # alias to avoid name clashes with property named "type"
 from collections.abc import Iterable
 from types import TracebackType
 from typing import Any, BinaryIO, NoReturn, overload
