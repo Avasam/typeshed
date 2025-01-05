@@ -18,6 +18,7 @@ import re
 import subprocess
 import sys
 import urllib.parse
+from http import HTTPStatus
 from importlib.metadata import distribution
 
 import aiohttp
@@ -45,34 +46,33 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
     Return (normalized project name, installed version) if successful.
     """
-    r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
-    return search_pip_freeze_output(project, r.stdout)
+    return search_pip_freeze_output(project, subprocess.check_output(["pip", "freeze"], text=True))
 
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
+    subprocess.check_call(["stubgen", "-o", output, "-p", package, "--export-less"])
 
 
 def run_stubdefaulter(stub_dir: str) -> None:
     print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
-    subprocess.run(["stubdefaulter", "--packages", stub_dir])
+    subprocess.run(["stubdefaulter", "--packages", stub_dir], check=False)
 
 
 def run_black(stub_dir: str) -> None:
     print(f"Running Black: black {stub_dir}")
-    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")])
+    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")], check=False)
 
 
 def run_ruff(stub_dir: str) -> None:
     print(f"Running Ruff: ruff check {stub_dir} --fix-only")
-    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"])
+    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"], check=False)
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
     pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
     async with session.get(f"{pypi_root}/json") as response:
-        if response.status != 200:
+        if response.status != HTTPStatus.OK:
             return {}
         j: dict[str, dict[str, dict[str, str]]]
         j = await response.json()
@@ -90,24 +90,23 @@ async def get_upstream_repo_url(project: str) -> str | None:
 
         # Order the project URLs so that we put the ones
         # that are most likely to point to the source code first
-        urls_to_check: list[str] = []
         url_names_probably_pointing_to_source = ("Source", "Repository", "Homepage")
-        for url_name in url_names_probably_pointing_to_source:
-            if url := project_urls.get(url_name):
-                urls_to_check.append(url)
+        urls_to_check: list[str] = [
+            url for url in (project_urls.get(url_name) for url_name in url_names_probably_pointing_to_source) if url
+        ]
         urls_to_check.extend(
             url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source
         )
 
         for url in urls_to_check:
             # Remove `www.`; replace `http://` with `https://`
-            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)
+            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)  # noqa: PLW2901
             netloc = urllib.parse.urlparse(url).netloc
             if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
                 # truncate to https://site.com/user/repo
                 upstream_repo_url = "/".join(url.split("/")[:5])
                 async with session.get(upstream_repo_url) as response:
-                    if response.status == 200:
+                    if response.status == HTTPStatus.OK:
                         return upstream_repo_url
     return None
 

@@ -33,7 +33,7 @@ PROTO_FILE_PATTERN = re.compile(r'"//:(.*)_proto"')
 
 def extract_python_version(file_path: Path) -> str:
     """Extract the Python version from https://github.com/protocolbuffers/protobuf/blob/main/version.json ."""
-    with open(file_path) as file:
+    with open(file_path, encoding="utf-8") as file:
         data: dict[str, Any] = json.load(file)
     # The root key will be the protobuf source code version
     version = next(iter(data.values()))["languages"]["python"]
@@ -42,18 +42,16 @@ def extract_python_version(file_path: Path) -> str:
 
 
 def extract_proto_file_paths(temp_dir: Path) -> list[str]:
-    """
-    Roughly reproduce the subset of .proto files on the public interface
+    """Roughly reproduce the subset of .proto files on the public interface
     as described in py_proto_library calls in
     https://github.com/protocolbuffers/protobuf/blob/main/python/dist/BUILD.bazel .
     """
-    with open(temp_dir / EXTRACTED_PACKAGE_DIR / "python" / "dist" / "BUILD.bazel") as file:
+    with open(temp_dir / EXTRACTED_PACKAGE_DIR / "python" / "dist" / "BUILD.bazel", encoding="utf-8") as file:
         matched_lines = filter(None, (re.search(PROTO_FILE_PATTERN, line) for line in file))
-        proto_files = [
+        return [
             EXTRACTED_PACKAGE_DIR + "/src/google/protobuf/" + match.group(1).replace("compiler_", "compiler/") + ".proto"
             for match in matched_lines
         ]
-    return proto_files
 
 
 def main() -> None:
@@ -90,7 +88,7 @@ and {protoc_version} on \
     print("Updated protobuf/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")), check=False)
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
         cmd += ["--ignore-positional-only"]
     print(" ".join(cmd), file=sys.stderr)
     try:
-        subprocess.run(cmd, check=True)
+        subprocess.check_call(cmd)
     except subprocess.CalledProcessError as e:
         print(
             "\nNB: stubtest output depends on the Python version (and system) it is run with. "
