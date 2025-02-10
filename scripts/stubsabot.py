@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import contextlib
 import datetime
 import enum
 import functools
@@ -92,7 +91,7 @@ class PypiInfo:
 
     def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
-        release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
+        release_info = max(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))
         return PypiReleaseDownload(
             distribution=self.distribution,
             url=release_info["url"],
@@ -248,8 +247,7 @@ async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aioh
 
 
 def get_updated_version_spec(spec: Specifier, version: packaging.version.Version) -> Specifier:
-    """
-    Given the old specifier and an updated version, returns an updated specifier that has the
+    """Given the old specifier and an updated version, returns an updated specifier that has the
     specificity of the old specifier, but matches the updated version.
 
     For example:
@@ -293,8 +291,7 @@ class GitHubInfo:
 
 
 async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHubInfo | None:
-    """
-    If the project represented by `stub_info` is hosted on GitHub,
+    """If the project represented by `stub_info` is hosted on GitHub,
     return information regarding the project as it exists on GitHub.
 
     Else, return None.
@@ -305,10 +302,10 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com":
             url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
+            assert len(Path(url_path).parts) == 2  # noqa: PLR2004 # astral-sh/ruff#10009
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == 200:
+                if response.status == HTTPStatus.OK:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
                     return GitHubInfo(repo_path=url_path, tags=tags)
@@ -340,8 +337,10 @@ async def get_diff_info(
         # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
-        with contextlib.suppress(packaging.version.InvalidVersion):
+        try:
             versions_to_tags[packaging.version.Version(tag_name)] = tag_name
+        except packaging.version.InvalidVersion:
+            pass
 
     try:
         new_tag = versions_to_tags[pypi_version]
@@ -374,8 +373,7 @@ class DiffAnalysis:
 
     @property
     def runtime_definitely_has_consistent_directory_structure_with_typeshed(self) -> bool:
-        """
-        If 0 .py files in the GitHub diff exist in typeshed's stubs,
+        """If 0 .py files in the GitHub diff exist in typeshed's stubs,
         there's a possibility that the .py files might be found
         in a different directory at runtime.
 
@@ -623,10 +621,8 @@ def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
         # If the number of lines is >1,
         # it indicates that something about our commit is different to the last commit
         # (Could be the commit "content", or the commit message).
-        commit_comparison = subprocess.run(
-            ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
-        )
-        return len(commit_comparison.stdout.splitlines()) > 1
+        commit_comparison = subprocess.check_output(["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"])
+        return len(commit_comparison.splitlines()) > 1
     except subprocess.CalledProcessError:
         # origin/branch does not exist
         return True
@@ -660,7 +656,7 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
         body += f"\n\n{update.diff_analysis}"
 
     stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
-    stubtest_will_run = not stubtest_settings.get("skip", False)
+    stubtest_will_run = not stubtest_settings.get("skip")
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -747,14 +743,11 @@ async def main() -> None:
     parser.add_argument("distributions", nargs="*", help="Distributions to update, default = all")
     args = parser.parse_args()
 
-    if args.distributions:
-        dists_to_update = args.distributions
-    else:
-        dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
+    dists_to_update = args.distributions or [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
-        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
-        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True, check=False)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True, check=False)
         if diff_result.returncode:
             print("Unexpected exception!")
             print(diff_result.stdout)
@@ -765,15 +758,12 @@ async def main() -> None:
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
             sys.exit(1)
 
-    if args.action_level > ActionLevel.fork:
-        if os.environ.get("GITHUB_TOKEN") is None:
-            raise ValueError("GITHUB_TOKEN environment variable must be set")
+    if args.action_level > ActionLevel.fork and os.environ.get("GITHUB_TOKEN") is None:
+        raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
-    original_branch = subprocess.run(
-        ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
-    ).stdout.strip()
+    original_branch = subprocess.check_output(["git", "branch", "--show-current"], text=True).strip()
 
     if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])

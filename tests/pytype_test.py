@@ -87,7 +87,7 @@ def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[
         with pytype_config.verbosity_from(options):
             ast = loader.load_file(_get_module_name(filename), filename)
             loader.finish_and_verify_ast(ast)
-    except Exception:
+    except Exception:  # noqa: BLE001 # We do want to catch any and all exceptions here
         stderr = traceback.format_exc()
     else:
         stderr = None
@@ -172,7 +172,7 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
-            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+            raise RuntimeError(f"Can't read find the packages associated with requirement {req_name!r}")
         maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
         packages = [name for name in maybe_modules if name is not None and "." not in name]
     else:
@@ -208,14 +208,14 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
 
     test_dir = os.path.dirname(__file__)
     exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
-    with open(exclude_list) as f:
+    with open(exclude_list, encoding="utf-8") as f:
         excluded_files = f.readlines()
         for fi in excluded_files:
             if not fi.startswith("stubs/"):
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
+            _stubs_prefix, _pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
             missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 

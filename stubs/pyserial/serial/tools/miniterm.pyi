@@ -8,10 +8,10 @@ from typing_extensions import Self
 
 from serial import Serial
 
-_AnyStr_T = TypeVar("_AnyStr_T", contravariant=True)
+_AnyStr_T_contra = TypeVar("_AnyStr_T_contra", contravariant=True)
 
 @type_check_only
-class _SupportsWriteAndFlush(SupportsWrite[_AnyStr_T], SupportsFlush, Protocol): ...
+class _SupportsWriteAndFlush(SupportsWrite[_AnyStr_T_contra], SupportsFlush, Protocol): ...
 
 @type_check_only
 class _SupportsRead(Protocol):

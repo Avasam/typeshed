@@ -10,7 +10,7 @@ _Arguments: TypeAlias = dict[str, _Literal] | dict[bytes, _Literal] | Iterable[_
 RE_INSERT_VALUES: Pattern[str]
 
 class BaseCursor:
-    from ._exceptions import (
+    from ._exceptions import (  # noqa: PLC0415
         DatabaseError as DatabaseError,
         DataError as DataError,
         Error as Error,

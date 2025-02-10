@@ -32,7 +32,7 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
-_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
+_G_co = TypeVar("_G_co", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
@@ -72,11 +72,11 @@ class ContextDecorator:
     def _recreate_cm(self) -> Self: ...
     def __call__(self, func: Callable[_P, _R]) -> _WrappedCallable[_P, _R]: ...
 
-class _GeneratorContextManagerBase(Generic[_G]):
+class _GeneratorContextManagerBase(Generic[_G_co]):
     # Ideally this would use ParamSpec, but that requires (*args, **kwargs), which this isn't. see #6676
-    def __init__(self, func: Callable[..., _G], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
-    gen: _G
-    func: Callable[..., _G]
+    def __init__(self, func: Callable[..., _G_co], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
+    gen: _G_co
+    func: Callable[..., _G_co]
     args: tuple[Any, ...]
     kwds: dict[str, Any]
 

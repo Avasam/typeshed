@@ -35,5 +35,4 @@ def test_cases_path(distribution_name: str) -> Path:
 def allowlists_path(distribution_name: str) -> Path:
     if distribution_name == "stdlib":
         return tests_path("stdlib") / "stubtest_allowlists"
-    else:
-        return tests_path(distribution_name)
+    return tests_path(distribution_name)

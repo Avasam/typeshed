@@ -94,7 +94,7 @@ class MenuEntry:
     TYPE_SYSTEM: Literal["System"]
     TYPE_BOTH: Literal["Both"]
     DesktopEntry: DesktopEntry
-    Show: Literal[True, False, "Deleted", "NoDisplay", "Hidden", "Empty", "NotShowIn", "NoExec"]
+    Show: Literal["Deleted", "NoDisplay", "Hidden", "Empty", "NotShowIn", "NoExec"] | bool
     Visible: Literal[1, 0, "Deleted", "NoDisplay", "Hidden", "Empty", "NotShowIn", "NoExec"]
     Original: MenuEntry | None
     Parents: list[Menu]
