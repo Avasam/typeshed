@@ -651,7 +651,7 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
         body += f"\n\n{update.diff_analysis}"
 
     stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
-    stubtest_will_run = not stubtest_settings.get("skip", False)
+    stubtest_will_run = not stubtest_settings.get("skip")
     if stubtest_will_run:
         body += textwrap.dedent(
             """
