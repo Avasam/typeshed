@@ -53,17 +53,12 @@ select = [
     "FA", # flake8-future-annotations
     "FBT", # flake8-boolean-trap
     "FLY", # flynt
-    "G", # flake8-logging-format
     "I", # isort
     "ISC", # flake8-implicit-str-concat
-    "LOG", # flake8-logging
     "N", # pep8-naming
-    "NPY", # NumPy-specific rules
-    "PERF", # Perflint
     "PGH", # pygrep-hooks
     "PIE", # flake8-pie
     "PL", # Pylint
-    "RET", # flake8-return
     "RSE", # flake8-raise
     "RUF", # Ruff-specific and unused-noqa
     "S", # flake8-bandit
@@ -200,17 +195,15 @@ ignore = [
     "A002", # builtin-argument-shadowing
     "A004", # builtin-import-shadowing
     "F403", # `from . import *` used; unable to detect undefined names
+    "PIE796", # Enum contains duplicate value
+    "PLC2701", # Private name import from external module # https://github.com/astral-sh/ruff/issues/15294 and https://github.com/astral-sh/ruff/issues/15295
+    "S105", # Possible hardcoded password assigned
+    "S106", # Possible hardcoded password assigned to argument
+    "S107", # Possible hardcoded password assigned to function default
     "S3", # Use of insecure ...
     # Most pep8-naming rules don't apply for third-party stubs like typeshed.
     # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
     "N8",
-    "PIE796", # Enum contains duplicate value # astral-sh/ruff#15132
-    "PLC2701", # Private name import from external module
-    "PLW1641", # Object does not implement __hash__ method
-    "S105", # Possible hardcoded password assigned
-    "S106", # Possible hardcoded password assigned to argument
-    "S107", # Possible hardcoded password assigned to function default
-    "S4", # Insecure and vulnerable libraries
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
