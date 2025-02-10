@@ -208,7 +208,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
 
     test_dir = os.path.dirname(__file__)
     exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
-    with open(exclude_list) as f:
+    with open(exclude_list, encoding="utf-8") as f:
         excluded_files = f.readlines()
         for fi in excluded_files:
             if not fi.startswith("stubs/"):
