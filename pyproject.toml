@@ -186,6 +186,7 @@ ignore = [
     "A002", # builtin-argument-shadowing
     "A004", # builtin-import-shadowing
     "F403", # `from . import *` used; unable to detect undefined names
+    "S3", # Use of insecure ...
     # Most pep8-naming rules don't apply for third-party stubs like typeshed.
     # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
     "N8",
