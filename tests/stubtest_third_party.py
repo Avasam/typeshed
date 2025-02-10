@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import contextlib
 import os
 import re
 import subprocess
@@ -406,5 +405,7 @@ def main() -> NoReturn:
 
 
 if __name__ == "__main__":
-    with contextlib.suppress(KeyboardInterrupt):
+    try:
         main()
+    except KeyboardInterrupt:
+        pass

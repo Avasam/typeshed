@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import contextlib
 import datetime
 import enum
 import functools
@@ -334,8 +333,10 @@ async def get_diff_info(
         # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
-        with contextlib.suppress(packaging.version.InvalidVersion):
+        try:
             versions_to_tags[packaging.version.Version(tag_name)] = tag_name
+        except packaging.version.InvalidVersion:
+            pass
 
     try:
         new_tag = versions_to_tags[pypi_version]
