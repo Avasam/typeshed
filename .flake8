@@ -5,12 +5,9 @@ select = Y, F821
 # Ignore rules normally excluded by default
 extend-ignore = Y090
 per-file-ignores =
-  # Generated protobuf files:
+  # Generated protobuf files, issues not autofixed by Ruff:
   # Y021: Include docstrings
-  # Y023: Alias typing as typing_extensions
-  # Y026: Have implicit type aliases
   # Y053: have literals >50 characters long
-  stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
+  stubs/*_pb2.pyi: Y021, Y053
 
 exclude = .venv*,.git
-noqa_require_code = true
