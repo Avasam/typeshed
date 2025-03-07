@@ -30,7 +30,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - run: uv run --no-project ./tests/check_typeshed_structure.py
 
   pytype:
@@ -43,13 +43,13 @@ jobs:
           # Max supported Python version as of pytype 2024.9.13
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - name: Install external dependencies for 3rd-party stubs
         run: |
           DEPENDENCIES=$(uv run --no-project tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              uv pip install --system $DEPENDENCIES
+              uv pip install $DEPENDENCIES
           fi
       - run: uv pip freeze
       - run: ./tests/pytype_test.py --print-stderr
@@ -67,7 +67,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - run: uv run --no-project ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
@@ -80,7 +80,7 @@ jobs:
           # Use py311 for now, as py312 seems to be around 30s slower in CI
           # TODO: figure out why that is (#11590)
           python-version: "3.11"
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - run: uv run --no-project ./tests/regr_test.py --all --verbosity QUIET
 
   pyright:
@@ -99,7 +99,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
-        run: uv pip install -r requirements-tests.txt --system
+        run: uv pip install -r requirements-tests.txt
       - name: Create an isolated venv for testing
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
@@ -157,5 +157,5 @@ jobs:
       - name: Run tests
         run: |
           cd stub_uploader
-          uv pip install -r requirements.txt --system
+          uv pip install -r requirements.txt
           uv run --no-project -m pytest tests

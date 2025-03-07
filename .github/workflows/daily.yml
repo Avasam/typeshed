@@ -116,7 +116,7 @@ jobs:
       - name: Run tests
         run: |
           cd stub_uploader
-          uv pip install -r requirements.txt --system
+          uv pip install -r requirements.txt
           uv run --no-project -m pytest tests
 
   # https://github.community/t/run-github-actions-job-only-if-previous-job-has-failed/174786/2

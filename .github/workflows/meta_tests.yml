@@ -39,7 +39,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - run: uv run --no-project ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
     name: Run pyright against the scripts and tests directories
@@ -53,7 +53,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
@@ -73,5 +73,5 @@ jobs:
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - run: uv run --no-project scripts/stubsabot.py --action-level local
