@@ -54,7 +54,7 @@ jobs:
         with:
           python-version: "3.12"
           prune-cache: false # Can't prune cache if uv installs uv
-      # - run: uv pip install -r requirements-tests.txt
+      - run: uv pip install -r requirements-tests.txt
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
