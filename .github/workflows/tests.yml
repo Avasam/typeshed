@@ -107,8 +107,6 @@ jobs:
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               uv pip install --python-version ${{ matrix.python-version }} $DEPENDENCIES
           fi
-      - name: Activate the isolated venv for the rest of the job
-        run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
       - name: Run pyright with basic settings on all the stubs
