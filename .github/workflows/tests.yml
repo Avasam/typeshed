@@ -100,8 +100,6 @@ jobs:
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt
-      - name: Create an isolated venv for testing
-        run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
           DEPENDENCIES=$(uv run --no-project tests/get_external_stub_requirements.py)
