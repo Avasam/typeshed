@@ -43,6 +43,7 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
+          prune-cache: false # Can't prune cache if uv installs uv
           cache-dependency-glob: |
             requirements-tests.txt
             stubs/**/METADATA.toml
