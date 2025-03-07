@@ -27,19 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/check_typeshed_structure.py
+      - run: uv run --no-project ./tests/check_typeshed_structure.py
 
   pytype:
     name: Run pytype against the stubs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           # Max supported Python version as of pytype 2024.9.13
           python-version: "3.12"
@@ -47,7 +46,7 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$(uv run --no-project tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               uv pip install --system $DEPENDENCIES
@@ -65,26 +64,24 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - run: uv run --no-project ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
     name: Run mypy on the test cases
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           # Use py311 for now, as py312 seems to be around 30s slower in CI
           # TODO: figure out why that is (#11590)
           python-version: "3.11"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/regr_test.py --all --verbosity QUIET
+      - run: uv run --no-project ./tests/regr_test.py --all --verbosity QUIET
 
   pyright:
     name: Test typeshed with pyright
@@ -96,7 +93,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
@@ -107,7 +104,7 @@ jobs:
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$(uv run --no-project tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               uv pip install --python-version ${{ matrix.python-version }} $DEPENDENCIES
@@ -153,7 +150,7 @@ jobs:
         with:
           repository: typeshed-internal/stub_uploader
           path: stub_uploader
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
@@ -161,4 +158,4 @@ jobs:
         run: |
           cd stub_uploader
           uv pip install -r requirements.txt --system
-          python -m pytest tests
+          uv run --no-project -m pytest tests
