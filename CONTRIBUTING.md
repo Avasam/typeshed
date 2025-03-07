@@ -50,37 +50,63 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-### Linux/Mac OS/WSL
+<table>
+<tr>
+  <td>Linux / macOS / WSL</td>
+  <td>
 
-On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9-3.12.
-To install the necessary requirements, run the following commands from a
-terminal window:
+  On Linux and macOS, you will be able to run the full test suite on Python
+  3.9-3.12.
+  To install the necessary requirements, run the following commands from a
+  terminal window:
 
-```bash
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-(.venv)$ pip install -U pip
-(.venv)$ pip install -r requirements-tests.txt
-```
+  ```bash
+  $ python3 -m venv .venv
+  $ source .venv/bin/activate
+  (.venv)$ pip install -U "pip>=25.1"
+  (.venv)$ pip install --group=dev
+  ```
+  
+  </td>
+</tr>
+<tr>
+  <td>Windows</td>
+  <td>
 
-### Windows
+  Run the following commands from a Windows terminal to install all requirements:
 
-Run the following commands from a Windows terminal to install all requirements:
+  ```powershell
+  > python -m venv .venv
+  > .venv\Scripts\activate
+  (.venv) > pip install -U "pip>=25.1"
+  (.venv) > pip install --group=dev
+  ```
 
-```powershell
-> python -m venv .venv
-> .venv\Scripts\activate
-(.venv) > pip install -U pip
-(.venv) > pip install -r "requirements-tests.txt"
-```
-
-To be able to run pytype tests, you'll also need to install it manually
+  To be able to run pytype tests, you'll also need to install it manually
 as it's currently excluded from the requirements file:
 
-```powershell
-(.venv) > pip install -U pytype
-```
+  ```powershell
+  (.venv) > pip install -U pytype
+  ```
+  
+  </td>
+</tr>
+<tr>
+  <td>Using uv</td>
+  <td>
+
+  If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above by:
+
+  ```shell
+  uv pip install --dev
+  ```
+  ```shell
+  uv pip install -U pytype
+  ```
+
+  </td>
+</tr>
+</table>
 
 ## Code formatting
 
@@ -213,7 +239,7 @@ This has the following keys:
   in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
-* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+* `brew_dependencies` (default: `[]`): A list of macOS Homebrew packages
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
@@ -313,7 +339,7 @@ replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 When the script has finished running, it will print instructions telling you what to do next.
 
 If it has been a while since you set up the virtualenv, make sure you have
-the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
+the latest mypy (`pip install --group=dev`) before running the script.
 
 ### Supported type system features
 
