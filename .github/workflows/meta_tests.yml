@@ -36,12 +36,11 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
+      - run: uv pip install -r requirements-tests.txt
+      - run: uv run --no-project ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
     name: Run pyright against the scripts and tests directories
     runs-on: ubuntu-latest
@@ -51,11 +50,11 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
+          prune-cache: false # Can't prune cache if uv installs uv
+      - run: uv pip install -r requirements-tests.txt
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
@@ -68,13 +67,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Git config
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python scripts/stubsabot.py --action-level local
+      - run: uv pip install -r requirements-tests.txt
+      - run: uv run --no-project scripts/stubsabot.py --action-level local
