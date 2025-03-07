@@ -7,9 +7,10 @@ import sys
 from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
+import tomllib
 from typing import Any, Dict, Final, NamedTuple, Tuple
 from typing_extensions import TypeAlias
-
+from dependency_groups import resolve
 import pathspec
 from packaging.requirements import Requirement
 
@@ -21,7 +22,7 @@ except ImportError:
         return text
 
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+from .paths import PYPROJECT_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
@@ -96,11 +97,11 @@ def venv_python(venv_dir: Path) -> Path:
 @cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
-    with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
-        stripped_lines = map(strip_comments, requirements_file)
-        stripped_more = [li for li in stripped_lines if not li.startswith("-")]
-        requirements = map(Requirement, filter(None, stripped_more))
-        return {requirement.name: requirement for requirement in requirements}
+    with PYPROJECT_PATH.open("rb") as requirements_file:
+        pyproject = tomllib.load(requirements_file)
+
+    requirements = [Requirement(requirement) for requirement in resolve(pyproject["dependency-groups"], "dev")]
+    return {requirement.name: requirement for requirement in requirements}
 
 
 def get_mypy_req() -> str:

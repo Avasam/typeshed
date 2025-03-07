@@ -9,11 +9,12 @@ TS_BASE_PATH: Final = Path("")
 STDLIB_PATH: Final = TS_BASE_PATH / "stdlib"
 STUBS_PATH: Final = TS_BASE_PATH / "stubs"
 
-PYPROJECT_PATH: Final = TS_BASE_PATH / "pyproject.toml"
-REQUIREMENTS_PATH: Final = TS_BASE_PATH / "requirements-tests.txt"
+PYPROJECT_PATH: Final = TS_BASE_PATH / "pyproject.tosml"
 
 TESTS_DIR: Final = "@tests"
 TEST_CASES_DIR: Final = "test_cases"
+
+print("hi!")
 
 
 def distribution_path(distribution_name: str) -> Path:
