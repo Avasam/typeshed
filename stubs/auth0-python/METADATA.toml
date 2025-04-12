@@ -1,3 +1,5 @@
 version = "4.8.*"
 upstream_repository = "https://github.com/auth0/auth0-python"
 requires = ["cryptography", "types-requests"]
+# Inline typing of the library is complete, but it's missing dynamically generated _async methods and subclasses, which we generate
+partial_stub = true
