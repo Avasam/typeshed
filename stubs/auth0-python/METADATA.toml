@@ -1,5 +1,10 @@
 version = "4.8.*"
 upstream_repository = "https://github.com/auth0/auth0-python"
-requires = ["cryptography", "types-requests"]
+requires = ["aiohttp", "auth0-python", "cryptography"]
 # Inline typing of the library is complete, but it's missing dynamically generated _async methods and subclasses, which we generate
 partial_stub = true
+
+# When ran directly on our stubs, mypy won't understand that they are partial
+[mypy-tests.auth0]
+module_name = "auth0.*"
+values = { "follow_untyped_imports" = true }

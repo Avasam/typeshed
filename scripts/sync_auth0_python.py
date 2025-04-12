@@ -1,8 +1,10 @@
 import re
 import shutil
 import sys
+from itertools import chain
 from pathlib import Path
 from subprocess import check_call, run
+from textwrap import dedent
 
 _ASYNCIFIED_PATH = Path("stubs/auth0-python/auth0/_asyncified")
 KEEP_LINES_STARTSWITH = ("from ", "import ", "    def ", "class ", "\n")
@@ -15,11 +17,16 @@ def main() -> None:
     # Move the generated stubs to the right place
     shutil.copytree(_ASYNCIFIED_PATH / "auth0", _ASYNCIFIED_PATH, copy_function=shutil.move, dirs_exist_ok=True)
     shutil.rmtree(_ASYNCIFIED_PATH / "auth0")
+
     for path_to_remove in (
         (_ASYNCIFIED_PATH / "authentication" / "__init__.pyi"),
         (_ASYNCIFIED_PATH / "management" / "__init__.pyi"),
-        # These manage async in their own way
-        *_ASYNCIFIED_PATH.rglob("async_*.pyi"),
+        *chain.from_iterable(
+            [
+                (already_async, already_async.with_name(already_async.name.removeprefix("async_")))
+                for already_async in _ASYNCIFIED_PATH.rglob("async_*.pyi")
+            ]
+        ),
     ):
         path_to_remove.unlink()
 
@@ -27,6 +34,7 @@ def main() -> None:
     for stub_path in _ASYNCIFIED_PATH.rglob("*.pyi"):
         with stub_path.open() as stub_file:
             lines = stub_file.readlines()
+        relative_module = (stub_path.relative_to(_ASYNCIFIED_PATH).with_suffix("").as_posix()).replace("/", ".")
 
         # Only keep imports, classes and public non-special methods
         stub_content = "".join(
@@ -45,24 +53,27 @@ def main() -> None:
         stub_content = re.sub(r"(from \.\w+? import )(\w+?)\n", "\\1_\\2Async\n", stub_content)
         # Prep extra imports
         stub_content = "from typing import type_check_only\n" + stub_content
+
         # Rename classes to their stub-only asyncified variant and subclass them
-        relative_module = (stub_path.relative_to(_ASYNCIFIED_PATH).with_suffix("").as_posix()).replace("/", ".")
-        # Transform subclasses. These are a bit weird since they may have asyncified methods hidden by base class.
-        # We must also update their imports
+        #   Transform subclasses. These are a bit odd since they may have asyncified methods hidden by base class.
         stub_content = re.sub(
             r"class (\w+?)\((\w+?)\):",
-            """\
-@type_check_only
-class _\\1Async(_\\2Async):""",
+            dedent(
+                """\
+                @type_check_only
+                class _\\1Async(_\\2Async):"""
+            ),
             stub_content,
         )
-        # Transform base classes
+        #   Transform base classes
         stub_content = re.sub(
             r"class (\w+?):",
-            f"""\
-from auth0.{relative_module} import \\1  # noqa: E402
-@type_check_only
-class _\\1Async(\\1):""",
+            dedent(
+                f"""\
+                from auth0.{relative_module} import \\1  # noqa: E402
+                @type_check_only
+                class _\\1Async(\\1):"""
+            ),
             stub_content,
         )
         # Update methods to their asyncified variant
