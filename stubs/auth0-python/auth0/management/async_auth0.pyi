@@ -1,7 +1,6 @@
 from types import TracebackType
 from typing_extensions import Self
 
-import aiohttp
 from auth0.rest import RestClientOptions
 
 # ignore: Relative import climbs too many namespaces
@@ -38,7 +37,7 @@ from .._asyncified.management.users_by_email import _UsersByEmailAsync  # type: 
 
 class AsyncAuth0:
     def __init__(self, domain: str, token: str, rest_options: RestClientOptions | None = None) -> None: ...
-    def set_session(self, session: aiohttp.ClientSession) -> None: ...
+    def set_session(self, session) -> None: ...
     async def __aenter__(self) -> Self: ...
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
