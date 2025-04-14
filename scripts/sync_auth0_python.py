@@ -46,11 +46,7 @@ def modify_stubs() -> list[tuple[str, str]]:
 
         # Only keep imports, classes and public non-special methods
         stub_content = "".join(
-            [
-                line
-                for line in lines
-                if "def _" not in line and any(True for check in KEEP_LINES_STARTSWITH if line.startswith(check))
-            ]
+            filter(lambda line: "def _" not in line and any(line.startswith(check) for check in KEEP_LINES_STARTSWITH), lines)
         )
 
         base_classes_for_overload.extend([(relative_module, match) for match in re.findall(BASE_CLASS_RE, stub_content)])
