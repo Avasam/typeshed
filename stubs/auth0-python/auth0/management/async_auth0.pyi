@@ -4,7 +4,7 @@ from typing_extensions import Self
 import aiohttp
 from auth0.rest import RestClientOptions
 
-# Relative import climbs too many namespaces
+# ignore: Relative import climbs too many namespaces
 from .._asyncified.management.actions import _ActionsAsync  # type: ignore[misc]
 from .._asyncified.management.attack_protection import _AttackProtectionAsync  # type: ignore[misc]
 from .._asyncified.management.blacklists import _BlacklistsAsync  # type: ignore[misc]
