@@ -27,30 +27,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.13"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/check_typeshed_structure.py
+      - run: uv pip install -r requirements-tests.txt
+      - run: uv run ./tests/check_typeshed_structure.py
 
   pytype:
     name: "pytype: Check stubs"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           # Max supported Python version as of pytype 2024.10.11
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install -r requirements-tests.txt
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$(uv run tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              uv pip install --system $DEPENDENCIES
+              uv pip install $DEPENDENCIES
           fi
       - run: uv pip freeze
       - run: ./tests/pytype_test.py --print-stderr
@@ -65,26 +64,24 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - run: uv pip install -r requirements-tests.txt
+      - run: uv run ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
     name: "mypy: Run test cases"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           # Use py311 for now, as py312 seems to be around 30s slower in CI
           # TODO: figure out why that is (#11590)
           python-version: "3.11"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/regr_test.py --all --verbosity QUIET
+      - run: uv pip install -r requirements-tests.txt
+      - run: uv run ./tests/regr_test.py --all --verbosity QUIET
 
   pyright:
     name: "pyright: Run test cases"
@@ -96,24 +93,20 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v5
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
-        run: uv pip install -r requirements-tests.txt --system
-      - name: Create an isolated venv for testing
-        run: uv venv .venv
+        run: uv pip install -r requirements-tests.txt
       - name: Install 3rd-party stub dependencies
         run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$(uv run tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               uv pip install --python-version ${{ matrix.python-version }} $DEPENDENCIES
           fi
-      - name: Activate the isolated venv for the rest of the job
-        run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
       - name: Run pyright with basic settings on all the stubs
@@ -153,7 +146,7 @@ jobs:
         with:
           repository: typeshed-internal/stub_uploader
           path: stub_uploader
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
@@ -161,5 +154,5 @@ jobs:
       - name: Run tests
         run: |
           cd stub_uploader
-          uv pip install -r requirements.txt --system
-          python -m pytest tests
+          uv pip install -r requirements.txt
+          uv run -m pytest tests
