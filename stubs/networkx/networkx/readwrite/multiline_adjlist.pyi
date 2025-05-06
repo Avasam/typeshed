@@ -3,13 +3,17 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
-def generate_multiline_adjlist(G, delimiter: str = " ") -> Generator[Incomplete, None, None]: ...
-def write_multiline_adjlist(G, path, delimiter: str = " ", comments: str = "#", encoding: str = "utf-8") -> None: ...
+from ..classes.graph import Graph
+
+def generate_multiline_adjlist(G: Graph[Incomplete], delimiter: str = " ") -> Generator[str, None, None]: ...
+def write_multiline_adjlist(
+    G: Graph[Incomplete], path, delimiter: str = " ", comments: str = "#", encoding: str = "utf-8"
+) -> None: ...
 @_dispatchable
 def parse_multiline_adjlist(
     lines,
     comments: str = "#",
-    delimiter: Incomplete | None = None,
+    delimiter: str | None = None,
     create_using: Incomplete | None = None,
     nodetype: Incomplete | None = None,
     edgetype: Incomplete | None = None,
@@ -18,7 +22,7 @@ def parse_multiline_adjlist(
 def read_multiline_adjlist(
     path,
     comments: str = "#",
-    delimiter: Incomplete | None = None,
+    delimiter: str | None = None,
     create_using: Incomplete | None = None,
     nodetype: Incomplete | None = None,
     edgetype: Incomplete | None = None,

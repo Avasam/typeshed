@@ -1,9 +1,12 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping
 
 from networkx.utils.backends import _dispatchable
 
+from ...classes.graph import Graph
+
 def node_link_data(
-    G,
+    G: Graph[Incomplete],
     *,
     source: str = "source",
     target: str = "target",
@@ -15,10 +18,9 @@ def node_link_data(
 ): ...
 @_dispatchable
 def node_link_graph(
-    data,
+    data: Mapping[str, Incomplete],
     directed: bool = False,
     multigraph: bool = True,
-    attrs: Incomplete | None = None,
     *,
     source: str = "source",
     target: str = "target",
