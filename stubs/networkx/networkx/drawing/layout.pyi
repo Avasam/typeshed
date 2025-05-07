@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 import numpy
-from numpy._typing import ArrayLike  # pyright: ignore[reportPrivateImportUsage]
+from numpy.typing import ArrayLike
 
 from ..classes.graph import Graph
 

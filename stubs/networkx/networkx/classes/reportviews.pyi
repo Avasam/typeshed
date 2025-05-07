@@ -9,6 +9,31 @@ from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
 _D = TypeVar("_D")
 _U = TypeVar("_U")
 
+__all__ = [
+    "NodeView",
+    "NodeDataView",
+    "EdgeView",
+    "OutEdgeView",
+    "InEdgeView",
+    "EdgeDataView",
+    "OutEdgeDataView",
+    "InEdgeDataView",
+    "MultiEdgeView",
+    "OutMultiEdgeView",
+    "InMultiEdgeView",
+    "MultiEdgeDataView",
+    "OutMultiEdgeDataView",
+    "InMultiEdgeDataView",
+    "DegreeView",
+    "DiDegreeView",
+    "InDegreeView",
+    "OutDegreeView",
+    "MultiDegreeView",
+    "DiMultiDegreeView",
+    "InMultiDegreeView",
+    "OutMultiDegreeView",
+]
+
 class NodeView(Mapping[_Node, dict[str, Any]], AbstractSet[_Node]):
     def __init__(self, graph: Graph[_Node]) -> None: ...
     def __len__(self) -> int: ...
@@ -68,6 +93,7 @@ class MultiEdgeDataView(OutEdgeDataView[_Node, _D]): ...
 class InMultiEdgeDataView(OutEdgeDataView[_Node, _D]): ...
 
 class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Generic[_Node]):
+    dataview = OutEdgeDataView
     def __init__(self, G: Graph[_Node]) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[tuple[_Node, _Node]]: ...
@@ -106,10 +132,14 @@ class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Gene
         self, data: str, default: _U | None = None, nbunch: _NBunch[_Node] = None
     ) -> OutEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
 
-class EdgeView(OutEdgeView[_Node]): ...
-class InEdgeView(OutEdgeView[_Node]): ...
+class EdgeView(OutEdgeView[_Node]):
+    dataview = EdgeDataView
+
+class InEdgeView(OutEdgeView[_Node]):
+    dataview = InEdgeDataView
 
 class OutMultiEdgeView(OutEdgeView[_Node]):
+    dataview = OutMultiEdgeDataView
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> dict[str, Any]: ...  # type: ignore[override]
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
@@ -171,5 +201,8 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
         self, data: str, default: _U | None = None, nbunch: _NBunch[_Node] = None, *, keys: Literal[True]
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, _U]]: ...
 
-class MultiEdgeView(OutMultiEdgeView[_Node]): ...
-class InMultiEdgeView(OutMultiEdgeView[_Node]): ...
+class MultiEdgeView(OutMultiEdgeView[_Node]):
+    dataview = MultiEdgeDataView
+
+class InMultiEdgeView(OutMultiEdgeView[_Node]):
+    dataview = InMultiEdgeDataView
