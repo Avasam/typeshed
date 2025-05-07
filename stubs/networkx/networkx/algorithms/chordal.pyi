@@ -1,5 +1,5 @@
 import sys
-from binascii import Incomplete
+from _typeshed import Incomplete
 from collections.abc import Generator
 
 from networkx.classes.graph import Graph, _Node
@@ -26,4 +26,4 @@ def chordal_graph_cliques(G: Graph[_Node]) -> Generator[frozenset[_Node], None, 
 @_dispatchable
 def chordal_graph_treewidth(G: Graph[_Node]) -> int: ...
 @_dispatchable
-def complete_to_chordal_graph(G) -> tuple[Incomplete, dict[Incomplete, int]]: ...
+def complete_to_chordal_graph(G: Graph[Incomplete]) -> tuple[Incomplete, dict[Incomplete, int]]: ...

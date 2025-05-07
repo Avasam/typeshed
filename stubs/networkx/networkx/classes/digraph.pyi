@@ -5,7 +5,14 @@ from typing_extensions import Self
 
 from networkx.classes.coreviews import AdjacencyView
 from networkx.classes.graph import Graph, _Node
-from networkx.classes.reportviews import DiDegreeView, InDegreeView, OutDegreeView, OutEdgeView
+from networkx.classes.reportviews import (
+    DiDegreeView,
+    InDegreeView,
+    InMultiDegreeView,
+    OutDegreeView,
+    OutEdgeView,
+    OutMultiDegreeView,
+)
 
 __all__ = ["DiGraph"]
 
@@ -26,8 +33,8 @@ class DiGraph(Graph[_Node]):
     @cached_property
     def degree(self) -> DiDegreeView[_Node]: ...
     @cached_property
-    def in_degree(self) -> InDegreeView[_Node]: ...
+    def in_degree(self) -> InDegreeView[_Node] | InMultiDegreeView[_Node]: ...  # Include subtypes' possible return types
     @cached_property
-    def out_degree(self) -> OutDegreeView[_Node]: ...
+    def out_degree(self) -> OutDegreeView[_Node] | OutMultiDegreeView[_Node]: ...  # Include subtypes' possible return types
     def to_undirected(self, reciprocal: bool = False, as_view: bool = False) -> Graph[_Node]: ...  # type: ignore[override]  # Has an additional `reciprocal` keyword argument
     def reverse(self, copy: bool = True) -> Self: ...
