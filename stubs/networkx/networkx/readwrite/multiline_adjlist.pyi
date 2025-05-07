@@ -5,6 +5,8 @@ from networkx.utils.backends import _dispatchable
 
 from ..classes.graph import Graph
 
+__all__ = ["generate_multiline_adjlist", "write_multiline_adjlist", "parse_multiline_adjlist", "read_multiline_adjlist"]
+
 def generate_multiline_adjlist(G: Graph[Incomplete], delimiter: str = " ") -> Generator[str, None, None]: ...
 def write_multiline_adjlist(
     G: Graph[Incomplete], path, delimiter: str = " ", comments: str = "#", encoding: str = "utf-8"

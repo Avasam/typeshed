@@ -10,6 +10,8 @@ __all__ = ["from_agraph", "to_agraph", "write_dot", "read_dot", "graphviz_layout
 # from pygraphviz.agraph import AGraph as _AGraph
 _AGraph: TypeAlias = Incomplete
 
+__all__ = ["from_agraph", "to_agraph", "write_dot", "read_dot", "graphviz_layout", "pygraphviz_layout", "view_pygraphviz"]
+
 @_dispatchable
 def from_agraph(A, create_using: Incomplete | None = None) -> Graph[Incomplete]: ...
 def to_agraph(N: Graph[Hashable]) -> _AGraph: ...

@@ -30,24 +30,6 @@ def random_layout(
 def circular_layout(
     G: Graph[Incomplete], scale: float = 1, center: ArrayLike | None = None, dim: int = 2
 ) -> dict[Incomplete, Incomplete]: ...
-def forceatlas2_layout(
-    G,
-    pos=None,
-    *,
-    max_iter=100,
-    jitter_tolerance=1.0,
-    scaling_ratio=2.0,
-    gravity=1.0,
-    distributed_action=False,
-    strong_gravity=False,
-    node_mass=None,
-    node_size=None,
-    weight=None,
-    dissuade_hubs=False,
-    linlog=False,
-    seed=None,
-    dim=2,
-): ...
 def shell_layout(
     G: Graph[Incomplete],
     nlist: Incomplete | None = None,
@@ -106,7 +88,6 @@ def spiral_layout(
 def multipartite_layout(
     G: Graph[Incomplete], subset_key: str = "subset", align: str = "vertical", scale: float = 1, center: ArrayLike | None = None
 ) -> dict[Incomplete, Incomplete]: ...
-def bfs_layout(G, start, *, align="vertical", scale=1, center=None): ...
 def arf_layout(
     G: Graph[Incomplete],
     pos: Incomplete | None = None,
@@ -118,5 +99,24 @@ def arf_layout(
     *,
     seed: int | numpy.random.RandomState | None = None,
 ): ...
+def forceatlas2_layout(
+    G,
+    pos=None,
+    *,
+    max_iter=100,
+    jitter_tolerance=1.0,
+    scaling_ratio=2.0,
+    gravity=1.0,
+    distributed_action=False,
+    strong_gravity=False,
+    node_mass=None,
+    node_size=None,
+    weight=None,
+    dissuade_hubs=False,
+    linlog=False,
+    seed=None,
+    dim=2,
+) -> dict[Incomplete, Incomplete]: ...
 def rescale_layout(pos, scale: float = 1): ...
 def rescale_layout_dict(pos, scale: float = 1): ...
+def bfs_layout(G, start, *, align="vertical", scale=1, center=None) -> dict[Incomplete, Incomplete]: ...
