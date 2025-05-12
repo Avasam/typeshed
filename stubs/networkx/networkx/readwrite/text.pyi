@@ -20,13 +20,11 @@ class AsciiDirectedGlyphs(AsciiBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
-    vertical_edge: ClassVar[str]
 
 class AsciiUndirectedGlyphs(AsciiBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
-    vertical_edge: ClassVar[str]
 
 class UtfBaseGlyphs(BaseGlyphs):
     empty: ClassVar[str]
@@ -40,13 +38,11 @@ class UtfDirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
-    vertical_edge: ClassVar[str]
 
 class UtfUndirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
-    vertical_edge: ClassVar[str]
 
 def generate_network_text(
     graph,
