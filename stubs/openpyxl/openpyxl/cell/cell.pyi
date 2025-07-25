@@ -90,10 +90,7 @@ class MergedCell(StyleableObject):
     def __init__(
         self, worksheet: _WorkbookChild | ReadOnlyWorksheet, row: int | None = None, column: int | None = None
     ) -> None: ...
-    # Same as Cell.coordinate
-    # https://github.com/python/mypy/issues/6700
-    @property
-    def coordinate(self) -> str: ...
+    coordinate = Cell.coordinate
     # The value of a MergedCell is always None.
     value: None
 

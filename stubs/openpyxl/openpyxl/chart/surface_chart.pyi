@@ -43,10 +43,9 @@ class _SurfaceChartBase(ChartBase):
 
 class SurfaceChart3D(_SurfaceChartBase, _3DBase):
     tagname: ClassVar[str]
-    # Same as parent
-    # wireframe = _SurfaceChartBase.wireframe
-    # ser = _SurfaceChartBase.ser
-    # bandFmts = _SurfaceChartBase.bandFmts
+    wireframe = _SurfaceChartBase.wireframe
+    ser = _SurfaceChartBase.ser
+    bandFmts = _SurfaceChartBase.bandFmts
     extLst: Typed[ExtensionList, Literal[True]]
     x_axis: Typed[TextAxis, Literal[False]]
     y_axis: Typed[NumericAxis, Literal[False]]
@@ -56,10 +55,9 @@ class SurfaceChart3D(_SurfaceChartBase, _3DBase):
 
 class SurfaceChart(SurfaceChart3D):
     tagname: ClassVar[str]
-    # Same as parent and grandparent
-    # wireframe = _SurfaceChartBase.wireframe
-    # ser = _SurfaceChartBase.ser
-    # bandFmts = _SurfaceChartBase.bandFmts
+    wireframe = _SurfaceChartBase.wireframe
+    ser = _SurfaceChartBase.ser
+    bandFmts = _SurfaceChartBase.bandFmts
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, **kw) -> None: ...

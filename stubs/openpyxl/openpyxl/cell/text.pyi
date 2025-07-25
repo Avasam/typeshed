@@ -38,21 +38,20 @@ class PhoneticText(Serialisable):
 class InlineFont(Font):
     tagname: ClassVar[str]
     rFont: NestedString[Literal[True]]
-    # Same as parent
-    # charset = Font.charset
-    # family = Font.family
-    # b = Font.b
-    # i = Font.i
-    # strike = Font.strike
-    # outline = Font.outline
-    # shadow = Font.shadow
-    # condense = Font.condense
-    # extend = Font.extend
-    # color = Font.color
-    # sz = Font.sz
-    # u = Font.u
-    # vertAlign = Font.vertAlign
-    # scheme = Font.scheme
+    charset = Font.charset
+    family = Font.family
+    b = Font.b
+    i = Font.i
+    strike = Font.strike
+    outline = Font.outline
+    shadow = Font.shadow
+    condense = Font.condense
+    extend = Font.extend
+    color = Font.color
+    sz = Font.sz
+    u = Font.u
+    vertAlign = Font.vertAlign
+    scheme = Font.scheme
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,

@@ -1,11 +1,6 @@
-from collections.abc import Iterable
-
 from openpyxl import _Decodable
-from openpyxl.cell.cell import Cell
 from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.workbook.workbook import Workbook
-from openpyxl.worksheet.table import TableList
-from openpyxl.worksheet.views import SheetView
 from openpyxl.worksheet.worksheet import Worksheet
 
 class WriteOnlyWorksheet(_WorkbookChild):
@@ -13,31 +8,13 @@ class WriteOnlyWorksheet(_WorkbookChild):
     add_chart = Worksheet.add_chart
     add_image = Worksheet.add_image
     add_table = Worksheet.add_table
-
-    # Same properties as Worksheet
-    # https://github.com/python/mypy/issues/6700
-    @property
-    def tables(self) -> TableList: ...
-    @property
-    def print_titles(self) -> str: ...
-    @property
-    def print_title_cols(self) -> str | None: ...
-    @print_title_cols.setter
-    def print_title_cols(self, cols: str | None) -> None: ...
-    @property
-    def print_title_rows(self) -> str | None: ...
-    @print_title_rows.setter
-    def print_title_rows(self, rows: str | None) -> None: ...
-    @property
-    def freeze_panes(self) -> str | None: ...
-    @freeze_panes.setter
-    def freeze_panes(self, topLeftCell: str | Cell | None = ...) -> None: ...
-    @property
-    def print_area(self) -> str: ...
-    @print_area.setter
-    def print_area(self, value: str | Iterable[str] | None) -> None: ...
-    @property
-    def sheet_view(self) -> SheetView: ...
+    tables = Worksheet.tables
+    print_titles = Worksheet.print_titles
+    print_title_cols = Worksheet.print_title_cols
+    print_title_rows = Worksheet.print_title_rows
+    freeze_panes = Worksheet.freeze_panes
+    print_area = Worksheet.print_area
+    sheet_view = Worksheet.sheet_view
     def __init__(self, parent: Workbook | None, title: str | _Decodable | None) -> None: ...
     @property
     def closed(self) -> bool: ...

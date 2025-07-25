@@ -88,20 +88,18 @@ class Series(Serialisable):
     ) -> Element: ...
 
 class XYSeries(Series):
-    # Same as parent
-    # idx = Series.idx
-    # order = Series.order
-    # tx = Series.tx
-    # spPr = Series.spPr
-    # dPt = Series.dPt
-    # dLbls = Series.dLbls
-    # trendline = Series.trendline
-    # errBars = Series.errBars
-    # xVal = Series.xVal
-    # yVal = Series.yVal
-    # invertIfNegative = Series.invertIfNegative
-    # bubbleSize = Series.bubbleSize
-    # bubble3D = Series.bubble3D
-    # marker = Series.marker
-    # smooth = Series.smooth
-    ...
+    idx = Series.idx
+    order = Series.order
+    tx = Series.tx
+    spPr = Series.spPr
+    dPt = Series.dPt
+    dLbls = Series.dLbls
+    trendline = Series.trendline
+    errBars = Series.errBars
+    xVal = Series.xVal
+    yVal = Series.yVal
+    invertIfNegative = Series.invertIfNegative
+    bubbleSize = Series.bubbleSize
+    bubble3D = Series.bubble3D
+    marker = Series.marker
+    smooth = Series.smooth

@@ -9,10 +9,7 @@ from .cell_range import CellRange
 
 class MergeCell(CellRange):
     tagname: ClassVar[str]
-    # Same as CellRange.coord
-    # https://github.com/python/mypy/issues/6700
-    @property
-    def ref(self) -> str: ...
+    ref = CellRange.coord
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, ref=None) -> None: ...
     def __copy__(self): ...

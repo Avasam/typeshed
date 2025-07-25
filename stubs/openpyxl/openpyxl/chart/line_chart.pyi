@@ -34,12 +34,11 @@ class _LineChartBase(ChartBase):
 
 class LineChart(_LineChartBase):
     tagname: ClassVar[str]
-    # Same as parent
-    # grouping = _LineChartBase.grouping
-    # varyColors = _LineChartBase.varyColors
-    # ser = _LineChartBase.ser
-    # dLbls = _LineChartBase.dLbls
-    # dropLines = _LineChartBase.dropLines
+    grouping = _LineChartBase.grouping
+    varyColors = _LineChartBase.varyColors
+    ser = _LineChartBase.ser
+    dLbls = _LineChartBase.dLbls
+    dropLines = _LineChartBase.dropLines
     hiLowLines: Typed[ChartLines, Literal[True]]
     upDownBars: Typed[UpDownBars, Literal[True]]
     marker: NestedBool[Literal[True]]
@@ -60,12 +59,11 @@ class LineChart(_LineChartBase):
 
 class LineChart3D(_LineChartBase):
     tagname: ClassVar[str]
-    # Same as parent
-    # grouping = _LineChartBase.grouping
-    # varyColors = _LineChartBase.varyColors
-    # ser = _LineChartBase.ser
-    # dLbls = _LineChartBase.dLbls
-    # dropLines = _LineChartBase.dropLines
+    grouping = _LineChartBase.grouping
+    varyColors = _LineChartBase.varyColors
+    ser = _LineChartBase.ser
+    dLbls = _LineChartBase.dLbls
+    dropLines = _LineChartBase.dropLines
     gapDepth: Incomplete
     hiLowLines: Typed[ChartLines, Literal[True]]
     upDownBars: Typed[UpDownBars, Literal[True]]

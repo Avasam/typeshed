@@ -41,8 +41,7 @@ PageBreak = RowBreak
 
 class ColBreak(RowBreak):
     tagname: ClassVar[str]
-    # Same as parent
-    # count = RowBreak.count
-    # manualBreakCount = RowBreak.manualBreakCount
-    # brk = RowBreak.brk
-    __attrs__: ClassVar[tuple[str, ...]]
+    count = RowBreak.count
+    manualBreakCount = RowBreak.manualBreakCount
+    brk = RowBreak.brk
+    __attrs__ = RowBreak.__attrs__

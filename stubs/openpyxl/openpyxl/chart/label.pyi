@@ -51,20 +51,19 @@ class _DataLabelBase(Serialisable):
 class DataLabel(_DataLabelBase):
     tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
-    # Same as parent
-    # numFmt = _DataLabelBase.numFmt
-    # spPr = _DataLabelBase.spPr
-    # txPr = _DataLabelBase.txPr
-    # dLblPos = _DataLabelBase.dLblPos
-    # showLegendKey = _DataLabelBase.showLegendKey
-    # showVal = _DataLabelBase.showVal
-    # showCatName = _DataLabelBase.showCatName
-    # showSerName = _DataLabelBase.showSerName
-    # showPercent = _DataLabelBase.showPercent
-    # showBubbleSize = _DataLabelBase.showBubbleSize
-    # showLeaderLines = _DataLabelBase.showLeaderLines
-    # separator = _DataLabelBase.separator
-    # extLst = _DataLabelBase.extLst
+    numFmt = _DataLabelBase.numFmt
+    spPr = _DataLabelBase.spPr
+    txPr = _DataLabelBase.txPr
+    dLblPos = _DataLabelBase.dLblPos
+    showLegendKey = _DataLabelBase.showLegendKey
+    showVal = _DataLabelBase.showVal
+    showCatName = _DataLabelBase.showCatName
+    showSerName = _DataLabelBase.showSerName
+    showPercent = _DataLabelBase.showPercent
+    showBubbleSize = _DataLabelBase.showBubbleSize
+    showLeaderLines = _DataLabelBase.showLeaderLines
+    separator = _DataLabelBase.separator
+    extLst = _DataLabelBase.extLst
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt = 0, **kw) -> None: ...
 
@@ -72,20 +71,19 @@ class DataLabelList(_DataLabelBase):
     tagname: ClassVar[str]
     dLbl: Incomplete
     delete: NestedBool[Literal[True]]
-    # Same as parent
-    # numFmt = _DataLabelBase.numFmt
-    # spPr = _DataLabelBase.spPr
-    # txPr = _DataLabelBase.txPr
-    # dLblPos = _DataLabelBase.dLblPos
-    # showLegendKey = _DataLabelBase.showLegendKey
-    # showVal = _DataLabelBase.showVal
-    # showCatName = _DataLabelBase.showCatName
-    # showSerName = _DataLabelBase.showSerName
-    # showPercent = _DataLabelBase.showPercent
-    # showBubbleSize = _DataLabelBase.showBubbleSize
-    # showLeaderLines = _DataLabelBase.showLeaderLines
-    # separator = _DataLabelBase.separator
-    # extLst = _DataLabelBase.extLst
+    numFmt = _DataLabelBase.numFmt
+    spPr = _DataLabelBase.spPr
+    txPr = _DataLabelBase.txPr
+    dLblPos = _DataLabelBase.dLblPos
+    showLegendKey = _DataLabelBase.showLegendKey
+    showVal = _DataLabelBase.showVal
+    showCatName = _DataLabelBase.showCatName
+    showSerName = _DataLabelBase.showSerName
+    showPercent = _DataLabelBase.showPercent
+    showBubbleSize = _DataLabelBase.showBubbleSize
+    showLeaderLines = _DataLabelBase.showLeaderLines
+    separator = _DataLabelBase.separator
+    extLst = _DataLabelBase.extLst
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, dLbl=(), delete: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None, **kw

@@ -1,8 +1,6 @@
 from _typeshed import SupportsGetItem
-from collections.abc import Generator
 
 from openpyxl import _VisibilityType
-from openpyxl.cell import _CellGetValue, _CellOrMergedCell
 from openpyxl.utils.cell import _RangeBoundariesTuple
 from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
@@ -12,14 +10,8 @@ def read_dimension(source) -> _RangeBoundariesTuple | None: ...
 class ReadOnlyWorksheet:
     cell = Worksheet.cell
     iter_rows = Worksheet.iter_rows
-    # Same as Worksheet.values
-    # https://github.com/python/mypy/issues/6700
-    @property
-    def values(self) -> Generator[tuple[_CellGetValue, ...], None, None]: ...
-    # Same as Worksheet.rows
-    # https://github.com/python/mypy/issues/6700
-    @property
-    def rows(self) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
+    values = Worksheet.values
+    rows = Worksheet.rows
     __getitem__ = Worksheet.__getitem__
     __iter__ = Worksheet.__iter__
     parent: Workbook

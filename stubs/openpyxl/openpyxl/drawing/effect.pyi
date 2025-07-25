@@ -107,13 +107,12 @@ class AlphaBiLevelEffect(Serialisable):
 
 class GlowEffect(ColorChoice):
     rad: Float[Literal[False]]
-    # Same as parent
-    # scrgbClr = ColorChoice.scrgbClr
-    # srgbClr = ColorChoice.srgbClr
-    # hslClr = ColorChoice.hslClr
-    # sysClr = ColorChoice.sysClr
-    # schemeClr = ColorChoice.schemeClr
-    # prstClr = ColorChoice.prstClr
+    scrgbClr = ColorChoice.scrgbClr
+    srgbClr = ColorChoice.srgbClr
+    hslClr = ColorChoice.hslClr
+    sysClr = ColorChoice.sysClr
+    schemeClr = ColorChoice.schemeClr
+    prstClr = ColorChoice.prstClr
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rad: ConvertibleToFloat, **kw) -> None: ...
 
@@ -121,13 +120,12 @@ class InnerShadowEffect(ColorChoice):
     blurRad: Float[Literal[False]]
     dist: Float[Literal[False]]
     dir: Integer[Literal[False]]
-    # Same as parent
-    # scrgbClr = ColorChoice.scrgbClr
-    # srgbClr = ColorChoice.srgbClr
-    # hslClr = ColorChoice.hslClr
-    # sysClr = ColorChoice.sysClr
-    # schemeClr = ColorChoice.schemeClr
-    # prstClr = ColorChoice.prstClr
+    scrgbClr = ColorChoice.scrgbClr
+    srgbClr = ColorChoice.srgbClr
+    hslClr = ColorChoice.hslClr
+    sysClr = ColorChoice.sysClr
+    schemeClr = ColorChoice.schemeClr
+    prstClr = ColorChoice.prstClr
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, blurRad: ConvertibleToFloat, dist: ConvertibleToFloat, dir: ConvertibleToInt, **kw) -> None: ...
 
@@ -142,13 +140,12 @@ class OuterShadow(ColorChoice):
     ky: Integer[Literal[True]]
     algn: Set[_Algn]
     rotWithShape: Bool[Literal[True]]
-    # Same as parent
-    # scrgbClr = ColorChoice.scrgbClr
-    # srgbClr = ColorChoice.srgbClr
-    # hslClr = ColorChoice.hslClr
-    # sysClr = ColorChoice.sysClr
-    # schemeClr = ColorChoice.schemeClr
-    # prstClr = ColorChoice.prstClr
+    scrgbClr = ColorChoice.scrgbClr
+    srgbClr = ColorChoice.srgbClr
+    hslClr = ColorChoice.hslClr
+    sysClr = ColorChoice.sysClr
+    schemeClr = ColorChoice.schemeClr
+    prstClr = ColorChoice.prstClr
     __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
@@ -184,13 +181,12 @@ class PresetShadowEffect(ColorChoice):
     prst: Set[_PresetShadowEffectPrst]
     dist: Float[Literal[False]]
     dir: Integer[Literal[False]]
-    # Same as parent
-    # scrgbClr = ColorChoice.scrgbClr
-    # srgbClr = ColorChoice.srgbClr
-    # hslClr = ColorChoice.hslClr
-    # sysClr = ColorChoice.sysClr
-    # schemeClr = ColorChoice.schemeClr
-    # prstClr = ColorChoice.prstClr
+    scrgbClr = ColorChoice.scrgbClr
+    srgbClr = ColorChoice.srgbClr
+    hslClr = ColorChoice.hslClr
+    sysClr = ColorChoice.sysClr
+    schemeClr = ColorChoice.schemeClr
+    prstClr = ColorChoice.prstClr
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, prst: _PresetShadowEffectPrst, dist: ConvertibleToFloat, dir: ConvertibleToInt, **kw) -> None: ...
 

@@ -164,23 +164,22 @@ class DisplayUnitsLabelList(Serialisable):
 
 class NumericAxis(_BaseAxis):
     tagname: ClassVar[str]
-    # Same as parent
-    # axId = _BaseAxis.axId
-    # scaling = _BaseAxis.scaling
-    # delete = _BaseAxis.delete
-    # axPos = _BaseAxis.axPos
-    # majorGridlines = _BaseAxis.majorGridlines
-    # minorGridlines = _BaseAxis.minorGridlines
-    # title = _BaseAxis.title
-    # numFmt = _BaseAxis.numFmt
-    # majorTickMark = _BaseAxis.majorTickMark
-    # minorTickMark = _BaseAxis.minorTickMark
-    # tickLblPos = _BaseAxis.tickLblPos
-    # spPr = _BaseAxis.spPr
-    # txPr = _BaseAxis.txPr
-    # crossAx = _BaseAxis.crossAx
-    # crosses = _BaseAxis.crosses
-    # crossesAt = _BaseAxis.crossesAt
+    axId = _BaseAxis.axId
+    scaling = _BaseAxis.scaling
+    delete = _BaseAxis.delete
+    axPos = _BaseAxis.axPos
+    majorGridlines = _BaseAxis.majorGridlines
+    minorGridlines = _BaseAxis.minorGridlines
+    title = _BaseAxis.title
+    numFmt = _BaseAxis.numFmt
+    majorTickMark = _BaseAxis.majorTickMark
+    minorTickMark = _BaseAxis.minorTickMark
+    tickLblPos = _BaseAxis.tickLblPos
+    spPr = _BaseAxis.spPr
+    txPr = _BaseAxis.txPr
+    crossAx = _BaseAxis.crossAx
+    crosses = _BaseAxis.crosses
+    crossesAt = _BaseAxis.crossesAt
     crossBetween: NestedNoneSet[_NumericAxisCrossBetween]
     majorUnit: NestedFloat[Literal[True]]
     minorUnit: NestedFloat[Literal[True]]
@@ -201,23 +200,22 @@ class NumericAxis(_BaseAxis):
 
 class TextAxis(_BaseAxis):
     tagname: ClassVar[str]
-    # Same as parent
-    # axId = _BaseAxis.axId
-    # scaling = _BaseAxis.scaling
-    # delete = _BaseAxis.delete
-    # axPos = _BaseAxis.axPos
-    # majorGridlines = _BaseAxis.majorGridlines
-    # minorGridlines = _BaseAxis.minorGridlines
-    # title = _BaseAxis.title
-    # numFmt = _BaseAxis.numFmt
-    # majorTickMark = _BaseAxis.majorTickMark
-    # minorTickMark = _BaseAxis.minorTickMark
-    # tickLblPos = _BaseAxis.tickLblPos
-    # spPr = _BaseAxis.spPr
-    # txPr = _BaseAxis.txPr
-    # crossAx = _BaseAxis.crossAx
-    # crosses = _BaseAxis.crosses
-    # crossesAt = _BaseAxis.crossesAt
+    axId = _BaseAxis.axId
+    scaling = _BaseAxis.scaling
+    delete = _BaseAxis.delete
+    axPos = _BaseAxis.axPos
+    majorGridlines = _BaseAxis.majorGridlines
+    minorGridlines = _BaseAxis.minorGridlines
+    title = _BaseAxis.title
+    numFmt = _BaseAxis.numFmt
+    majorTickMark = _BaseAxis.majorTickMark
+    minorTickMark = _BaseAxis.minorTickMark
+    tickLblPos = _BaseAxis.tickLblPos
+    spPr = _BaseAxis.spPr
+    txPr = _BaseAxis.txPr
+    crossAx = _BaseAxis.crossAx
+    crosses = _BaseAxis.crosses
+    crossesAt = _BaseAxis.crossesAt
     auto: NestedBool[Literal[True]]
     lblAlgn: NestedNoneSet[_TextAxisLblAlgn]
     lblOffset: NestedMinMax[float, Literal[False]]
@@ -240,23 +238,22 @@ class TextAxis(_BaseAxis):
 
 class DateAxis(TextAxis):
     tagname: ClassVar[str]
-    # Same as parent and grandparent
-    # axId = _BaseAxis.axId
-    # scaling = _BaseAxis.scaling
-    # delete = _BaseAxis.delete
-    # axPos = _BaseAxis.axPos
-    # majorGridlines = _BaseAxis.majorGridlines
-    # minorGridlines = _BaseAxis.minorGridlines
-    # title = _BaseAxis.title
-    # numFmt = _BaseAxis.numFmt
-    # majorTickMark = _BaseAxis.majorTickMark
-    # minorTickMark = _BaseAxis.minorTickMark
-    # tickLblPos = _BaseAxis.tickLblPos
-    # spPr = _BaseAxis.spPr
-    # txPr = _BaseAxis.txPr
-    # crossAx = _BaseAxis.crossAx
-    # crosses = _BaseAxis.crosses
-    # crossesAt = _BaseAxis.crossesAt
+    axId = _BaseAxis.axId
+    scaling = _BaseAxis.scaling
+    delete = _BaseAxis.delete
+    axPos = _BaseAxis.axPos
+    majorGridlines = _BaseAxis.majorGridlines
+    minorGridlines = _BaseAxis.minorGridlines
+    title = _BaseAxis.title
+    numFmt = _BaseAxis.numFmt
+    majorTickMark = _BaseAxis.majorTickMark
+    minorTickMark = _BaseAxis.minorTickMark
+    tickLblPos = _BaseAxis.tickLblPos
+    spPr = _BaseAxis.spPr
+    txPr = _BaseAxis.txPr
+    crossAx = _BaseAxis.crossAx
+    crosses = _BaseAxis.crosses
+    crossesAt = _BaseAxis.crossesAt
     auto: NestedBool[Literal[True]]
     lblOffset: NestedInteger[Literal[True]]  # type: ignore[assignment]
     baseTimeUnit: NestedNoneSet[_DateAxisTimeUnit]
@@ -281,23 +278,22 @@ class DateAxis(TextAxis):
 
 class SeriesAxis(_BaseAxis):
     tagname: ClassVar[str]
-    # Same as parent
-    # axId = _BaseAxis.axId
-    # scaling = _BaseAxis.scaling
-    # delete = _BaseAxis.delete
-    # axPos = _BaseAxis.axPos
-    # majorGridlines = _BaseAxis.majorGridlines
-    # minorGridlines = _BaseAxis.minorGridlines
-    # title = _BaseAxis.title
-    # numFmt = _BaseAxis.numFmt
-    # majorTickMark = _BaseAxis.majorTickMark
-    # minorTickMark = _BaseAxis.minorTickMark
-    # tickLblPos = _BaseAxis.tickLblPos
-    # spPr = _BaseAxis.spPr
-    # txPr = _BaseAxis.txPr
-    # crossAx = _BaseAxis.crossAx
-    # crosses = _BaseAxis.crosses
-    # crossesAt = _BaseAxis.crossesAt
+    axId = _BaseAxis.axId
+    scaling = _BaseAxis.scaling
+    delete = _BaseAxis.delete
+    axPos = _BaseAxis.axPos
+    majorGridlines = _BaseAxis.majorGridlines
+    minorGridlines = _BaseAxis.minorGridlines
+    title = _BaseAxis.title
+    numFmt = _BaseAxis.numFmt
+    majorTickMark = _BaseAxis.majorTickMark
+    minorTickMark = _BaseAxis.minorTickMark
+    tickLblPos = _BaseAxis.tickLblPos
+    spPr = _BaseAxis.spPr
+    txPr = _BaseAxis.txPr
+    crossAx = _BaseAxis.crossAx
+    crosses = _BaseAxis.crosses
+    crossesAt = _BaseAxis.crossesAt
     tickLblSkip: NestedInteger[Literal[True]]
     tickMarkSkip: NestedInteger[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]

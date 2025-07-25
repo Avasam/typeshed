@@ -22,12 +22,10 @@ class ReadOnlyCell:
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...
     # Same as Cell.coordinate
-    # https://github.com/python/mypy/issues/6700
     # Defined twice in the implementation
     @property
     def coordinate(self) -> str: ...
     # Same as Cell.column_letter
-    # https://github.com/python/mypy/issues/6700
     @property
     def column_letter(self) -> str: ...
     @property
@@ -47,7 +45,6 @@ class ReadOnlyCell:
     @property
     def protection(self) -> Protection: ...
     # Same as Cell.is_date
-    # https://github.com/python/mypy/issues/6700
     @property
     def is_date(self) -> bool: ...
     @property

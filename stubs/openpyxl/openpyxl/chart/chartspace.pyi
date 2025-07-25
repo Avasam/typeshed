@@ -2,7 +2,7 @@ from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, overload
 from typing_extensions import TypeAlias
 
-from openpyxl.chart._3d import Surface, View3D
+from openpyxl.chart._3d import Surface, View3D, _3DBase
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.pivot import PivotSource
 from openpyxl.chart.plotarea import PlotArea
@@ -26,14 +26,10 @@ class ChartContainer(Serialisable):
     title: Typed[Title, Literal[True]]
     autoTitleDeleted: NestedBool[Literal[True]]
     pivotFmts: Incomplete
-
-    # Same as _3DBase
-    # https://github.com/python/mypy/issues/6700
-    view3D: Typed[View3D, Literal[True]]
-    floor: Typed[Surface, Literal[True]]
-    sideWall: Typed[Surface, Literal[True]]
-    backWall: Typed[Surface, Literal[True]]
-
+    view3D = _3DBase.view3D
+    floor = _3DBase.floor
+    sideWall = _3DBase.sideWall
+    backWall = _3DBase.backWall
     plotArea: Typed[PlotArea, Literal[False]]
     legend: Typed[Legend, Literal[True]]
     plotVisOnly: NestedBool[Literal[False]]
