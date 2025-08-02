@@ -108,6 +108,7 @@ def parse_requirements() -> Mapping[str, Requirement]:
 
 
 def get_mypy_req() -> str:
+    return "git+https://github.com/python/mypy.git"
     return str(parse_requirements()["mypy"])
 
 
