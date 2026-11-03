@@ -58,6 +58,10 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "Y"]
 extend-select = [
+    ###
+    # Rule groups we generally agree with all rules (or very few ignores)
+    # Whose rules are not all in the default set
+    ###
     "A", # flake8-builtins
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
@@ -65,103 +69,56 @@ extend-select = [
     "D", # pydocstyle
     "DTZ", # flake8-datetimez
     "EXE", # flake8-executable
-    "FA", # flake8-future-annotations
     "FBT", # flake8-boolean-trap
-    "FLY", # flynt
-    "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
-    "PIE", # flake8-pie
     "PL", # Pylint
     "PTH", # flake8-use-pathlib
     "RSE", # flake8-raise
     "RUF", # Ruff-specific and unused-noqa
     "SLOT", # flake8-slots
-    "T10", # flake8-debugger
     "TD", # flake8-todos
     "TRY", # tryceratops
     "UP", # pyupgrade
-    "YTT", # flake8-2020
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
-    "W", # pycodestyle Warning
+
+    ###
     # Only include flake8-annotations rules that are autofixable. Otherwise leave this to mypy+pyright
+    ###
     "ANN2",
-    # Most refurb rules are in preview and can be opinionated,
+
+    ###
+    # refurb: Most rules are in preview and can be opinionated,
     # consider them individually as they come out of preview (last check: 0.13.1)
-    "print-empty-string", # Unnecessary empty string passed to `print`
+    ###
     "f-string-number-format", # Replace `{function_name}` call with `{display}`
-    "for-loop-writes", # Use of `{}.write` in a for loop
-    "readlines-in-for", # Instead of calling `readlines()`, iterate over file object directly
-    "check-and-remove-from-set", # Use `{suggestion}` instead of `check` and `remove`
-    "if-expr-min-max", # Replace `if` expression with `{min_max}` call
-    "verbose-decimal-constructor", # Verbose expression in `Decimal` constructor
-    "fromisoformat-replace-z", # Unnecessary timezone replacement with zero offset
-    "int-on-sliced-str", # Use of `int` with explicit `base={base}` after removing prefix
-    "regex-flag-alias", # Use of regular expression alias `re.{}`
-    "isinstance-type-none", # Prefer `is` operator over `isinstance` to check if an object is `None`
-    "type-none-comparison", # Compare the identities of `{object}` and None instead of their respective types
-    "implicit-cwd", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "list-reverse-copy", # Use of assignment of `reversed` on list `{name}`
-    "slice-to-remove-prefix-or-suffix", # Prefer `str.removeprefix()` over conditionally replacing with slice.
-    # Used for lint.flake8-import-conventions.aliases
-    "unconventional-import-alias", # `{name}` should be imported as `{asname}`
+
+    ###
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
     # avoids duplicate # noqa with flake8-pyi
-    "pass-statement-stub-body", # Empty body should contain `...`, not pass
-    "non-empty-stub-body", # Function body must contain only `...`
-    "pass-in-class-body", # Class bodies must not contain `pass`
-    "ellipsis-in-non-empty-class-body", # Non-empty class bodies must not contain `...`
+    ###
     "argument-default-in-stub", # Only simple default values allowed for arguments
-    "assignment-default-in-stub", # Only simple default values allowed for assignments
-    "duplicate-union-member",
-    "unused-private-type-var", # Private `{type_var_like_kind}` `{type_var_like_name}` is never used
-    "custom-type-var-for-self", # Methods like `{method_name}` should return `Self` instead of a custom `TypeVar`
-    "quoted-annotation-in-stub", # Quoted annotations should not be included in stubs
-    "unaliased-collections-abc-set-import", # Use `from collections.abc import Set as AbstractSet` to avoid confusion with the `set` builtin
-    # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
-    "unnecessary-literal-union", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
-    "any-eq-ne-annotation", # Prefer `object` to `Any` for the second parameter to `{method_name}`
-    "bad-exit-annotation", # Star-args in `{method_name}` should be annotated with `object`
-    "future-annotations-in-stub", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
-    "unnecessary-type-union", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
-    "generator-return-from-iter-method", # Use `{return_type}` as the return value for simple `{method}` methods
-    "generic-not-last-base-class", # Checks for classes inheriting from typing.Generic[] where Generic[] is not the last base class in the bases tuple
-    "redundant-none-literal", # Use `None` rather than `Literal[None]`
-    "duplicate-literal-member", # Duplicate literal member `{}`
-    "redundant-final-literal", # `Final[Literal[{literal}]]` can be replaced with a bare Final
-    # flake8-simplify, excluding rules that can reduce performance or readability due to long line formatting
-    "duplicate-isinstance-call", # Multiple `isinstance` calls for `{name}`, merge into a single call
-    "needless-bool", # Return the condition `{condition}` directly
-    "return-in-try-except-finally", # Don't use return in `try-except` and `finally`
+
+    ###
+    # flake8-simplify
+    ###
     "compare-with-tuple", # Use `{replacement}` instead of multiple equality comparisons
     "uncapitalized-environment-variables", # Use capitalized environment variable `{expected}` instead of `{actual}`
-    "enumerate-for-loop", # Use `enumerate()` for index variable `{index}` in `for` loop
-    "if-with-same-arms", # Combine `if` branches using logical `or` operator
-    "open-file-with-context-handler", # Use a context manager for opening files
-    "in-dict-keys", # Use key `{operator}` dict instead of key `{operator} dict.keys()`
-    "negate-equal-op", # Use `{left} != {right}` instead of not `{left} == {right}`
-    "negate-not-equal-op", # Use `{left} == {right}` instead of not `{left} != {right}`
-    "double-negation", # Use `{expr}` instead of `not (not {expr})`
-    "if-expr-with-true-false", # Remove unnecessary `True if ... else False`
-    "if-expr-with-false-true", # Use `not ...` instead of `False if ... else True`
     "if-expr-with-twisted-arms", # Use `{expr_else} if {expr_else} else {expr_body}` instead of `{expr_body} if not {expr_else} else {expr_else}`
-    "expr-and-not-expr", # Use `False` instead of `{name} and not {name}`
-    "expr-or-not-expr", # Use `True` instead of `{name} or not {name}`
-    "expr-or-true",
-    "expr-and-false",
     "yoda-conditions",
-    "if-else-block-instead-of-dict-get",
-    "split-static-string", # Consider using a list literal instead of `str.{}`
     "dict-get-with-none-default",
-    "zip-dict-keys-and-values",
-    # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
-    "runtime-import-in-type-checking-block", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
-    "empty-type-checking-block",
-    "quoted-type-alias",
-    "runtime-string-union", # Invalid string member in `X | Y`-style union type
+
+    ###
+    # Various individual rules we want
+    ###
     # Used for lint.flake8-import-conventions.aliases
+    "unconventional-import-alias", # `{name}` should be imported as `{asname}`
+    # Remove unnecessarily quoted aliases
+    "quoted-type-alias",
+    # Used for lint.flake8-tidy-imports.banned-api
     "banned-api",
 ]
 extend-safe-fixes = [
@@ -175,13 +132,14 @@ ignore = [
     "indentation-with-invalid-multiple",
     "indentation-with-invalid-multiple-comment",
     "over-indented",
-    "tab-indentation",
 
     ###
     # Rules we don't want or don't agree with
     ###
     # We're not a library, no need to document everything
     "D1", # Missing docstring in ...
+    # Not using pytest
+    "PT", # pytest
     # Sometimes, an extra blank line is more readable
     "blank-line-after-function", # No blank lines allowed after function docstring
     # Doesn't support split "summary line"
@@ -193,8 +151,6 @@ ignore = [
     "import-outside-top-level", # `import` should be at the top-level of a file
     # Leave the size and complexity of tests to human interpretation
     "PLR09", # Too many ...
-    # Too many magic number "2" that are preferable inline. https://github.com/astral-sh/ruff/issues/10009
-    "magic-value-comparison", # Magic value used in comparison, consider replacing `{value}` with a constant variable
     # Keep codeflow path separation explicit
     "collapsible-else-if", # Use `elif` instead of `else` then `if`, to reduce indentation
     # Often just leads to redundant more verbose code when needing an actual str
@@ -208,18 +164,24 @@ ignore = [
     "raise-vanilla-args", # Avoid specifying long messages outside the exception class
     # Stubs need private imports to describe runtime APIs; our scripts also import local private modules such as `_utils`.
     "import-private-name",
+
+
+    ###
+    # flake8-simplify rules that can reduce performance or readability due to long line formatting
+    ###
+    "collapsible-if",
+    "reimplemented-builtin",
+
     ###
     # Same as .flake8
     ###
-    "redundant-numeric-union",
-    # "PYI090",
-    # "PYI091",
+    "redundant-numeric-union", # Y041
+    # "PYI090", # Doesn't exist in Ruff yet
+    # "PYI091", # Doesn't exist in Ruff yet
 
     ###
     # TODO: Add reasons
     ###
-    "meta-class-abc-meta",
-    "collapsible-if",
     "unused-private-protocol",
     "unused-private-type-alias",
     "unannotated-assignment-in-stub",
@@ -232,17 +194,19 @@ ignore = [
     "byte-string-usage",
     "run-process-in-async-function",
     "blind-except",
-    "reimplemented-builtin",
+    "meta-class-abc-meta",
     "sorted-min-max",
     "str-or-repr-defined-in-stub",
-    "PT", # Not using pytest
-    "type-alias-without-annotation",
 
     ###
     # False-positives, but already checked by type-checkers
     ###
     # Ruff doesn't support multi-file analysis yet: https://github.com/astral-sh/ruff/issues/5295
+    # Already checked by type-checkers anyway
     "implicit-optional", # PEP 484 prohibits implicit `Optional`
+    # Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
+    "type-alias-without-annotation", # PYI026
+
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -298,14 +262,18 @@ ignore = [
     ###
     # Same as .flake8
     ###
-    "docstring-in-stub",  # Include docstrings
-    # "PYI023",   # Alias typing as typing_extensions
-    "type-alias-without-annotation",  # Have implicit type aliases
-    "string-or-bytes-too-long"  # have literals >50 characters long
+    "docstring-in-stub",  # Y021: Include docstrings
+    # "PYI023", # Doesn't exist in Ruff yet
+    "type-alias-without-annotation",  # Y026: Have implicit type aliases
+    "string-or-bytes-too-long"  # Y053: have literals >50 characters long
 ]
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257" # https://docs.astral.sh/ruff/settings/#lint_pydocstyle_convention
+
+[tool.ruff.lint.pylint]
+# Many magic number "2" that are preferable inline
+extend-allow-magic-values = [2]
 
 [tool.ruff.lint.flake8-import-conventions.aliases]
 # Prevent aliasing these, as it causes false-negatives for certain rules
