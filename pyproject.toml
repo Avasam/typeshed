@@ -139,8 +139,6 @@ ignore = [
     "D1", # Missing docstring in ...
     # Leave the size and complexity of tests to human interpretation
     "PLR09", # Too many ...
-    # Not using pytest
-    "PT", # pytest
     # Sometimes, an extra blank line is more readable
     "blank-line-after-function", # No blank lines allowed after function docstring
     # Doesn't support split "summary line"
@@ -208,6 +206,7 @@ ignore = [
 "*.pyi" = [
     # TODO: Has to be a false-positive in stubs, right ?
     "hardcoded-string-charset",
+    "pytest-parameter-with-default-argument",
 
     # A lot of stubs are incomplete on purpose, and that's configured through pyright
     # Some ANN204 (special method) are autofixable in stubs, but not all.
