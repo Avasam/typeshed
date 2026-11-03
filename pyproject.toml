@@ -90,8 +90,7 @@ extend-select = [
     "ANN2",
 
     ###
-    # refurb: Most rules are in preview and can be opinionated,
-    # consider them individually as they come out of preview (last check: 0.13.1)
+    # refurb: Often opinionated, consider them individually as they get added (last check: 0.17.3)
     ###
     "f-string-number-format", # Replace `{function_name}` call with `{display}`
     "list-reverse-copy", # Use of assignment of `reversed` on list `{name}`
@@ -138,6 +137,8 @@ ignore = [
     ###
     # We're not a library, no need to document everything
     "D1", # Missing docstring in ...
+    # Leave the size and complexity of tests to human interpretation
+    "PLR09", # Too many ...
     # Not using pytest
     "PT", # pytest
     # Sometimes, an extra blank line is more readable
@@ -149,8 +150,6 @@ ignore = [
     "type-comparison", # Do not compare types, use `isinstance()`
     # Highly opinionated, and it's often necessary to violate it
     "import-outside-top-level", # `import` should be at the top-level of a file
-    # Leave the size and complexity of tests to human interpretation
-    "PLR09", # Too many ...
     # Keep codeflow path separation explicit
     "collapsible-else-if", # Use `elif` instead of `else` then `if`, to reduce indentation
     # Often just leads to redundant more verbose code when needing an actual str
@@ -180,23 +179,20 @@ ignore = [
     # "PYI091", # Doesn't exist in Ruff yet
 
     ###
-    # TODO: Add reasons
+    # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
+    # avoids duplicate # noqa with flake8-pyi
     ###
-    "unused-private-protocol",
-    "unused-private-type-alias",
-    "unannotated-assignment-in-stub",
-    "unprefixed-type-param",
-    "snake-case-type-alias",
-    "unused-private-typed-dict",
-    "non-self-return-type",
-    "unrecognized-platform-name",
-    "bad-version-info-order",
-    "byte-string-usage",
-    "run-process-in-async-function",
-    "blind-except",
-    "meta-class-abc-meta",
-    "sorted-min-max",
-    "str-or-repr-defined-in-stub",
+    "unused-private-protocol", # Y046
+    "unused-private-type-alias", # Y047
+    "unannotated-assignment-in-stub", # Y052
+    "unprefixed-type-param", # Y001
+    "snake-case-type-alias", # Y042
+    "unused-private-typed-dict", # Y049
+    "non-self-return-type", # Y034
+    "unrecognized-platform-name", # Y008
+    "bad-version-info-order", # Y066
+    "byte-string-usage", # Y057
+    "str-or-repr-defined-in-stub", # Y029
 
     ###
     # False-positives, but already checked by type-checkers
@@ -206,7 +202,6 @@ ignore = [
     "implicit-optional", # PEP 484 prohibits implicit `Optional`
     # Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
     "type-alias-without-annotation", # PYI026
-
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -229,13 +224,13 @@ ignore = [
     # Names in stubs should match the implementation, even if it's ambiguous.
     # https://github.com/astral-sh/ruff/issues/15293
     "A", # flake8-builtins
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
+    "N8", # pep8-naming
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "undefined-local-with-import-star", # `from . import *` used; unable to detect undefined names
     "undefined-local-with-import-star-usage", # may be undefined, or defined from star imports
-    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
-    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
-    "N8", # pep8-naming
     # Sometimes __slots__ really is a string at runtime
     "single-string-slots", # Class `__slots__` should be a non-string iterable
     # Names in stubs should match implementation
@@ -244,6 +239,9 @@ ignore = [
     "redefined-slots-in-subclass",
     # String literals in stubs must sometimes match runtime values containing confusable Unicode.
     "ambiguous-unicode-character-string",
+    # Stubs must mirror the runtime: replacing `metaclass=ABCMeta` with an `ABC` base adds a base class that doesn't exist,
+    # and Protocols can only inherit from other protocols
+    "meta-class-abc-meta",
 ]
 "lib/ts_utils/**" = [
     # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils

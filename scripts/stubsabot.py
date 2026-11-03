@@ -109,7 +109,7 @@ class PypiInfo:
 
     def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
-        release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
+        release_info = max(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))
         return PypiReleaseDownload(
             distribution=self.distribution,
             url=release_info["url"],
@@ -635,7 +635,7 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
 async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
     try:
         return await determine_action_no_error_handling(distribution, session)
-    except Exception as exc:
+    except Exception as exc:  # ruff: ignore[blind-except] # Returned error is reported by caller
         return Error(distribution, str(exc))
 
 
@@ -931,10 +931,10 @@ async def process_typeshed_change(action: _A, session: aiohttp.ClientSession, ac
 
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(action.distribution)}"
-        subprocess.check_call(["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
+        await asyncio.to_thread(subprocess.check_call, ["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
         run_action(action)
         title, body = get_commit_message(action)
-        subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
+        await asyncio.to_thread(subprocess.check_call, ["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return action
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -971,7 +971,9 @@ async def main() -> int:
         dists_to_update = sorted(path.name for path in STUBS_PATH.iterdir())
 
     if args.action_level > ActionLevel.nothing:
+        # ruff: ignore[run-process-in-async-function] # No tasks are running yet, nothing to block
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True, check=False)
+        # ruff: ignore[run-process-in-async-function] # No tasks are running yet, nothing to block
         diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True, check=False)
         if diff_result.returncode:
             print("Unexpected exception!")
@@ -989,11 +991,13 @@ async def main() -> int:
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
+    # ruff: ignore[run-process-in-async-function] # No tasks are running yet, nothing to block
     original_branch = subprocess.run(
         ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
     ).stdout.strip()
 
     if args.action_level >= ActionLevel.local:
+        # ruff: ignore[run-process-in-async-function] # No tasks are running yet, nothing to block
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
     error = False
@@ -1038,6 +1042,7 @@ async def main() -> int:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local and original_branch:
+            # ruff: ignore[run-process-in-async-function] # The session is closed, no task is left to block
             subprocess.check_call(["git", "checkout", "--quiet", original_branch])
 
     return 1 if error else 0
