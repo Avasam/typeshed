@@ -13,7 +13,7 @@ import subprocess
 import sys
 import tempfile
 import threading
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from collections.abc import Callable, Generator
 from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
@@ -246,7 +246,7 @@ def run_testcases(
 
 
 @dataclass(frozen=True)
-class Result(metaclass=ABCMeta):
+class Result(ABC):
     code: int
 
     @abstractmethod
