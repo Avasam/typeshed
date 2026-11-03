@@ -162,7 +162,6 @@ ignore = [
     # Stubs need private imports to describe runtime APIs; our scripts also import local private modules such as `_utils`.
     "import-private-name",
 
-
     ###
     # flake8-simplify rules that can reduce performance or readability due to long line formatting
     ###
